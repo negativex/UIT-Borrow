@@ -2,28 +2,25 @@ import { StatusBar } from "expo-status-bar";
 import {
   Text,
   View,
-  ScrollView,
   Dimensions,
   ImageBackground,
   StyleSheet,
-  Button,
   TouchableOpacity,
 } from "react-native";
 import React, { useState } from "react";
-import {
-  Body,
-  CheckBox,
-  Icon,
-  Input,
-  Item,
-  Label,
-  ListItem,
-  Title,
-} from "native-base";
+import { Icon, Input, Item, Label } from "native-base";
 
 const LoginScreen = ({ navigation }) => {
+  const [email, setEmail] = useState("");
+  const onChangeEmail = (newEmail) => {
+    setEmail(newEmail);
+  };
+   const [password, setPassword] = useState("");
+
+   const onChangePassword = (newPassword) => {
+     setPassword(newPassword);
+   };
   return (
-    // container start
     <View
       style={{ flex: 1, backgroundColor: "#F6F1F1" }}
       showsVerticalScrollIndicator={false}
@@ -52,25 +49,47 @@ const LoginScreen = ({ navigation }) => {
         <View style={{ padding: 30, paddingTop: -10 }}>
           <Item
             floatingLabel
-            style={{ borderColor: "black", borderRadius: 20 }}
+            style={{
+              borderColor: "black",
+              borderRadius: 20,
+              paddingBottom: -10,
+            }}
           >
-            <Label>Email</Label>
-            <Input value="Phong Lab 3.1" keyboardType="email-address"></Input>
-            <Icon name="checkmark" style={{ color: "#0F4C75" }}></Icon>
+            <Label style={{ paddingStart: 20 }}>Email Address</Label>
+
+            <Input
+              value={email}
+              keyboardType="email-address"
+              onChangeText={onChangeEmail}
+              style={{ paddingStart: 20 }}
+            ></Input>
+            <Icon
+              name="checkmark"
+              style={{ color: "#0F4C75", paddingBottom: 15, paddingEnd: 20 }}
+            ></Icon>
           </Item>
 
           <Item
             floatingLabel
-            style={{ borderColor: "black", marginTop: 30, borderRadius: 20 }}
+            style={{
+              borderColor: "black",
+              marginTop: 30,
+              borderRadius: 20,
+              paddingStart: 20,
+            }}
           >
-            <Label>Password</Label>
-            <Input value="******" keyboardType="email-address"></Input>
-            <Icon name="eye" style={{ color: "#0F4C75" }}></Icon>
+            <Label style={{ paddingStart: 20 }}>Password</Label>
+            <Input
+              value={password}
+              onChangeText={onChangePassword}
+              style={{ paddingStart: -9 }}
+            ></Input>
+            <Icon
+              name="eye"
+              style={{ color: "#0F4C75", paddingBottom: 15, paddingEnd: 20 }}
+            ></Icon>
           </Item>
         </View>
-
-        {/* remember me */}
-
 
         {/* button Login */}
         <TouchableOpacity style={styles.buttonContainer}>
@@ -79,7 +98,11 @@ const LoginScreen = ({ navigation }) => {
 
         {/* login with social acc */}
         <TouchableOpacity style={styles.socialLogin}>
-          <Icon type="MaterialCommunityIcons" name='google' style={{fontSize: 45}}></Icon>
+          <Icon
+            type="MaterialCommunityIcons"
+            name="google"
+            style={{ fontSize: 45 }}
+          ></Icon>
         </TouchableOpacity>
       </View>
     </View>
@@ -88,17 +111,6 @@ const LoginScreen = ({ navigation }) => {
 export default LoginScreen;
 
 const styles = StyleSheet.create({
-  // brandView: {
-  //   flex: 1,
-  //   justifyContent: "center",
-  //   alignItems: "center",
-  // },
-  // brandViewText: {
-  //   color: "#ffffff",
-  //   fontSize: 40,
-  //   fontWeight: "bold",
-  //   textTransform: "uppercase",
-  // },
   bottomView: {
     flex: 1.5,
     marginTop: 10,
@@ -130,12 +142,12 @@ const styles = StyleSheet.create({
   },
 
   //Login with social acc
-  socialLogin:{
-    flexDirection:'row',
-    flex:1,
-    justifyContent:'space-around',
+  socialLogin: {
+    flexDirection: "row",
+    flex: 1,
+    justifyContent: "space-around",
     marginBottom: -30,
     paddingBottom: 60,
-    
   },
+
 });

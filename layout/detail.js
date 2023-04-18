@@ -1,14 +1,12 @@
 import { View, Text } from 'react-native'
 import React from 'react'
 
-
-
-const navigator = () => {
+const detail = () => {
   return (
     <View>
-      <Text>navigator</Text>
+      <Text>detail</Text>
     </View>
   )
 }
 
-export default navigator
+export default detail
