@@ -1,20 +1,35 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import { StatusBar } from "expo-status-bar";
+import { StyleSheet, Text, View } from "react-native";
+import { createStackNavigator } from "@react-navigation/stack";
+import { NavigationContainer } from "@react-navigation/native";
+import react from "react";
+import LoginScreen from "./layout/login";
+import RegisterScreen from "./layout/register";
+//import HomeStackNavigator from "./layout/navigatorScreen";
+const Stack = createStackNavigator();
 
-export default function App() {
+const App = () => {
   return (
-    <View style={styles.container}>
-      <Text>test thu push code 2</Text>
-      <StatusBar style="auto" />
-    </View>
-  );
-}
+    // <NavigationContainer>
+    //   <Stack.Navigator initialRouteName='Login' headerMode="none">
+    //     <Stack.Screen name="Login" component={LoginScreen} />
+    //   </Stack.Navigator>
+    // </NavigationContainer>
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+
+     <NavigationContainer>
+      <Stack.Navigator initialRouteName='Register' headerMode="none">
+        <Stack.Screen name="Register" component={RegisterScreen} />
+      </Stack.Navigator>
+    </NavigationContainer>
+
+
+    // <NavigationContainer>
+      
+    //     <HomeStackNavigator></HomeStackNavigator>
+     
+    // </NavigationContainer>
+  );
+};
+
+export default App;
