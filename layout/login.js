@@ -15,11 +15,11 @@ const LoginScreen = ({ navigation }) => {
   const onChangeEmail = (newEmail) => {
     setEmail(newEmail);
   };
-   const [password, setPassword] = useState("");
+  const [password, setPassword] = useState("");
 
-   const onChangePassword = (newPassword) => {
-     setPassword(newPassword);
-   };
+  const onChangePassword = (newPassword) => {
+    setPassword(newPassword);
+  };
   return (
     <View
       style={{ flex: 1, backgroundColor: "#F6F1F1" }}
@@ -42,6 +42,10 @@ const LoginScreen = ({ navigation }) => {
           </Text>
           <Text style={{ fontWeight: "bold", paddingBottom: 10, fontSize: 15 }}>
             Use Verified Account To Log In
+          </Text>
+          <Text style={{ fontWeight: "bold", paddingBottom: 10, fontSize: 15 }}>
+            Don't Have Account?
+            <Text style={{ color: "red", fontStyle: "italic" }}>{'    '}Register Here</Text>
           </Text>
           <View style={{ width: 270, height: 1, backgroundColor: "black" }} />
         </View>
@@ -149,5 +153,4 @@ const styles = StyleSheet.create({
     marginBottom: -30,
     paddingBottom: 60,
   },
-
 });
