@@ -5,31 +5,34 @@ import { NavigationContainer } from "@react-navigation/native";
 import react from "react";
 import LoginScreen from "./layout/login";
 import RegisterScreen from "./layout/register";
-//import HomeStackNavigator from "./layout/navigatorScreen";
+import HomeStackNavigator from "./layout/navigatorScreen";
 const Stack = createStackNavigator();
 
 const App = () => {
   return (
+
+   // LoginScreen
     // <NavigationContainer>
     //   <Stack.Navigator initialRouteName='Login' headerMode="none">
     //     <Stack.Screen name="Login" component={LoginScreen} />
     //   </Stack.Navigator>
     // </NavigationContainer>
 
+      //RegisterScreen
+    //  <NavigationContainer>
+    //   <Stack.Navigator initialRouteName='Register' headerMode="none">
+    //     <Stack.Screen name="Register" component={RegisterScreen} />
+    //   </Stack.Navigator>
+    // </NavigationContainer>
 
+
+    //NavigatorScreen
      <NavigationContainer>
-      <Stack.Navigator initialRouteName='Register' headerMode="none">
-        <Stack.Screen name="Register" component={RegisterScreen} />
+      <Stack.Navigator initialRouteName='Navigator' headerMode="none">
+        <Stack.Screen name="Navigator" component={HomeStackNavigator} />
       </Stack.Navigator>
     </NavigationContainer>
-
-
-    // <NavigationContainer>
-      
-    //     <HomeStackNavigator></HomeStackNavigator>
-     
-    // </NavigationContainer>
-  );
+   );
 };
 
 export default App;
