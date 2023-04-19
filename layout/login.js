@@ -21,7 +21,7 @@ const LoginScreen = ({ navigation }) => {
     setPassword(newPassword);
   };
   return (
-    <View
+    <ScrollView
       style={{ flex: 1, backgroundColor: "#F6F1F1" }}
       showsVerticalScrollIndicator={false}
     >
@@ -109,7 +109,7 @@ const LoginScreen = ({ navigation }) => {
           ></Icon>
         </TouchableOpacity>
       </View>
-    </View>
+    </ScrollView>
   );
 };
 export default LoginScreen;
