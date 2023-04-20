@@ -18,7 +18,7 @@ const BottomTabNavigator = () => {
           heigh: 65,
           justifyContent: "center",
           paddingVertical: 15,
-          color:'#EA5455',
+          color: "#EA5455",
           elevation: 1,
         },
       }}
