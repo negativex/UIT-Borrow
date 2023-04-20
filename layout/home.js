@@ -150,7 +150,7 @@ const Home = (navigation) => {
               style={{
                 backgroundColor: "#EA5455",
                 paddingHorizontal: 29,
-                marginTop: -25,
+                marginTop: -35,
                 paddingVertical: 6,
                 borderRadius: 10,
               }}
@@ -158,7 +158,7 @@ const Home = (navigation) => {
               <Text
                 style={{
                   fontWeight: "bold",
-                  fontSize: 12,
+                  fontSize: 18,
                   color: "#fff",
                 }}
               >
@@ -175,109 +175,116 @@ const Home = (navigation) => {
             showsHorizontalScrollIndicator={true}
             style={{ height: 400 }}
           >
-            {/* Color background scrolling */}
-            {/* <LinearGradient
-                colors={["rgba(234, 84, 85, 1)", "transparent"]}
+            {/* Raspi */}
+            <TouchableOpacity onPress={() => navigation.navigate("Detail")}>
+              <View
                 style={{
-                  position: "absolute",
-                  left: 0,
-                  right: 0,
-                  height: 100,
-                  marginTop: 220,
-                  top: 0,
+                  flexDirection: "row",
+                  paddingTop: 10,
+                  backgroundColor: "#fff",
+                  paddingVertical: 10,
+                  paddingHorizontal: -9,
+                  marginHorizontal: 10,
+                  borderRadius: 15,
+                  marginTop: 20,
+                  alignItems: "center",
                 }}
-              ></LinearGradient> */}
-
-            {/* display items scrolling */}
-            <TouchableOpacity
-              onPress={() => navigation.navigate("Detail")}
-              style={
-                {
-                  // height: SCREEN_WIDTH * 0.3,
-                  // width: SCREEN_WIDTH * 0.45,
-                  //   backgroundColor: "#fff",
-                  //   paddingLeft: 2,
-                  //  paddingTop:-100,
-                  //   marginTop: 20,
-                  //   marginLeft: 10,
-                  //   borderRadius: 15,
-                  //   marginBottom: 10,
-                  // backgroundColor: "#FFF",
-                  // borderRadius: 15,
-                  // marginTop: -1,
-                  // alignItems: "center",
-                }
-              }
-            >
+              >
+                <Text
+                  style={{
+                    fontWeight: "bold",
+                    paddingLeft: 30,
+                    fontSize: 15,
+                    color: "#EA5455",
+                  }}
+                >
+                  Raspberry Pi 3
+                </Text>
+              </View>
               <Image
                 source={require("./images/raspi.png")}
                 style={{
-                  // flexDirection: "row",
                   height: SCREEN_WIDTH * 0.3,
                   width: SCREEN_WIDTH * 0.45,
-                  marginTop: SCREEN_WIDTH * 0.05,
-                  // borderTopLeftRadius: 30,
-                  // borderTopRightRadius: 30,
+                  marginTop: SCREEN_WIDTH * 0.01,
                 }}
               ></Image>
             </TouchableOpacity>
-
-            <TouchableOpacity
-              onPress={() => navigation.navigate("Detail")}
-              style={{
-                // height: SCREEN_WIDTH * 0.3,
-                // width: SCREEN_WIDTH * 0.45,
-                //   backgroundColor: "#fff",
-                //   paddingLeft: 2,
-                //  paddingTop:-100,
-                //   marginTop: 20,
-                //   marginLeft: 10,
-                //   borderRadius: 15,
-                //   marginBottom: 10,
-                // backgroundColor: "#FFF",
-                // borderRadius: 15,
-                // marginTop: -1,
-                flexDirection: "row",
-              }}
-            >
+            
+            {/* Arduino1 */}
+            <TouchableOpacity onPress={() => navigation.navigate("Detail")}>
+              <View
+                style={{
+                  flexDirection: "row",
+                  paddingTop: 10,
+                  backgroundColor: "#fff",
+                  paddingVertical: 10,
+                  paddingHorizontal: -8,
+                  marginHorizontal: 10,
+                  borderRadius: 15,
+                  marginTop: 20,
+                  marginLeft: 20,
+                  marginRight: 0,
+                  alignItems: "center",
+                }}
+              >
+                <Text
+                  style={{
+                    fontWeight: "bold",
+                    paddingLeft: 35,
+                    fontSize: 15,
+                    color: "#EA5455",
+                  }}
+                >
+                  Arduino Uno
+                </Text>
+              </View>
               <Image
                 source={require("./images/arduino.png")}
                 style={{
                   height: SCREEN_WIDTH * 0.3,
-                  width: SCREEN_WIDTH * 0.41,
-                  marginTop: SCREEN_WIDTH * 0.05,
-                  // borderTopLeftRadius: 30,
-                  // borderTopRightRadius: 30,
+                  width: SCREEN_WIDTH * 0.4,
+                  marginTop: SCREEN_WIDTH * 0.03,
+                  marginLeft: SCREEN_WIDTH * 0.03,
                 }}
               ></Image>
             </TouchableOpacity>
 
-            <TouchableOpacity
-              onPress={() => navigation.navigate("Detail")}
-              style={{
-                // height: SCREEN_WIDTH * 0.3,
-                // width: SCREEN_WIDTH * 0.45,
-                //   backgroundColor: "#fff",
-                //   paddingLeft: 2,
-                //  paddingTop:-100,
-                //   marginTop: 20,
-                //   marginLeft: 10,
-                //   borderRadius: 15,
-                //   marginBottom: 10,
-                // backgroundColor: "#FFF",
-                // borderRadius: 15,
-                // marginTop: -1,
-                flexDirection: "row",
-              }}
-            >
+            {/* Arduino 2 */}
+            <TouchableOpacity onPress={() => navigation.navigate("Detail")}>
+              <View
+                style={{
+                  flexDirection: "row",
+                  paddingTop: 10,
+                  backgroundColor: "#fff",
+                  paddingVertical: 10,
+                  paddingHorizontal: -8,
+                  marginHorizontal: 10,
+                  borderRadius: 15,
+                  marginTop: 20,
+                  marginLeft: 20,
+                  marginRight: 0,
+                  alignItems: "center",
+                }}
+              >
+                <Text
+                  style={{
+                    fontWeight: "bold",
+                    paddingLeft: 35,
+                    fontSize: 15,
+                    color: "#EA5455",
+                  }}
+                >
+                  Arduino Uno
+                </Text>
+              </View>
               <Image
                 source={require("./images/arduino.png")}
                 style={{
                   height: SCREEN_WIDTH * 0.3,
-                  width: SCREEN_WIDTH * 0.41,
-                  marginTop: SCREEN_WIDTH * 0.05,
-                  // borderTopLeftRadius: 30,
-                  // borderTopRightRadius: 30,
+                  width: SCREEN_WIDTH * 0.4,
+                  marginTop: SCREEN_WIDTH * 0.03,
+                  marginLeft: SCREEN_WIDTH * 0.03,
                 }}
               ></Image>
             </TouchableOpacity>
@@ -298,7 +305,7 @@ const Home = (navigation) => {
               style={{
                 fontWeight: "bold",
                 fontSize: 18,
-                marginTop: -230,
+                marginTop: -180,
                 marginLeft: -15,
                 color: "#fff",
               }}
@@ -320,7 +327,7 @@ const Home = (navigation) => {
               style={{
                 backgroundColor: "#EA5455",
                 paddingHorizontal: 29,
-                marginTop: -235,
+                marginTop: -180,
                 paddingVertical: 6,
                 borderRadius: 10,
               }}
@@ -328,7 +335,7 @@ const Home = (navigation) => {
               <Text
                 style={{
                   fontWeight: "bold",
-                  fontSize: 12,
+                  fontSize: 18,
                   color: "#fff",
                 }}
               >
@@ -337,7 +344,9 @@ const Home = (navigation) => {
             </View>
           </View>
         </View>
+        
       </View>
+      
     </ScrollView>
   );
 };
