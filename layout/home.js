@@ -1,4 +1,4 @@
-import { View, Text, Image, ImageBackground } from "react-native";
+import { View, Text, Image, ImageBackground, Dimensions } from "react-native";
 import React from "react";
 import {
   TextInput,
@@ -7,6 +7,7 @@ import {
 } from "react-native-gesture-handler";
 import { LinearGradient } from "expo-linear-gradient";
 
+const SCREEN_WIDTH = Dimensions.get("window").width;
 const Home = (navigation) => {
   return (
     // Top View
@@ -60,7 +61,6 @@ const Home = (navigation) => {
             </Text>
           </View>
           <View style={{ width: "40%", alignItems: "flex-end" }}>
-
             {/* User Image Profile */}
             <Image
               source={require("./images/user_Top.png")}
@@ -172,7 +172,7 @@ const Home = (navigation) => {
         <View>
           <ScrollView
             horizontal
-            showsHorizontalScrollIndicator={false}
+            showsHorizontalScrollIndicator={true}
             style={{ height: 400 }}
           >
             {/* Color background scrolling */}
@@ -191,20 +191,94 @@ const Home = (navigation) => {
             {/* display items scrolling */}
             <TouchableOpacity
               onPress={() => navigation.navigate("Detail")}
-              style={{
-                height: 100,
-                width: 110,
-                backgroundColor: "#FFF",
-                paddingLeft: 5,
-                marginTop: 30,
-                marginLeft: 10,
-                borderRadius: 15,
-                marginBottom: 10,
-              }}
+              style={
+                {
+                  // height: SCREEN_WIDTH * 0.3,
+                  // width: SCREEN_WIDTH * 0.45,
+                  //   backgroundColor: "#fff",
+                  //   paddingLeft: 2,
+                  //  paddingTop:-100,
+                  //   marginTop: 20,
+                  //   marginLeft: 10,
+                  //   borderRadius: 15,
+                  //   marginBottom: 10,
+                  // backgroundColor: "#FFF",
+                  // borderRadius: 15,
+                  // marginTop: -1,
+                  // alignItems: "center",
+                }
+              }
             >
               <Image
                 source={require("./images/raspi.png")}
-                style={{ height: 100, width: 100 }}
+                style={{
+                  // flexDirection: "row",
+                  height: SCREEN_WIDTH * 0.3,
+                  width: SCREEN_WIDTH * 0.45,
+                  marginTop: SCREEN_WIDTH * 0.05,
+                  // borderTopLeftRadius: 30,
+                  // borderTopRightRadius: 30,
+                }}
+              ></Image>
+            </TouchableOpacity>
+
+            <TouchableOpacity
+              onPress={() => navigation.navigate("Detail")}
+              style={{
+                // height: SCREEN_WIDTH * 0.3,
+                // width: SCREEN_WIDTH * 0.45,
+                //   backgroundColor: "#fff",
+                //   paddingLeft: 2,
+                //  paddingTop:-100,
+                //   marginTop: 20,
+                //   marginLeft: 10,
+                //   borderRadius: 15,
+                //   marginBottom: 10,
+                // backgroundColor: "#FFF",
+                // borderRadius: 15,
+                // marginTop: -1,
+                flexDirection: "row",
+              }}
+            >
+              <Image
+                source={require("./images/arduino.png")}
+                style={{
+                  height: SCREEN_WIDTH * 0.3,
+                  width: SCREEN_WIDTH * 0.41,
+                  marginTop: SCREEN_WIDTH * 0.05,
+                  // borderTopLeftRadius: 30,
+                  // borderTopRightRadius: 30,
+                }}
+              ></Image>
+            </TouchableOpacity>
+
+            <TouchableOpacity
+              onPress={() => navigation.navigate("Detail")}
+              style={{
+                // height: SCREEN_WIDTH * 0.3,
+                // width: SCREEN_WIDTH * 0.45,
+                //   backgroundColor: "#fff",
+                //   paddingLeft: 2,
+                //  paddingTop:-100,
+                //   marginTop: 20,
+                //   marginLeft: 10,
+                //   borderRadius: 15,
+                //   marginBottom: 10,
+                // backgroundColor: "#FFF",
+                // borderRadius: 15,
+                // marginTop: -1,
+                flexDirection: "row",
+              }}
+            >
+              <Image
+                source={require("./images/arduino.png")}
+                style={{
+                  height: SCREEN_WIDTH * 0.3,
+                  width: SCREEN_WIDTH * 0.41,
+                  marginTop: SCREEN_WIDTH * 0.05,
+                  // borderTopLeftRadius: 30,
+                  // borderTopRightRadius: 30,
+                }}
               ></Image>
             </TouchableOpacity>
           </ScrollView>
@@ -224,8 +298,8 @@ const Home = (navigation) => {
               style={{
                 fontWeight: "bold",
                 fontSize: 18,
-                marginTop: -240,
-                marginLeft:-15,
+                marginTop: -230,
+                marginLeft: -15,
                 color: "#fff",
               }}
             >
@@ -236,7 +310,7 @@ const Home = (navigation) => {
                 height: 4,
                 backgroundColor: "#EA5455",
                 width: 115,
-                marginTop: 5,
+                marginTop: 6,
                 marginLeft: -15,
               }}
             ></View>
@@ -249,7 +323,6 @@ const Home = (navigation) => {
                 marginTop: -235,
                 paddingVertical: 6,
                 borderRadius: 10,
-              
               }}
             >
               <Text
@@ -264,7 +337,6 @@ const Home = (navigation) => {
             </View>
           </View>
         </View>
-        
       </View>
     </ScrollView>
   );
