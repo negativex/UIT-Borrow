@@ -6,7 +6,6 @@ const SCREEN_WIDTH = Dimensions.get("window").width;
 import Home from "./home";
 import Detail from "./detail";
 import Profile from "./profile";
-import { createMaterialBottomTabNavigator } from "@react-navigation/material-bottom-tabs";
 
 // const Tab = createBottomTabNavigator();
 const Tab= createBottomTabNavigator();
@@ -15,10 +14,10 @@ const BottomTabNavigator = () => {
     <Tab.Navigator
       tabBarOptions={{
         style: {
-          heigh: 65,
+          heigh: 50,
           justifyContent: "center",
           paddingVertical: 15,
-          color: "#EA5455",
+          color: "#fff",
           elevation: 1,
         },
       }}
