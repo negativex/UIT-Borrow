@@ -21,7 +21,7 @@ const Home = (navigation) => {
       <View
         style={{
           backgroundColor: "#EA5455",
-          height: "23%",
+          height: "20%",
           borderBottomLeftRadius: 40,
           borderBottomRightRadius: 40,
           paddingHorizontal: 20,
@@ -173,7 +173,7 @@ const Home = (navigation) => {
           <ScrollView
             horizontal
             showsHorizontalScrollIndicator={true}
-            style={{ height: 400 }}
+            style={{ height: 200 }}
           >
             {/* Raspi */}
             <TouchableOpacity onPress={() => navigation.navigate("Detail")}>
@@ -210,7 +210,7 @@ const Home = (navigation) => {
                 }}
               ></Image>
             </TouchableOpacity>
-            
+
             {/* Arduino1 */}
             <TouchableOpacity onPress={() => navigation.navigate("Detail")}>
               <View
@@ -291,7 +291,8 @@ const Home = (navigation) => {
           </ScrollView>
         </View>
 
-        {/* Cables/wires */}
+
+        {/* Cables/Wires*/}
         <View
           style={{
             flexDirection: "row",
@@ -300,14 +301,16 @@ const Home = (navigation) => {
             alignItems: "center",
           }}
         >
-          <View style={{ width: "50%" }}>
+          {/* Style Input Devices View*/}
+          <View style={{ width: "55%" }}>
             <Text
               style={{
                 fontWeight: "bold",
                 fontSize: 18,
-                marginTop: -180,
+                marginTop: 15,
                 marginLeft: -15,
                 color: "#fff",
+                flexDirection: "row",
               }}
             >
               Cables/Wires
@@ -317,17 +320,19 @@ const Home = (navigation) => {
                 height: 4,
                 backgroundColor: "#EA5455",
                 width: 115,
-                marginTop: 6,
+                marginTop: 5,
                 marginLeft: -15,
               }}
             ></View>
           </View>
+
+          {/* Style Button More */}
           <View style={{ width: "40%", alignItems: "flex-end" }}>
             <View
               style={{
                 backgroundColor: "#EA5455",
                 paddingHorizontal: 29,
-                marginTop: -180,
+                marginTop: 15,
                 paddingVertical: 6,
                 borderRadius: 10,
               }}
@@ -344,9 +349,130 @@ const Home = (navigation) => {
             </View>
           </View>
         </View>
-        
+
+        {/* Scrolling Embedded*/}
+        <View>
+          <ScrollView
+            horizontal
+            showsHorizontalScrollIndicator={false}
+            style={{ height: 280 }}
+          >
+            {/* Raspi */}
+            <TouchableOpacity onPress={() => navigation.navigate("Detail")}>
+              <View
+                style={{
+                  flexDirection: "row",
+                  paddingTop: 10,
+                  backgroundColor: "#fff",
+                  paddingVertical: 10,
+                  paddingHorizontal: -9,
+                  marginHorizontal: 10,
+                  borderRadius: 15,
+                  marginTop: 20,
+                  alignItems: "center",
+                }}
+              >
+                <Text
+                  style={{
+                    fontWeight: "bold",
+                    paddingLeft: 30,
+                    fontSize: 15,
+                    color: "#EA5455",
+                  }}
+                >
+                  Raspberry Pi 3
+                </Text>
+              </View>
+              <Image
+                source={require("./images/raspi.png")}
+                style={{
+                  height: SCREEN_WIDTH * 0.3,
+                  width: SCREEN_WIDTH * 0.45,
+                  marginTop: SCREEN_WIDTH * 0.01,
+                }}
+              ></Image>
+            </TouchableOpacity>
+
+            {/* Arduino1 */}
+            <TouchableOpacity onPress={() => navigation.navigate("Detail")}>
+              <View
+                style={{
+                  flexDirection: "row",
+                  paddingTop: 10,
+                  backgroundColor: "#fff",
+                  paddingVertical: 10,
+                  paddingHorizontal: -8,
+                  marginHorizontal: 10,
+                  borderRadius: 15,
+                  marginTop: 20,
+                  marginLeft: 20,
+                  marginRight: 0,
+                  alignItems: "center",
+                }}
+              >
+                <Text
+                  style={{
+                    fontWeight: "bold",
+                    paddingLeft: 35,
+                    fontSize: 15,
+                    color: "#EA5455",
+                  }}
+                >
+                  Arduino Uno
+                </Text>
+              </View>
+              <Image
+                source={require("./images/arduino.png")}
+                style={{
+                  height: SCREEN_WIDTH * 0.3,
+                  width: SCREEN_WIDTH * 0.4,
+                  marginTop: SCREEN_WIDTH * 0.03,
+                  marginLeft: SCREEN_WIDTH * 0.03,
+                }}
+              ></Image>
+            </TouchableOpacity>
+
+            {/* Arduino 2 */}
+            <TouchableOpacity onPress={() => navigation.navigate("Detail")}>
+              <View
+                style={{
+                  flexDirection: "row",
+                  paddingTop: 10,
+                  backgroundColor: "#fff",
+                  paddingVertical: 10,
+                  paddingHorizontal: -8,
+                  marginHorizontal: 10,
+                  borderRadius: 15,
+                  marginTop: 20,
+                  marginLeft: 20,
+                  marginRight: 0,
+                  alignItems: "center",
+                }}
+              >
+                <Text
+                  style={{
+                    fontWeight: "bold",
+                    paddingLeft: 35,
+                    fontSize: 15,
+                    color: "#EA5455",
+                  }}
+                >
+                  Arduino Uno
+                </Text>
+              </View>
+              <Image
+                source={require("./images/arduino.png")}
+                style={{
+                  height: SCREEN_WIDTH * 0.3,
+                  width: SCREEN_WIDTH * 0.4,
+                  marginTop: SCREEN_WIDTH * 0.03,
+                  marginLeft: SCREEN_WIDTH * 0.03,
+                }}
+              ></Image>
+            </TouchableOpacity>
+          </ScrollView>
+        </View>
       </View>
-      
     </ScrollView>
   );
 };
