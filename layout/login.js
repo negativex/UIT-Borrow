@@ -152,5 +152,6 @@ const styles = StyleSheet.create({
     justifyContent: "space-around",
     marginBottom: -30,
     paddingBottom: 60,
+    
   },
 });
