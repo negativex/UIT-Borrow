@@ -414,12 +414,12 @@ const Home = (navigation) => {
                 <Text
                   style={{
                     fontWeight: "bold",
-                    paddingLeft: 35,
+                    paddingLeft: 45,
                     fontSize: 15,
                     color: "#EA5455",
                   }}
                 >
-                  Arduino Uno
+                  2 Cores
                 </Text>
               </View>
               <Image
@@ -433,7 +433,7 @@ const Home = (navigation) => {
               ></Image>
             </TouchableOpacity>
 
-            {/* Core 3 */}
+            {/* Core 4 */}
             <TouchableOpacity onPress={() => navigation.navigate("Detail")}>
               <View
                 style={{
@@ -453,12 +453,12 @@ const Home = (navigation) => {
                 <Text
                   style={{
                     fontWeight: "bold",
-                    paddingLeft: 35,
+                    paddingLeft: 45,
                     fontSize: 15,
                     color: "#EA5455",
                   }}
                 >
-                  Arduino Uno
+                  4 Cores
                 </Text>
               </View>
               <Image
