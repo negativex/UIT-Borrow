@@ -53,7 +53,7 @@ const Home = (navigation) => {
             <Text
               style={{
                 fontSize: 28,
-                color: "#000",
+                color: "#fff",
                 fontWeight: "bold",
               }}
             >
@@ -291,7 +291,6 @@ const Home = (navigation) => {
           </ScrollView>
         </View>
 
-
         {/* Cables/Wires*/}
         <View
           style={{
@@ -350,14 +349,14 @@ const Home = (navigation) => {
           </View>
         </View>
 
-        {/* Scrolling Embedded*/}
+        {/* Scrolling Cables/Wires*/}
         <View>
           <ScrollView
             horizontal
             showsHorizontalScrollIndicator={false}
             style={{ height: 280 }}
           >
-            {/* Raspi */}
+            {/* Wire */}
             <TouchableOpacity onPress={() => navigation.navigate("Detail")}>
               <View
                 style={{
@@ -366,7 +365,8 @@ const Home = (navigation) => {
                   backgroundColor: "#fff",
                   paddingVertical: 10,
                   paddingHorizontal: -9,
-                  marginHorizontal: 10,
+                  marginHorizontal: 1,
+                  marginLeft: 10,
                   borderRadius: 15,
                   marginTop: 20,
                   alignItems: "center",
@@ -375,25 +375,26 @@ const Home = (navigation) => {
                 <Text
                   style={{
                     fontWeight: "bold",
-                    paddingLeft: 30,
+                    paddingLeft: 22,
                     fontSize: 15,
                     color: "#EA5455",
                   }}
                 >
-                  Raspberry Pi 3
+                  Wire
                 </Text>
               </View>
               <Image
-                source={require("./images/raspi.png")}
+                source={require("./images/wires.png")}
                 style={{
                   height: SCREEN_WIDTH * 0.3,
-                  width: SCREEN_WIDTH * 0.45,
-                  marginTop: SCREEN_WIDTH * 0.01,
+                  width: SCREEN_WIDTH * 0.18,
+                  marginTop: SCREEN_WIDTH * 0.03,
+                  marginLeft: SCREEN_WIDTH * 0.03,
                 }}
               ></Image>
             </TouchableOpacity>
 
-            {/* Arduino1 */}
+            {/* Core2 */}
             <TouchableOpacity onPress={() => navigation.navigate("Detail")}>
               <View
                 style={{
@@ -422,7 +423,7 @@ const Home = (navigation) => {
                 </Text>
               </View>
               <Image
-                source={require("./images/arduino.png")}
+                source={require("./images/2cores.png")}
                 style={{
                   height: SCREEN_WIDTH * 0.3,
                   width: SCREEN_WIDTH * 0.4,
@@ -432,7 +433,7 @@ const Home = (navigation) => {
               ></Image>
             </TouchableOpacity>
 
-            {/* Arduino 2 */}
+            {/* Core 3 */}
             <TouchableOpacity onPress={() => navigation.navigate("Detail")}>
               <View
                 style={{
@@ -461,7 +462,7 @@ const Home = (navigation) => {
                 </Text>
               </View>
               <Image
-                source={require("./images/arduino.png")}
+                source={require("./images/3cores.png")}
                 style={{
                   height: SCREEN_WIDTH * 0.3,
                   width: SCREEN_WIDTH * 0.4,
