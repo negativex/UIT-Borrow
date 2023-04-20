@@ -2,8 +2,6 @@ import { StatusBar } from "expo-status-bar";
 import {
   Text,
   View,
-  Dimensions,
-  ImageBackground,
   StyleSheet,
   TouchableOpacity,
   ScrollView,
@@ -27,18 +25,10 @@ const LoginScreen = ({ navigation }) => {
       style={{ flex: 1, backgroundColor: "black" }}
       showsVerticalScrollIndicator={false}
     >
-      {/* <ImageBackground
-        source={require("./images/BG_Top.png")}
-        style={{
-          height: Dimensions.get("window").height / 2.5,
-          width: Dimensions.get("window").width / 1.0,
-        }}
-      ></ImageBackground> */}
-
       <View
         style={{
           backgroundColor: "#fff",
-          height: "32%",
+          height: "30%",
           borderBottomLeftRadius: 50,
           borderBottomRightRadius: 50,
           paddingHorizontal: 20,
@@ -81,6 +71,7 @@ const LoginScreen = ({ navigation }) => {
               width: 230,
               marginTop: 10,
               marginLeft: -15,
+              borderRadius:30
             }}
           ></View>
         </View>
@@ -109,6 +100,7 @@ const LoginScreen = ({ navigation }) => {
               width: 270,
               marginTop: 7,
               marginLeft: -9,
+              borderRadius:30
             }}
           ></View>
         </View>
@@ -123,7 +115,7 @@ const LoginScreen = ({ navigation }) => {
               paddingBottom: -10,
             }}
           >
-            <Label style={{ paddingStart: 20 }}>Email Address</Label>
+            <Label style={{ paddingStart: 20, fontSize:15, color:'black' }}>Email Address</Label>
 
             <Input
               value={email}
@@ -146,7 +138,7 @@ const LoginScreen = ({ navigation }) => {
               paddingStart: 20,
             }}
           >
-            <Label style={{ paddingStart: 20 }}>Password</Label>
+            <Label style={{ paddingStart: 20, fontSize: 15, color:'black' }}>Password</Label>
             <Input
               value={password}
               onChangeText={onChangePassword}
@@ -185,8 +177,8 @@ const styles = StyleSheet.create({
     paddingBottom: 90,
     backgroundColor: "#fff",
     height: "100%",
-    borderTopLeftRadius: 50,
-    borderTopRightRadius: 50,
+    borderTopLeftRadius: 40,
+    borderTopRightRadius: 40,
     paddingHorizontal: 10,
   },
 
@@ -212,7 +204,9 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     flex: 1,
     justifyContent: "space-around",
-    marginBottom: -30,
-    paddingBottom: 60,
+    marginBottom: 10,
+    paddingBottom: 1,
+    marginLeft: 165,
+    marginRight: 165,
   },
 });
