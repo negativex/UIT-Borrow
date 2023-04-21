@@ -112,8 +112,6 @@ const Home = ({navigation}) => {
           </View>
         </LinearGradient>
 
-        
-
         {/* Embedded Devices */}
         <View
           style={{
@@ -297,7 +295,7 @@ const Home = ({navigation}) => {
 
         <View
           style={{
-            height: 8,
+            height: 1,
             backgroundColor: "#EA5455",
             width: 340,
             marginTop: 10,
@@ -401,7 +399,7 @@ const Home = ({navigation}) => {
               <Image
                 source={require("./images/wires.png")}
                 style={{
-                  height: SCREEN_WIDTH * 0.3,
+                  height: SCREEN_WIDTH * 0.25,
                   width: SCREEN_WIDTH * 0.18,
                   marginTop: SCREEN_WIDTH * 0.03,
                   marginLeft: SCREEN_WIDTH * 0.03,
@@ -429,7 +427,7 @@ const Home = ({navigation}) => {
                 <Text
                   style={{
                     fontWeight: "bold",
-                    paddingLeft: 45,
+                    paddingLeft: 20,
                     fontSize: 15,
                     color: "#EA5455",
                   }}
@@ -440,8 +438,8 @@ const Home = ({navigation}) => {
               <Image
                 source={require("./images/2cores.png")}
                 style={{
-                  height: SCREEN_WIDTH * 0.3,
-                  width: SCREEN_WIDTH * 0.4,
+                  height: SCREEN_WIDTH * 0.25,
+                  width: SCREEN_WIDTH * 0.25,
                   marginTop: SCREEN_WIDTH * 0.03,
                   marginLeft: SCREEN_WIDTH * 0.03,
                 }}
@@ -468,7 +466,7 @@ const Home = ({navigation}) => {
                 <Text
                   style={{
                     fontWeight: "bold",
-                    paddingLeft: 45,
+                    paddingLeft: 20,
                     fontSize: 15,
                     color: "#EA5455",
                   }}
@@ -479,8 +477,47 @@ const Home = ({navigation}) => {
               <Image
                 source={require("./images/3cores.png")}
                 style={{
-                  height: SCREEN_WIDTH * 0.3,
-                  width: SCREEN_WIDTH * 0.4,
+                  height: SCREEN_WIDTH * 0.25,
+                  width: SCREEN_WIDTH * 0.25,
+                  marginTop: SCREEN_WIDTH * 0.03,
+                  marginLeft: SCREEN_WIDTH * 0.03,
+                }}
+              ></Image>
+            </TouchableOpacity>
+
+            {/* Core 4 */}
+            <TouchableOpacity onPress={() => navigation.navigate("Detail")}>
+              <View
+                style={{
+                  flexDirection: "row",
+                  paddingTop: 10,
+                  backgroundColor: "#fff",
+                  paddingVertical: 10,
+                  paddingHorizontal: -8,
+                  marginHorizontal: 10,
+                  borderRadius: 15,
+                  marginTop: 20,
+                  marginLeft: 20,
+                  marginRight: 0,
+                  alignItems: "center",
+                }}
+              >
+                <Text
+                  style={{
+                    fontWeight: "bold",
+                    paddingLeft: 20,
+                    fontSize: 15,
+                    color: "#EA5455",
+                  }}
+                >
+                  4 Cores
+                </Text>
+              </View>
+              <Image
+                source={require("./images/3cores.png")}
+                style={{
+                  height: SCREEN_WIDTH * 0.25,
+                  width: SCREEN_WIDTH * 0.25,
                   marginTop: SCREEN_WIDTH * 0.03,
                   marginLeft: SCREEN_WIDTH * 0.03,
                 }}
@@ -490,8 +527,6 @@ const Home = ({navigation}) => {
         </View>
       </View>
     </ScrollView>
-
-    
   );
 };
 
