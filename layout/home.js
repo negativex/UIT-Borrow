@@ -6,9 +6,11 @@ import {
   TouchableOpacity,
 } from "react-native-gesture-handler";
 import { LinearGradient } from "expo-linear-gradient";
-
+import { NavigationContainer } from "@react-navigation/native";
+import Detail from "./detail";
+import Items from "./items";
 const SCREEN_WIDTH = Dimensions.get("window").width;
-const Home = (navigation) => {
+const Home = ({navigation}) => {
   return (
     // Top View
     <ScrollView
@@ -174,7 +176,7 @@ const Home = (navigation) => {
         <View>
           <ScrollView
             horizontal
-            showsHorizontalScrollIndicator={true}
+            showsHorizontalScrollIndicator={false}
             style={{ height: 200 }}
           >
             {/* Raspi */}
@@ -488,7 +490,11 @@ const Home = (navigation) => {
         </View>
       </View>
     </ScrollView>
+
+    
   );
 };
+
+
 
 export default Home;
