@@ -3,22 +3,28 @@ import React from "react";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { createStackNavigator } from "@react-navigation/stack";
 const SCREEN_WIDTH = Dimensions.get("window").width;
+import Icon from "react-native-ico-material-design";
+import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 import Home from "./home";
 import Detail from "./detail";
 import Profile from "./profile";
 
-// const Tab = createBottomTabNavigator();
-const Tab= createBottomTabNavigator();
+const Tab = createBottomTabNavigator();
 const BottomTabNavigator = () => {
   return (
     <Tab.Navigator
-      tabBarOptions={{
-        style: {
-          heigh: 50,
-          justifyContent: "center",
-          paddingVertical: 15,
-          color: "#fff",
-          elevation: 1,
+      initialRouteName="Home"
+      screenOptions={{
+        tabBarShowLabel: "false",
+        tabBarActiveTintColor: "#fff",
+        tabBarStyle: {
+          height: 60,
+          position: "absolute",
+          bottom: 20,
+          borderRadius: 90,
+          marginHorizontal: 25,
+          marginVertical: 1,
+          // opacity: 0.8,
         },
       }}
     >
@@ -28,15 +34,22 @@ const BottomTabNavigator = () => {
         component={Home}
         options={{
           tabBarLabel: "",
-          tabBarIcon: ({ color, size }) => (
+          tabBarIcon: ({ focused }) => (
             <Image
               source={require("./images/home_nav.png")}
               style={{
-                height: SCREEN_WIDTH * 0.1,
-                width: SCREEN_WIDTH * 0.1,
-                marginTop: SCREEN_WIDTH * 0.03,
+                width: 35,
+                height: 35,
+                // height: SCREEN_WIDTH * 0.1,
+                // width: SCREEN_WIDTH * 0.1,
+                // marginTop: SCREEN_WIDTH * 0.03,
+                tintColor: focused ? "#EA5455" : "#000",marginTop:10
               }}
             ></Image>
+            // <MaterialCommunityIcons
+            // name="home" color={color} size={size}>
+
+            // </MaterialCommunityIcons>
           ),
         }}
       ></Tab.Screen>
@@ -47,13 +60,17 @@ const BottomTabNavigator = () => {
         component={Detail}
         options={{
           tabBarLabel: "",
-          tabBarIcon: ({ color, size }) => (
+          tabBarIcon: ({ focused }) => (
             <Image
               source={require("./images/info_nav.png")}
               style={{
-                height: SCREEN_WIDTH * 0.1,
-                width: SCREEN_WIDTH * 0.1,
-                marginTop: SCREEN_WIDTH * 0.03,
+                // height: SCREEN_WIDTH * 0.1,
+                // width: SCREEN_WIDTH * 0.1,
+                // marginTop: SCREEN_WIDTH * 0.03,
+                width: 40,
+                height: 40,
+                marginTop:10, 
+                tintColor: focused ? "#EA5455" : "#000",
               }}
             ></Image>
           ),
@@ -66,13 +83,17 @@ const BottomTabNavigator = () => {
         component={Profile}
         options={{
           tabBarLabel: "",
-          tabBarIcon: ({ color, size }) => (
+          tabBarIcon: ({ focused }) => (
             <Image
               source={require("./images/user_nav.png")}
               style={{
-                height: SCREEN_WIDTH * 0.1,
-                width: SCREEN_WIDTH * 0.1,
-                marginTop: SCREEN_WIDTH * 0.03,
+                // height: SCREEN_WIDTH * 0.1,
+                // width: SCREEN_WIDTH * 0.1,
+                // marginTop: SCREEN_WIDTH * 0.03,
+                width: 35,
+                height: 35,
+                tintColor: focused ? "#EA5455" : "#000",
+                marginTop:10
               }}
             ></Image>
           ),
@@ -92,7 +113,10 @@ const HomeStackNavigator = () => {
     <Stack.Navigator screenOptions={screenOptionStyle}>
       <Stack.Screen name="Home" component={BottomTabNavigator}></Stack.Screen>
       <Stack.Screen name="Detail" component={BottomTabNavigator}></Stack.Screen>
-      <Stack.Screen name="Profile" component={BottomTabNavigator}></Stack.Screen>
+      <Stack.Screen
+        name="Profile"
+        component={BottomTabNavigator}
+      ></Stack.Screen>
     </Stack.Navigator>
   );
 };

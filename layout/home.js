@@ -110,6 +110,8 @@ const Home = (navigation) => {
           </View>
         </LinearGradient>
 
+        
+
         {/* Embedded Devices */}
         <View
           style={{
@@ -290,6 +292,17 @@ const Home = (navigation) => {
             </TouchableOpacity>
           </ScrollView>
         </View>
+
+        <View
+          style={{
+            height: 8,
+            backgroundColor: "#EA5455",
+            width: 340,
+            marginTop: 10,
+            marginLeft: -15,
+            borderRadius: 30,
+          }}
+        ></View>
 
         {/* Cables/Wires*/}
         <View
