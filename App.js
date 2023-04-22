@@ -19,11 +19,11 @@ const App = () => {
     // </NavigationContainer>
 
     //RegisterScreen
-    //  <NavigationContainer>
-    //   <Stack.Navigator initialRouteName='Register' headerMode="none">
-    //     <Stack.Screen name="Register" component={RegisterScreen} />
-    //   </Stack.Navigator>
-    // </NavigationContainer>
+     <NavigationContainer>
+      <Stack.Navigator initialRouteName='Register' headerMode="none">
+        <Stack.Screen name="Register" component={RegisterScreen} />
+      </Stack.Navigator>
+    </NavigationContainer>
 
     // NavigatorScreen
     //  <NavigationContainer>
@@ -32,11 +32,11 @@ const App = () => {
     //   </Stack.Navigator>
     // </NavigationContainer>
 
-    <NavigationContainer>
-      <Stack.Navigator initialRouteName="Detail" headerMode="none">
-        <Stack.Screen name="Detail" component={Detail} />
-      </Stack.Navigator>
-    </NavigationContainer>
+    // <NavigationContainer>
+    //   <Stack.Navigator initialRouteName="Detail" headerMode="none">
+    //     <Stack.Screen name="Detail" component={Detail} />
+    //   </Stack.Navigator>
+    // </NavigationContainer>
   );
 };
 
