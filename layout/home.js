@@ -1,4 +1,4 @@
-import { View, Text, Image, ImageBackground, Dimensions } from "react-native";
+import { View, Text, Image, Dimensions } from "react-native";
 import React from "react";
 import {
   TextInput,
@@ -6,11 +6,8 @@ import {
   TouchableOpacity,
 } from "react-native-gesture-handler";
 import { LinearGradient } from "expo-linear-gradient";
-import { NavigationContainer } from "@react-navigation/native";
-import Detail from "./detail";
-import Items from "./items";
 const SCREEN_WIDTH = Dimensions.get("window").width;
-const Home = ({navigation}) => {
+const Home = ({ navigation }) => {
   return (
     // Top View
     <ScrollView
@@ -184,7 +181,7 @@ const Home = ({navigation}) => {
                   flexDirection: "row",
                   paddingTop: 10,
                   backgroundColor: "#fff",
-                  paddingVertical: 10,
+                  paddingVertical: 15,
                   paddingHorizontal: -9,
                   marginHorizontal: 10,
                   borderRadius: 15,
@@ -218,11 +215,8 @@ const Home = ({navigation}) => {
               <View
                 style={{
                   flexDirection: "row",
-                  paddingTop: 10,
                   backgroundColor: "#fff",
                   paddingVertical: 10,
-                  paddingHorizontal: -8,
-                  marginHorizontal: 10,
                   borderRadius: 15,
                   marginTop: 20,
                   marginLeft: 20,
@@ -257,11 +251,8 @@ const Home = ({navigation}) => {
               <View
                 style={{
                   flexDirection: "row",
-                  paddingTop: 10,
                   backgroundColor: "#fff",
                   paddingVertical: 10,
-                  paddingHorizontal: -8,
-                  marginHorizontal: 10,
                   borderRadius: 15,
                   marginTop: 20,
                   marginLeft: 20,
@@ -374,11 +365,8 @@ const Home = ({navigation}) => {
               <View
                 style={{
                   flexDirection: "row",
-                  paddingTop: 10,
                   backgroundColor: "#fff",
                   paddingVertical: 10,
-                  paddingHorizontal: -9,
-                  marginHorizontal: 1,
                   marginLeft: 10,
                   borderRadius: 15,
                   marginTop: 20,
@@ -412,11 +400,8 @@ const Home = ({navigation}) => {
               <View
                 style={{
                   flexDirection: "row",
-                  paddingTop: 10,
                   backgroundColor: "#fff",
                   paddingVertical: 10,
-                  paddingHorizontal: -8,
-                  marginHorizontal: 10,
                   borderRadius: 15,
                   marginTop: 20,
                   marginLeft: 20,
@@ -451,11 +436,8 @@ const Home = ({navigation}) => {
               <View
                 style={{
                   flexDirection: "row",
-                  paddingTop: 10,
                   backgroundColor: "#fff",
                   paddingVertical: 10,
-                  paddingHorizontal: -8,
-                  marginHorizontal: 10,
                   borderRadius: 15,
                   marginTop: 20,
                   marginLeft: 20,
@@ -490,11 +472,8 @@ const Home = ({navigation}) => {
               <View
                 style={{
                   flexDirection: "row",
-                  paddingTop: 10,
                   backgroundColor: "#fff",
                   paddingVertical: 10,
-                  paddingHorizontal: -8,
-                  marginHorizontal: 10,
                   borderRadius: 15,
                   marginTop: 20,
                   marginLeft: 20,
@@ -529,7 +508,5 @@ const Home = ({navigation}) => {
     </ScrollView>
   );
 };
-
-
 
 export default Home;
