@@ -3,7 +3,10 @@ import React from 'react'
 
 const Profile = () => {
   return (
-    <View>
+    <View
+    style={{
+      marginTop:200,
+    }}>
       <Text>Profile</Text>
     </View>
   )

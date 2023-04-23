@@ -3,7 +3,7 @@ import React from "react";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { createStackNavigator } from "@react-navigation/stack";
 import Home from "./home";
-import Items from "./items";
+import Cart from "./cart";
 import Profile from "./profile";
 import Detail from "./detail";
 const Tab = createBottomTabNavigator();
@@ -32,6 +32,12 @@ const BottomTabNavigator = () => {
         component={Home}
         options={{
           tabBarLabel: "",
+          title: "Home",
+          headerTitleAlign: "center",
+          headerTitleStyle: {
+            fontWeight: "bold",
+            fontSize: 23,
+          },
           tabBarIcon: ({ focused }) => (
             <Image
               source={require("./images/home_nav.png")}
@@ -46,12 +52,19 @@ const BottomTabNavigator = () => {
         }}
       ></Tab.Screen>
 
-      {/* Items */}
+      {/* cart */}
       <Tab.Screen
-        name="Items"
-        component={Items}
+        name="Cart"
+        component={Cart}
         options={{
           tabBarLabel: "",
+
+          title: "Cart",
+          headerTitleAlign: "center",
+          headerTitleStyle: {
+            fontWeight: "bold",
+            fontSize: 23,
+          },
           tabBarIcon: ({ focused }) => (
             <Image
               source={require("./images/items.png")}
@@ -72,6 +85,12 @@ const BottomTabNavigator = () => {
         component={Profile}
         options={{
           tabBarLabel: "",
+          title: "Profile",
+          headerTitleAlign: "center",
+          headerTitleStyle: {
+            fontWeight: "bold",
+            fontSize: 23,
+          },
           tabBarIcon: ({ focused }) => (
             <Image
               source={require("./images/user_nav.png")}

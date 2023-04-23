@@ -7,6 +7,7 @@ import LoginScreen from "./layout/login";
 import RegisterScreen from "./layout/register";
 import HomeStackNavigator from "./layout/navigatorScreen";
 import Detail from "./layout/detail";
+import Profile from "./layout/profile";
 const Stack = createStackNavigator();
 
 const App = () => {
@@ -19,22 +20,29 @@ const App = () => {
     // </NavigationContainer>
 
     //RegisterScreen
+    //  <NavigationContainer>
+    //   <Stack.Navigator initialRouteName='Register' headerMode="none">
+    //     <Stack.Screen name="Register" component={RegisterScreen} />
+    //   </Stack.Navigator>
+    // </NavigationContainer>
+
+    // NavigatorScreen
      <NavigationContainer>
-      <Stack.Navigator initialRouteName='Register' headerMode="none">
-        <Stack.Screen name="Register" component={RegisterScreen} />
+      <Stack.Navigator initialRouteName='Navigator' headerMode="none">
+        <Stack.Screen name="Navigator" component={HomeStackNavigator} />
       </Stack.Navigator>
     </NavigationContainer>
 
-    // NavigatorScreen
-    //  <NavigationContainer>
-    //   <Stack.Navigator initialRouteName='Navigator' headerMode="none">
-    //     <Stack.Screen name="Navigator" component={HomeStackNavigator} />
+    //Detail Screen
+    // <NavigationContainer>
+    //   <Stack.Navigator initialRouteName="Detail" headerMode="none">
+    //     <Stack.Screen name="Detail" component={Detail} />
     //   </Stack.Navigator>
     // </NavigationContainer>
 
     // <NavigationContainer>
-    //   <Stack.Navigator initialRouteName="Detail" headerMode="none">
-    //     <Stack.Screen name="Detail" component={Detail} />
+    //   <Stack.Navigator initialRouteName="Profile" headerMode="none">
+    //     <Stack.Screen name="Profile" component={Profile} />
     //   </Stack.Navigator>
     // </NavigationContainer>
   );
