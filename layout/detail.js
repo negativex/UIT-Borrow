@@ -66,7 +66,7 @@ export default class Detail extends React.Component {
                 style={{
                   paddingHorizontal: 10,
                   paddingVertical: 10,
-                  marginTop: -10,
+                  marginTop: -8,
                   fontWeight: "bold",
                   fontSize: 22,
                   color: "#EA5455",
