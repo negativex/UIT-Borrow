@@ -2,33 +2,26 @@ import { StatusBar } from "expo-status-bar";
 import {
   Text,
   View,
-  Dimensions,
-  ImageBackground,
   StyleSheet,
   TouchableOpacity,
-  Image
+  ScrollView,
+  Image,
 } from "react-native";
 import React, { useState } from "react";
 import { Icon, Input, Item, Label } from "native-base";
 
-const RegisterScreen = ({ navigation }) => {
+const LoginScreen = ({ navigation }) => {
   const [email, setEmail] = useState("");
   const onChangeEmail = (newEmail) => {
     setEmail(newEmail);
   };
-
   const [password, setPassword] = useState("");
+
   const onChangePassword = (newPassword) => {
     setPassword(newPassword);
   };
-
-  const [newpassword, setNewPassword] = useState("");
-  const onChangeNewPassword = (newNewPassword) => {
-    setNewPassword(newNewPassword);
-  };
-
   return (
-    <View
+    <ScrollView
       style={{ flex: 1, backgroundColor: "black" }}
       showsVerticalScrollIndicator={false}
     >
@@ -67,7 +60,7 @@ const RegisterScreen = ({ navigation }) => {
           {/*Image UIT */}
           <View style={{ width: "100%" }}>
             <Image
-              source={require("./images/logo_uit.png")}
+              source={require("../images/logo_uit.png")}
               style={{ marginLeft: 30, marginTop: 10 }}
             ></Image>
           </View>
@@ -86,13 +79,19 @@ const RegisterScreen = ({ navigation }) => {
 
       {/* bottom view*/}
       <View style={styles.bottomView}>
-        {/* register view */}
+        {/* welcome view */}
         <View style={{ padding: 20 }}>
           <Text style={{ color: "#000", fontSize: 22, fontWeight: "bold" }}>
             Welcome To Room E3.1
           </Text>
-          <Text style={{ paddingBottom: 5, fontSize: 15 }}>
-            Fill All Information To Create New Account
+          <Text style={{ paddingTop: 5, fontSize: 15 }}>
+            Use Verified Account To Log In
+          </Text>
+          <Text style={{ paddingTop: 5, fontSize: 15 }}>
+            Don't Have Account?
+            <Text style={{ color: "#EA5455", fontStyle: "italic" }}>
+              {"    "}Register
+            </Text>
           </Text>
           <View
             style={{
@@ -116,7 +115,7 @@ const RegisterScreen = ({ navigation }) => {
               paddingBottom: -10,
             }}
           >
-            <Label style={{ paddingStart: 20, fontSize: 15 }}>
+            <Label style={{ paddingStart: 20, fontSize: 15, color: "black" }}>
               Email Address
             </Label>
 
@@ -141,31 +140,12 @@ const RegisterScreen = ({ navigation }) => {
               paddingStart: 20,
             }}
           >
-            <Label style={{ paddingStart: 20 }}>Set Your Password</Label>
+            <Label style={{ paddingStart: 20, fontSize: 15, color: "black" }}>
+              Password
+            </Label>
             <Input
               value={password}
               onChangeText={onChangePassword}
-              style={{ paddingStart: -9 }}
-            ></Input>
-            <Icon
-              name="eye"
-              style={{ color: "black", paddingBottom: 15, paddingEnd: 20 }}
-            ></Icon>
-          </Item>
-
-          <Item
-            floatingLabel
-            style={{
-              borderColor: "#EA5455",
-              marginTop: 30,
-              borderRadius: 20,
-              paddingStart: 20,
-            }}
-          >
-            <Label style={{ paddingStart: 20 }}>Retype Your Password</Label>
-            <Input
-              value={newpassword}
-              onChangeText={onChangeNewPassword}
               style={{ paddingStart: -9 }}
             ></Input>
             <Icon
@@ -177,7 +157,7 @@ const RegisterScreen = ({ navigation }) => {
 
         {/* button Login */}
         <TouchableOpacity style={styles.buttonContainer}>
-          <Text style={styles.buttonText}>Register</Text>
+          <Text style={styles.buttonText}>Login</Text>
         </TouchableOpacity>
 
         {/* login with social acc */}
@@ -189,10 +169,10 @@ const RegisterScreen = ({ navigation }) => {
           ></Icon>
         </TouchableOpacity>
       </View>
-    </View>
+    </ScrollView>
   );
 };
-export default RegisterScreen;
+export default LoginScreen;
 
 const styles = StyleSheet.create({
   bottomView: {
@@ -200,10 +180,10 @@ const styles = StyleSheet.create({
     marginTop: 25,
     paddingBottom: 90,
     backgroundColor: "#fff",
+    height: "100%",
     borderTopLeftRadius: 40,
     borderTopRightRadius: 40,
     paddingHorizontal: 10,
-    height: "100%",
   },
 
   //button Login
@@ -228,7 +208,9 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     flex: 1,
     justifyContent: "space-around",
-    marginBottom: -30,
-    paddingBottom: 60,
+    marginBottom: 10,
+    paddingBottom: 1,
+    marginLeft: 165,
+    marginRight: 165,
   },
 });

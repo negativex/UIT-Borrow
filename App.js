@@ -3,13 +3,14 @@ import { StyleSheet, Text, View } from "react-native";
 import { createStackNavigator } from "@react-navigation/stack";
 import { NavigationContainer } from "@react-navigation/native";
 import react from "react";
-import LoginScreen from "./layout/login";
-import RegisterScreen from "./layout/register";
-import HomeStackNavigator from "./layout/navigatorScreen";
-import Detail from "./layout/detail";
-import Profile from "./layout/profile";
-const Stack = createStackNavigator();
 
+import RegisterScreen from "./layout/Screen_User/register";
+import HomeStackNavigator from "./layout/Screen_User/navigatorScreen";
+import Detail from "./layout/Screen_User/detail";
+import Profile from "./layout/Screen_User/profile";
+import LoginScreen from "./layout/Screen_User/login";
+
+const Stack = createStackNavigator();
 const App = () => {
   return (
     //  LoginScreen

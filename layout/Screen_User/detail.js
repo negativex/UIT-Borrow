@@ -44,7 +44,7 @@ export default class Detail extends React.Component {
               {/* go back button */}
               <TouchableOpacity onPress={() => this.props.navigation.goBack()}>
                 <Image
-                  source={require("./images/back.png")}
+                  source={require("../images/back.png")}
                   style={{
                     alignItems: "center",
                     width: 33,
@@ -87,7 +87,7 @@ export default class Detail extends React.Component {
           ></View>
 
           <Image
-            source={require("./images/raspi.png")}
+            source={require("../images/raspi.png")}
             style={{
               marginTop: -10,
               height: 270,
@@ -237,7 +237,7 @@ export default class Detail extends React.Component {
           }}
         >
           <Image
-            source={require("./images/add.png")}
+            source={require("../images/add.png")}
             style={{
               alignItems: "center",
               width: 25,
