@@ -60,7 +60,7 @@ const LoginScreen = ({ navigation }) => {
           {/*Image UIT */}
           <View style={{ width: "100%" }}>
             <Image
-              source={require("./images/logo_uit.png")}
+              source={require("../images/logo_uit.png")}
               style={{ marginLeft: 30, marginTop: 10 }}
             ></Image>
           </View>
@@ -71,7 +71,7 @@ const LoginScreen = ({ navigation }) => {
               width: 230,
               marginTop: 10,
               marginLeft: -15,
-              borderRadius:30
+              borderRadius: 30,
             }}
           ></View>
         </View>
@@ -100,7 +100,7 @@ const LoginScreen = ({ navigation }) => {
               width: 270,
               marginTop: 7,
               marginLeft: -9,
-              borderRadius:30
+              borderRadius: 30,
             }}
           ></View>
         </View>
@@ -115,7 +115,9 @@ const LoginScreen = ({ navigation }) => {
               paddingBottom: -10,
             }}
           >
-            <Label style={{ paddingStart: 20, fontSize:15, color:'black' }}>Email Address</Label>
+            <Label style={{ paddingStart: 20, fontSize: 15, color: "black" }}>
+              Email Address
+            </Label>
 
             <Input
               value={email}
@@ -138,7 +140,9 @@ const LoginScreen = ({ navigation }) => {
               paddingStart: 20,
             }}
           >
-            <Label style={{ paddingStart: 20, fontSize: 15, color:'black' }}>Password</Label>
+            <Label style={{ paddingStart: 20, fontSize: 15, color: "black" }}>
+              Password
+            </Label>
             <Input
               value={password}
               onChangeText={onChangePassword}

@@ -1,12 +1,12 @@
 import { View, Text } from 'react-native'
 import React from 'react'
 
-const Detail = () => {
+const list_items = () => {
   return (
     <View>
-      <Text>detail</Text>
+      <Text>list_items</Text>
     </View>
   )
 }
 
-export default Detail;
+export default list_items

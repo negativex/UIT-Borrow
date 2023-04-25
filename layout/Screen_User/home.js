@@ -1,4 +1,4 @@
-import { View, Text, Image, ImageBackground, Dimensions } from "react-native";
+import { View, Text, Image, Dimensions } from "react-native";
 import React from "react";
 import {
   TextInput,
@@ -6,9 +6,8 @@ import {
   TouchableOpacity,
 } from "react-native-gesture-handler";
 import { LinearGradient } from "expo-linear-gradient";
-
 const SCREEN_WIDTH = Dimensions.get("window").width;
-const Home = (navigation) => {
+const Home = ({ navigation }) => {
   return (
     // Top View
     <ScrollView
@@ -22,14 +21,14 @@ const Home = (navigation) => {
         style={{
           backgroundColor: "#EA5455",
           height: "20%",
-          borderBottomLeftRadius: 40,
-          borderBottomRightRadius: 40,
+          borderBottomLeftRadius: 20,
+          borderBottomRightRadius: 20,
           paddingHorizontal: 20,
         }}
       >
         {/* Image User */}
         <Image
-          source={require("./images/Scroll_Top.png")}
+          source={require("../images/Scroll_Top.png")}
           style={{
             height: 35,
             width: 35,
@@ -43,8 +42,8 @@ const Home = (navigation) => {
           style={{
             flexDirection: "row",
             alignItems: "center",
-            marginTop: -15,
-            paddingLeft: 35,
+            marginTop: -20,
+            paddingLeft: 55,
             width: "100%",
           }}
         >
@@ -52,18 +51,21 @@ const Home = (navigation) => {
           <View style={{ width: "50%" }}>
             <Text
               style={{
-                fontSize: 28,
+                fontSize: 25,
                 color: "#fff",
                 fontWeight: "bold",
               }}
             >
-              Ngoc Tran
+              Ngoc Tran{"\n"}
+              <Text
+              style={{
+                fontSize: 15,}}>MSSV: 20521668</Text>
             </Text>
           </View>
           <View style={{ width: "40%", alignItems: "flex-end" }}>
             {/* User Image Profile */}
             <Image
-              source={require("./images/user_Top.png")}
+              source={require("../images/user_Top.png")}
               style={{ height: 70, width: 70 }}
             ></Image>
           </View>
@@ -104,7 +106,7 @@ const Home = (navigation) => {
 
             {/* Search Image */}
             <Image
-              source={require("./images/search_bottom.png")}
+              source={require("../images/search_bottom.png")}
               style={{ height: 20, width: 20 }}
             ></Image>
           </View>
@@ -131,7 +133,7 @@ const Home = (navigation) => {
                 flexDirection: "row",
               }}
             >
-              Embedded Devices
+              Máy Tính Nhúng
             </Text>
             <View
               style={{
@@ -149,7 +151,7 @@ const Home = (navigation) => {
             <View
               style={{
                 backgroundColor: "#EA5455",
-                paddingHorizontal: 29,
+                paddingHorizontal: 10,
                 marginTop: -35,
                 paddingVertical: 6,
                 borderRadius: 10,
@@ -162,7 +164,7 @@ const Home = (navigation) => {
                   color: "#fff",
                 }}
               >
-                More
+                Xem Thêm
               </Text>
             </View>
           </View>
@@ -172,7 +174,7 @@ const Home = (navigation) => {
         <View>
           <ScrollView
             horizontal
-            showsHorizontalScrollIndicator={true}
+            showsHorizontalScrollIndicator={false}
             style={{ height: 200 }}
           >
             {/* Raspi */}
@@ -182,7 +184,7 @@ const Home = (navigation) => {
                   flexDirection: "row",
                   paddingTop: 10,
                   backgroundColor: "#fff",
-                  paddingVertical: 10,
+                  paddingVertical: 15,
                   paddingHorizontal: -9,
                   marginHorizontal: 10,
                   borderRadius: 15,
@@ -202,7 +204,7 @@ const Home = (navigation) => {
                 </Text>
               </View>
               <Image
-                source={require("./images/raspi.png")}
+                source={require("../images/raspi.png")}
                 style={{
                   height: SCREEN_WIDTH * 0.3,
                   width: SCREEN_WIDTH * 0.45,
@@ -216,11 +218,8 @@ const Home = (navigation) => {
               <View
                 style={{
                   flexDirection: "row",
-                  paddingTop: 10,
                   backgroundColor: "#fff",
                   paddingVertical: 10,
-                  paddingHorizontal: -8,
-                  marginHorizontal: 10,
                   borderRadius: 15,
                   marginTop: 20,
                   marginLeft: 20,
@@ -240,7 +239,7 @@ const Home = (navigation) => {
                 </Text>
               </View>
               <Image
-                source={require("./images/arduino.png")}
+                source={require("../images/arduino.png")}
                 style={{
                   height: SCREEN_WIDTH * 0.3,
                   width: SCREEN_WIDTH * 0.4,
@@ -255,11 +254,8 @@ const Home = (navigation) => {
               <View
                 style={{
                   flexDirection: "row",
-                  paddingTop: 10,
                   backgroundColor: "#fff",
                   paddingVertical: 10,
-                  paddingHorizontal: -8,
-                  marginHorizontal: 10,
                   borderRadius: 15,
                   marginTop: 20,
                   marginLeft: 20,
@@ -279,7 +275,7 @@ const Home = (navigation) => {
                 </Text>
               </View>
               <Image
-                source={require("./images/arduino.png")}
+                source={require("../images/arduino.png")}
                 style={{
                   height: SCREEN_WIDTH * 0.3,
                   width: SCREEN_WIDTH * 0.4,
@@ -290,6 +286,17 @@ const Home = (navigation) => {
             </TouchableOpacity>
           </ScrollView>
         </View>
+
+        <View
+          style={{
+            height: 1,
+            backgroundColor: "#EA5455",
+            width: 340,
+            marginTop: 10,
+            marginLeft: -15,
+            borderRadius: 30,
+          }}
+        ></View>
 
         {/* Cables/Wires*/}
         <View
@@ -312,7 +319,7 @@ const Home = (navigation) => {
                 flexDirection: "row",
               }}
             >
-              Cables/Wires
+              Dây Cáp/Dây Nạp
             </Text>
             <View
               style={{
@@ -330,7 +337,7 @@ const Home = (navigation) => {
             <View
               style={{
                 backgroundColor: "#EA5455",
-                paddingHorizontal: 29,
+                paddingHorizontal: 10,
                 marginTop: 15,
                 paddingVertical: 6,
                 borderRadius: 10,
@@ -343,7 +350,7 @@ const Home = (navigation) => {
                   color: "#fff",
                 }}
               >
-                More
+                Xem Thêm
               </Text>
             </View>
           </View>
@@ -361,11 +368,8 @@ const Home = (navigation) => {
               <View
                 style={{
                   flexDirection: "row",
-                  paddingTop: 10,
                   backgroundColor: "#fff",
                   paddingVertical: 10,
-                  paddingHorizontal: -9,
-                  marginHorizontal: 1,
                   marginLeft: 10,
                   borderRadius: 15,
                   marginTop: 20,
@@ -375,18 +379,18 @@ const Home = (navigation) => {
                 <Text
                   style={{
                     fontWeight: "bold",
-                    paddingLeft: 22,
+                    paddingLeft: 10,
                     fontSize: 15,
                     color: "#EA5455",
                   }}
                 >
-                  Wire
+                  Dây Nối
                 </Text>
               </View>
               <Image
-                source={require("./images/wires.png")}
+                source={require("../images/wires.png")}
                 style={{
-                  height: SCREEN_WIDTH * 0.3,
+                  height: SCREEN_WIDTH * 0.25,
                   width: SCREEN_WIDTH * 0.18,
                   marginTop: SCREEN_WIDTH * 0.03,
                   marginLeft: SCREEN_WIDTH * 0.03,
@@ -399,11 +403,8 @@ const Home = (navigation) => {
               <View
                 style={{
                   flexDirection: "row",
-                  paddingTop: 10,
                   backgroundColor: "#fff",
                   paddingVertical: 10,
-                  paddingHorizontal: -8,
-                  marginHorizontal: 10,
                   borderRadius: 15,
                   marginTop: 20,
                   marginLeft: 20,
@@ -414,19 +415,19 @@ const Home = (navigation) => {
                 <Text
                   style={{
                     fontWeight: "bold",
-                    paddingLeft: 45,
+                    paddingLeft: 29,
                     fontSize: 15,
                     color: "#EA5455",
                   }}
                 >
-                  2 Cores
+                  2 Lõi
                 </Text>
               </View>
               <Image
-                source={require("./images/2cores.png")}
+                source={require("../images/2cores.png")}
                 style={{
-                  height: SCREEN_WIDTH * 0.3,
-                  width: SCREEN_WIDTH * 0.4,
+                  height: SCREEN_WIDTH * 0.25,
+                  width: SCREEN_WIDTH * 0.25,
                   marginTop: SCREEN_WIDTH * 0.03,
                   marginLeft: SCREEN_WIDTH * 0.03,
                 }}
@@ -438,11 +439,8 @@ const Home = (navigation) => {
               <View
                 style={{
                   flexDirection: "row",
-                  paddingTop: 10,
                   backgroundColor: "#fff",
                   paddingVertical: 10,
-                  paddingHorizontal: -8,
-                  marginHorizontal: 10,
                   borderRadius: 15,
                   marginTop: 20,
                   marginLeft: 20,
@@ -453,19 +451,55 @@ const Home = (navigation) => {
                 <Text
                   style={{
                     fontWeight: "bold",
-                    paddingLeft: 45,
+                    paddingLeft: 29,
                     fontSize: 15,
                     color: "#EA5455",
                   }}
                 >
-                  4 Cores
+                  4 Lõi
                 </Text>
               </View>
               <Image
-                source={require("./images/3cores.png")}
+                source={require("../images/3cores.png")}
                 style={{
-                  height: SCREEN_WIDTH * 0.3,
-                  width: SCREEN_WIDTH * 0.4,
+                  height: SCREEN_WIDTH * 0.25,
+                  width: SCREEN_WIDTH * 0.25,
+                  marginTop: SCREEN_WIDTH * 0.03,
+                  marginLeft: SCREEN_WIDTH * 0.03,
+                }}
+              ></Image>
+            </TouchableOpacity>
+
+            {/* Core 4 */}
+            <TouchableOpacity onPress={() => navigation.navigate("Detail")}>
+              <View
+                style={{
+                  flexDirection: "row",
+                  backgroundColor: "#fff",
+                  paddingVertical: 10,
+                  borderRadius: 15,
+                  marginTop: 20,
+                  marginLeft: 20,
+                  marginRight: 0,
+                  alignItems: "center",
+                }}
+              >
+                <Text
+                  style={{
+                    fontWeight: "bold",
+                    paddingLeft: 29,
+                    fontSize: 15,
+                    color: "#EA5455",
+                  }}
+                >
+                  4 Lõi
+                </Text>
+              </View>
+              <Image
+                source={require("../images/3cores.png")}
+                style={{
+                  height: SCREEN_WIDTH * 0.25,
+                  width: SCREEN_WIDTH * 0.25,
                   marginTop: SCREEN_WIDTH * 0.03,
                   marginLeft: SCREEN_WIDTH * 0.03,
                 }}

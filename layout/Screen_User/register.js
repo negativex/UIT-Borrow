@@ -6,6 +6,7 @@ import {
   ImageBackground,
   StyleSheet,
   TouchableOpacity,
+  Image
 } from "react-native";
 import React, { useState } from "react";
 import { Icon, Input, Item, Label } from "native-base";
@@ -28,41 +29,96 @@ const RegisterScreen = ({ navigation }) => {
 
   return (
     <View
-      style={{ flex: 1, backgroundColor: "#F6F1F1" }}
+      style={{ flex: 1, backgroundColor: "black" }}
       showsVerticalScrollIndicator={false}
     >
-      <ImageBackground
-        source={require("./images/BG_Top.png")}
+      <View
         style={{
-          height: Dimensions.get("window").height / 2.5,
-          width: Dimensions.get("window").width / 1.0,
+          backgroundColor: "#fff",
+          height: "30%",
+          borderBottomLeftRadius: 50,
+          borderBottomRightRadius: 50,
+          paddingHorizontal: 20,
         }}
-      ></ImageBackground>
+      >
+        {/* Name */}
+        <View
+          style={{
+            flexDirection: "column",
+            alignItems: "center",
+            marginTop: -45,
+            paddingLeft: -5,
+            width: "100%",
+          }}
+        >
+          <View style={{ width: "110%", alignItems: "center" }}>
+            <Text
+              style={{
+                fontSize: 22,
+                color: "#000",
+                fontWeight: "bold",
+                marginTop: 90,
+              }}
+            >
+              University of Information Technology
+            </Text>
+          </View>
+
+          {/*Image UIT */}
+          <View style={{ width: "100%" }}>
+            <Image
+              source={require("../images/logo_uit.png")}
+              style={{ marginLeft: 30, marginTop: 10 }}
+            ></Image>
+          </View>
+          <View
+            style={{
+              height: 4,
+              backgroundColor: "#EA5455",
+              width: 230,
+              marginTop: 10,
+              marginLeft: -15,
+              borderRadius: 30,
+            }}
+          ></View>
+        </View>
+      </View>
 
       {/* bottom view*/}
       <View style={styles.bottomView}>
         {/* register view */}
-        <View style={{ padding: 25 }}>
-          <Text style={{ color: "#000", fontSize: 25, fontWeight: "bold" }}>
+        <View style={{ padding: 20 }}>
+          <Text style={{ color: "#000", fontSize: 22, fontWeight: "bold" }}>
             Welcome To Room E3.1
           </Text>
-          <Text style={{ fontWeight: "bold", paddingBottom: 10, fontSize: 15 }}>
+          <Text style={{ paddingBottom: 5, fontSize: 15 }}>
             Fill All Information To Create New Account
           </Text>
-          <View style={{ width: 270, height: 1, backgroundColor: "black" }} />
+          <View
+            style={{
+              height: 4,
+              backgroundColor: "#EA5455",
+              width: 270,
+              marginTop: 7,
+              marginLeft: -9,
+              borderRadius: 30,
+            }}
+          ></View>
         </View>
 
         {/* form input view */}
-        <View style={{ padding: 30, paddingTop: -10 }}>
+        <View style={{ padding: 30, paddingTop: 34 }}>
           <Item
             floatingLabel
             style={{
-              borderColor: "black",
+              borderColor: "#EA5455",
               borderRadius: 20,
               paddingBottom: -10,
             }}
           >
-            <Label style={{ paddingStart: 20 }}>Email Address</Label>
+            <Label style={{ paddingStart: 20, fontSize: 15 }}>
+              Email Address
+            </Label>
 
             <Input
               value={email}
@@ -72,14 +128,14 @@ const RegisterScreen = ({ navigation }) => {
             ></Input>
             <Icon
               name="checkmark"
-              style={{ color: "#0F4C75", paddingBottom: 15, paddingEnd: 20 }}
+              style={{ color: "black", paddingBottom: 15, paddingEnd: 20 }}
             ></Icon>
           </Item>
 
           <Item
             floatingLabel
             style={{
-              borderColor: "black",
+              borderColor: "#EA5455",
               marginTop: 30,
               borderRadius: 20,
               paddingStart: 20,
@@ -93,14 +149,14 @@ const RegisterScreen = ({ navigation }) => {
             ></Input>
             <Icon
               name="eye"
-              style={{ color: "#0F4C75", paddingBottom: 15, paddingEnd: 20 }}
+              style={{ color: "black", paddingBottom: 15, paddingEnd: 20 }}
             ></Icon>
           </Item>
 
           <Item
             floatingLabel
             style={{
-              borderColor: "black",
+              borderColor: "#EA5455",
               marginTop: 30,
               borderRadius: 20,
               paddingStart: 20,
@@ -109,12 +165,12 @@ const RegisterScreen = ({ navigation }) => {
             <Label style={{ paddingStart: 20 }}>Retype Your Password</Label>
             <Input
               value={newpassword}
-              onChangeText={setNewPassword}
+              onChangeText={onChangeNewPassword}
               style={{ paddingStart: -9 }}
             ></Input>
             <Icon
               name="eye"
-              style={{ color: "#0F4C75", paddingBottom: 15, paddingEnd: 20 }}
+              style={{ color: "black", paddingBottom: 15, paddingEnd: 20 }}
             ></Icon>
           </Item>
         </View>
@@ -140,16 +196,14 @@ export default RegisterScreen;
 
 const styles = StyleSheet.create({
   bottomView: {
-    flex: 1.5,
-    marginTop: 10,
-    backgroundColor: "#F6F1F1",
-    borderTopLeftRadius: 50,
-    borderTopRightRadius: 50,
-    borderBottomEndRadius: 0,
-    shadowColor: "#000",
-    shadowOffset: { width: 20, peak: 70 },
-    shadowRadius: 150,
-    elevation: 20,
+    flex: 1,
+    marginTop: 25,
+    paddingBottom: 90,
+    backgroundColor: "#fff",
+    borderTopLeftRadius: 40,
+    borderTopRightRadius: 40,
+    paddingHorizontal: 10,
+    height: "100%",
   },
 
   //button Login
