@@ -2,26 +2,33 @@ import { StatusBar } from "expo-status-bar";
 import {
   Text,
   View,
+  Dimensions,
+  ImageBackground,
   StyleSheet,
   TouchableOpacity,
-  ScrollView,
-  Image,
+  Image
 } from "react-native";
 import React, { useState } from "react";
 import { Icon, Input, Item, Label } from "native-base";
 
-const LoginScreen = ({ navigation }) => {
+const RegisterScreen = ({ navigation }) => {
   const [email, setEmail] = useState("");
   const onChangeEmail = (newEmail) => {
     setEmail(newEmail);
   };
-  const [password, setPassword] = useState("");
 
+  const [password, setPassword] = useState("");
   const onChangePassword = (newPassword) => {
     setPassword(newPassword);
   };
+
+  const [newpassword, setNewPassword] = useState("");
+  const onChangeNewPassword = (newNewPassword) => {
+    setNewPassword(newNewPassword);
+  };
+
   return (
-    <ScrollView
+    <View
       style={{ flex: 1, backgroundColor: "black" }}
       showsVerticalScrollIndicator={false}
     >
@@ -60,7 +67,7 @@ const LoginScreen = ({ navigation }) => {
           {/*Image UIT */}
           <View style={{ width: "100%" }}>
             <Image
-              source={require("./images/logo_uit.png")}
+              source={require("../images/logo_uit.png")}
               style={{ marginLeft: 30, marginTop: 10 }}
             ></Image>
           </View>
@@ -79,19 +86,13 @@ const LoginScreen = ({ navigation }) => {
 
       {/* bottom view*/}
       <View style={styles.bottomView}>
-        {/* welcome view */}
+        {/* register view */}
         <View style={{ padding: 20 }}>
           <Text style={{ color: "#000", fontSize: 22, fontWeight: "bold" }}>
             Welcome To Room E3.1
           </Text>
-          <Text style={{ paddingTop: 5, fontSize: 15 }}>
-            Use Verified Account To Log In
-          </Text>
-          <Text style={{ paddingTop: 5, fontSize: 15 }}>
-            Don't Have Account?
-            <Text style={{ color: "#EA5455", fontStyle: "italic" }}>
-              {"    "}Register
-            </Text>
+          <Text style={{ paddingBottom: 5, fontSize: 15 }}>
+            Fill All Information To Create New Account
           </Text>
           <View
             style={{
@@ -115,7 +116,7 @@ const LoginScreen = ({ navigation }) => {
               paddingBottom: -10,
             }}
           >
-            <Label style={{ paddingStart: 20, fontSize: 15, color: "black" }}>
+            <Label style={{ paddingStart: 20, fontSize: 15 }}>
               Email Address
             </Label>
 
@@ -140,12 +141,31 @@ const LoginScreen = ({ navigation }) => {
               paddingStart: 20,
             }}
           >
-            <Label style={{ paddingStart: 20, fontSize: 15, color: "black" }}>
-              Password
-            </Label>
+            <Label style={{ paddingStart: 20 }}>Set Your Password</Label>
             <Input
               value={password}
               onChangeText={onChangePassword}
+              style={{ paddingStart: -9 }}
+            ></Input>
+            <Icon
+              name="eye"
+              style={{ color: "black", paddingBottom: 15, paddingEnd: 20 }}
+            ></Icon>
+          </Item>
+
+          <Item
+            floatingLabel
+            style={{
+              borderColor: "#EA5455",
+              marginTop: 30,
+              borderRadius: 20,
+              paddingStart: 20,
+            }}
+          >
+            <Label style={{ paddingStart: 20 }}>Retype Your Password</Label>
+            <Input
+              value={newpassword}
+              onChangeText={onChangeNewPassword}
               style={{ paddingStart: -9 }}
             ></Input>
             <Icon
@@ -157,7 +177,7 @@ const LoginScreen = ({ navigation }) => {
 
         {/* button Login */}
         <TouchableOpacity style={styles.buttonContainer}>
-          <Text style={styles.buttonText}>Login</Text>
+          <Text style={styles.buttonText}>Register</Text>
         </TouchableOpacity>
 
         {/* login with social acc */}
@@ -169,10 +189,10 @@ const LoginScreen = ({ navigation }) => {
           ></Icon>
         </TouchableOpacity>
       </View>
-    </ScrollView>
+    </View>
   );
 };
-export default LoginScreen;
+export default RegisterScreen;
 
 const styles = StyleSheet.create({
   bottomView: {
@@ -180,10 +200,10 @@ const styles = StyleSheet.create({
     marginTop: 25,
     paddingBottom: 90,
     backgroundColor: "#fff",
-    height: "100%",
     borderTopLeftRadius: 40,
     borderTopRightRadius: 40,
     paddingHorizontal: 10,
+    height: "100%",
   },
 
   //button Login
@@ -208,9 +228,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     flex: 1,
     justifyContent: "space-around",
-    marginBottom: 10,
-    paddingBottom: 1,
-    marginLeft: 165,
-    marginRight: 165,
+    marginBottom: -30,
+    paddingBottom: 60,
   },
 });

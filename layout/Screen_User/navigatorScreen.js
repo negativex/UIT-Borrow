@@ -2,10 +2,12 @@ import { View, Text, Image, Dimensions } from "react-native";
 import React from "react";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { createStackNavigator } from "@react-navigation/stack";
+import { BlurView } from "@react-native-community/blur";
 import Home from "./home";
 import Cart from "./cart";
 import Profile from "./profile";
 import Detail from "./detail";
+
 const Tab = createBottomTabNavigator();
 
 const BottomTabNavigator = () => {
@@ -22,7 +24,8 @@ const BottomTabNavigator = () => {
           borderRadius: 90,
           marginHorizontal: 25,
           marginVertical: 1,
-          // opacity: 0.8,
+          keyboardHidesTabBar: true,      
+           //opacity: 0.5,
         },
       }}
     >
@@ -40,7 +43,7 @@ const BottomTabNavigator = () => {
           },
           tabBarIcon: ({ focused }) => (
             <Image
-              source={require("./images/home_nav.png")}
+              source={require("../images/home_nav.png")}
               style={{
                 width: 35,
                 height: 35,
@@ -67,7 +70,7 @@ const BottomTabNavigator = () => {
           },
           tabBarIcon: ({ focused }) => (
             <Image
-              source={require("./images/items.png")}
+              source={require("../images/items.png")}
               style={{
                 width: 40,
                 height: 40,
@@ -93,7 +96,7 @@ const BottomTabNavigator = () => {
           },
           tabBarIcon: ({ focused }) => (
             <Image
-              source={require("./images/user_nav.png")}
+              source={require("../images/user_nav.png")}
               style={{
                 width: 35,
                 height: 35,
