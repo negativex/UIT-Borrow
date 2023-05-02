@@ -9,6 +9,8 @@ import HomeStackNavigator from "./layout/Screen_User/navigatorScreen";
 import Detail from "./layout/Screen_User/detail";
 import Profile from "./layout/Screen_User/profile";
 import LoginScreen from "./layout/Screen_User/login";
+import Admin_device_type from "./layout/Screen_Admin/device_type"
+import Admin_devices_management from "./layout/Screen_Admin/devices"
 
 const Stack = createStackNavigator();
 const App = () => {
@@ -28,9 +30,22 @@ const App = () => {
     // </NavigationContainer>
 
     // NavigatorScreen
-     <NavigationContainer>
-      <Stack.Navigator initialRouteName='Navigator' headerMode="none">
-        <Stack.Screen name="Navigator" component={HomeStackNavigator} />
+    //  <NavigationContainer>
+    //   <Stack.Navigator initialRouteName='Navigator' headerMode="none">
+    //     <Stack.Screen name="Navigator" component={HomeStackNavigator} />
+    //   </Stack.Navigator>
+    // </NavigationContainer>
+    
+    //device_type_admin_screen
+    // <NavigationContainer>
+    // <Stack.Navigator initialRouteName='Navigator' headerMode="none">
+    //     <Stack.Screen name="Navigator" component={Admin_device_type} />
+    //   </Stack.Navigator>
+    // </NavigationContainer>
+    //device_type_admin_screen
+    <NavigationContainer>
+    <Stack.Navigator initialRouteName='Navigator' headerMode="none">
+        <Stack.Screen name="Navigator" component={Admin_devices_management} />
       </Stack.Navigator>
     </NavigationContainer>
 
