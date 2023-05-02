@@ -72,7 +72,7 @@ export default class Detail extends React.Component {
                   color: "#EA5455",
                 }}
               >
-                Chi Tiết Thiết Bị
+                Chi Tiết Thiết Bị 123
               </Text>
             </View>
           </View>
