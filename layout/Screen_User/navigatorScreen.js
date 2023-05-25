@@ -4,7 +4,6 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { createStackNavigator } from "@react-navigation/stack";
 import { BlurView } from "@react-native-community/blur";
 import Home from "./home";
-import Cart from "./cart";
 import Profile from "./profile";
 import Detail from "./detail";
 
@@ -35,7 +34,7 @@ const BottomTabNavigator = () => {
         component={Home}
         options={{
           tabBarLabel: "",
-          title: "Home",
+          title: "Quét Mã",
           headerTitleAlign: "center",
           headerTitleStyle: {
             fontWeight: "bold",
@@ -43,7 +42,7 @@ const BottomTabNavigator = () => {
           },
           tabBarIcon: ({ focused }) => (
             <Image
-              source={require("../images/home_nav.png")}
+              source={require("../images/qr-code.png")}
               style={{
                 width: 35,
                 height: 35,
@@ -55,7 +54,7 @@ const BottomTabNavigator = () => {
         }}
       ></Tab.Screen>
 
-      {/* cart */}
+      {/* cart
       <Tab.Screen
         name="Cart"
         component={Cart}
@@ -80,7 +79,7 @@ const BottomTabNavigator = () => {
             ></Image>
           ),
         }}
-      ></Tab.Screen>
+      ></Tab.Screen> */}
 
       {/* Profile */}
       <Tab.Screen
@@ -88,7 +87,7 @@ const BottomTabNavigator = () => {
         component={Profile}
         options={{
           tabBarLabel: "",
-          title: "Profile",
+          title: "Thông Tin Cá Nhân",
           headerTitleAlign: "center",
           headerTitleStyle: {
             fontWeight: "bold",

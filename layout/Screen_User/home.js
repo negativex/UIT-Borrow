@@ -20,29 +20,18 @@ const Home = ({ navigation }) => {
       <View
         style={{
           backgroundColor: "#EA5455",
-          height: "20%",
+          height: "22%",
           borderBottomLeftRadius: 20,
           borderBottomRightRadius: 20,
           paddingHorizontal: 20,
         }}
       >
-        {/* Image User */}
-        <Image
-          source={require("../images/Scroll_Top.png")}
-          style={{
-            height: 35,
-            width: 35,
-            marginTop: 15,
-            marginLeft: -15,
-          }}
-        ></Image>
-
         {/* Name profile */}
         <View
           style={{
             flexDirection: "row",
             alignItems: "center",
-            marginTop: -20,
+            marginTop: 10,
             paddingLeft: 55,
             width: "100%",
           }}
@@ -58,8 +47,12 @@ const Home = ({ navigation }) => {
             >
               Ngoc Tran{"\n"}
               <Text
-              style={{
-                fontSize: 15,}}>MSSV: 20521668</Text>
+                style={{
+                  fontSize: 15,
+                }}
+              >
+                MSSV: 20521668
+              </Text>
             </Text>
           </View>
           <View style={{ width: "40%", alignItems: "flex-end" }}>
@@ -78,7 +71,7 @@ const Home = ({ navigation }) => {
             left: 0,
             right: 0,
             height: 90,
-            marginTop: 50,
+            marginTop: 60,
           }}
         >
           {/* Style Search Bar */}
@@ -87,74 +80,45 @@ const Home = ({ navigation }) => {
               backgroundColor: "#FFF",
               paddingVertical: 12,
               paddingHorizontal: 20,
-              marginHorizontal: 20,
+              marginHorizontal: 80,
               borderRadius: 15,
-              marginTop: -30,
+              marginTop: -50,
               flexDirection: "row",
               alignItems: "center",
             }}
           >
             {/* Input Search */}
             <TextInput
-              placeholder="Search"
+              placeholder="Xem Thông Tin Cá Nhân"
               placeholderTextColor="#EA5455"
               style={{
-                fontSize: 13,
+                fontSize: 14,
                 width: 260,
               }}
             ></TextInput>
-
-            {/* Search Image */}
-            <Image
-              source={require("../images/search_bottom.png")}
-              style={{ height: 20, width: 20 }}
-            ></Image>
           </View>
         </LinearGradient>
+        <View>
+          <Image
+            source={require("../images/qr-code_white.png")}
+            style={{
+              height: 250,
+              width: 250,
+              marginHorizontal: 50,
+              marginTop: -10,
+            }}
+          ></Image>
 
-        {/* Embedded Devices */}
-        <View
-          style={{
-            flexDirection: "row",
-            paddingHorizontal: 20,
-            width: "100%",
-            alignItems: "center",
-          }}
-        >
-          {/* Style Input Devices View*/}
-          <View style={{ width: "55%" }}>
-            <Text
-              style={{
-                fontWeight: "bold",
-                fontSize: 18,
-                marginTop: -35,
-                marginLeft: -15,
-                color: "#fff",
-                flexDirection: "row",
-              }}
-            >
-              Máy Tính Nhúng
-            </Text>
-            <View
-              style={{
-                height: 4,
-                backgroundColor: "#EA5455",
-                width: 115,
-                marginTop: 5,
-                marginLeft: -15,
-              }}
-            ></View>
-          </View>
-
-          {/* Style Button More */}
-          <View style={{ width: "40%", alignItems: "flex-end" }}>
+          <View style={{ width: "90%", alignItems: "center" }}>
             <View
               style={{
                 backgroundColor: "#EA5455",
                 paddingHorizontal: 10,
-                marginTop: -35,
+                marginHorizontal: 50,
+                marginTop: 50,
                 paddingVertical: 6,
                 borderRadius: 10,
+                marginLeft: 70,
               }}
             >
               <Text
@@ -164,348 +128,10 @@ const Home = ({ navigation }) => {
                   color: "#fff",
                 }}
               >
-                Xem Thêm
+                Quét Mã
               </Text>
             </View>
           </View>
-        </View>
-
-        {/* Scrolling Embedded*/}
-        <View>
-          <ScrollView
-            horizontal
-            showsHorizontalScrollIndicator={false}
-            style={{ height: 200 }}
-          >
-            {/* Raspi */}
-            <TouchableOpacity onPress={() => navigation.navigate("Detail")}>
-              <View
-                style={{
-                  flexDirection: "row",
-                  paddingTop: 10,
-                  backgroundColor: "#fff",
-                  paddingVertical: 15,
-                  paddingHorizontal: -9,
-                  marginHorizontal: 10,
-                  borderRadius: 15,
-                  marginTop: 20,
-                  alignItems: "center",
-                }}
-              >
-                <Text
-                  style={{
-                    fontWeight: "bold",
-                    paddingLeft: 30,
-                    fontSize: 15,
-                    color: "#EA5455",
-                  }}
-                >
-                  Raspberry Pi 3
-                </Text>
-              </View>
-              <Image
-                source={require("../images/raspi.png")}
-                style={{
-                  height: SCREEN_WIDTH * 0.3,
-                  width: SCREEN_WIDTH * 0.45,
-                  marginTop: SCREEN_WIDTH * 0.01,
-                }}
-              ></Image>
-            </TouchableOpacity>
-
-            {/* Arduino1 */}
-            <TouchableOpacity onPress={() => navigation.navigate("Detail")}>
-              <View
-                style={{
-                  flexDirection: "row",
-                  backgroundColor: "#fff",
-                  paddingVertical: 10,
-                  borderRadius: 15,
-                  marginTop: 20,
-                  marginLeft: 20,
-                  marginRight: 0,
-                  alignItems: "center",
-                }}
-              >
-                <Text
-                  style={{
-                    fontWeight: "bold",
-                    paddingLeft: 35,
-                    fontSize: 15,
-                    color: "#EA5455",
-                  }}
-                >
-                  Arduino Uno
-                </Text>
-              </View>
-              <Image
-                source={require("../images/arduino.png")}
-                style={{
-                  height: SCREEN_WIDTH * 0.3,
-                  width: SCREEN_WIDTH * 0.4,
-                  marginTop: SCREEN_WIDTH * 0.03,
-                  marginLeft: SCREEN_WIDTH * 0.03,
-                }}
-              ></Image>
-            </TouchableOpacity>
-
-            {/* Arduino 2 */}
-            <TouchableOpacity onPress={() => navigation.navigate("Detail")}>
-              <View
-                style={{
-                  flexDirection: "row",
-                  backgroundColor: "#fff",
-                  paddingVertical: 10,
-                  borderRadius: 15,
-                  marginTop: 20,
-                  marginLeft: 20,
-                  marginRight: 0,
-                  alignItems: "center",
-                }}
-              >
-                <Text
-                  style={{
-                    fontWeight: "bold",
-                    paddingLeft: 35,
-                    fontSize: 15,
-                    color: "#EA5455",
-                  }}
-                >
-                  Arduino Uno
-                </Text>
-              </View>
-              <Image
-                source={require("../images/arduino.png")}
-                style={{
-                  height: SCREEN_WIDTH * 0.3,
-                  width: SCREEN_WIDTH * 0.4,
-                  marginTop: SCREEN_WIDTH * 0.03,
-                  marginLeft: SCREEN_WIDTH * 0.03,
-                }}
-              ></Image>
-            </TouchableOpacity>
-          </ScrollView>
-        </View>
-
-        <View
-          style={{
-            height: 1,
-            backgroundColor: "#EA5455",
-            width: 340,
-            marginTop: 10,
-            marginLeft: -15,
-            borderRadius: 30,
-          }}
-        ></View>
-
-        {/* Cables/Wires*/}
-        <View
-          style={{
-            flexDirection: "row",
-            paddingHorizontal: 20,
-            width: "100%",
-            alignItems: "center",
-          }}
-        >
-          {/* Style Input Devices View*/}
-          <View style={{ width: "55%" }}>
-            <Text
-              style={{
-                fontWeight: "bold",
-                fontSize: 18,
-                marginTop: 15,
-                marginLeft: -15,
-                color: "#fff",
-                flexDirection: "row",
-              }}
-            >
-              Dây Cáp/Dây Nạp
-            </Text>
-            <View
-              style={{
-                height: 4,
-                backgroundColor: "#EA5455",
-                width: 115,
-                marginTop: 5,
-                marginLeft: -15,
-              }}
-            ></View>
-          </View>
-
-          {/* Style Button More */}
-          <View style={{ width: "40%", alignItems: "flex-end" }}>
-            <View
-              style={{
-                backgroundColor: "#EA5455",
-                paddingHorizontal: 10,
-                marginTop: 15,
-                paddingVertical: 6,
-                borderRadius: 10,
-              }}
-            >
-              <Text
-                style={{
-                  fontWeight: "bold",
-                  fontSize: 18,
-                  color: "#fff",
-                }}
-              >
-                Xem Thêm
-              </Text>
-            </View>
-          </View>
-        </View>
-
-        {/* Scrolling Cables/Wires*/}
-        <View>
-          <ScrollView
-            horizontal
-            showsHorizontalScrollIndicator={false}
-            style={{ height: 280 }}
-          >
-            {/* Wire */}
-            <TouchableOpacity onPress={() => navigation.navigate("Detail")}>
-              <View
-                style={{
-                  flexDirection: "row",
-                  backgroundColor: "#fff",
-                  paddingVertical: 10,
-                  marginLeft: 10,
-                  borderRadius: 15,
-                  marginTop: 20,
-                  alignItems: "center",
-                }}
-              >
-                <Text
-                  style={{
-                    fontWeight: "bold",
-                    paddingLeft: 10,
-                    fontSize: 15,
-                    color: "#EA5455",
-                  }}
-                >
-                  Dây Nối
-                </Text>
-              </View>
-              <Image
-                source={require("../images/wires.png")}
-                style={{
-                  height: SCREEN_WIDTH * 0.25,
-                  width: SCREEN_WIDTH * 0.18,
-                  marginTop: SCREEN_WIDTH * 0.03,
-                  marginLeft: SCREEN_WIDTH * 0.03,
-                }}
-              ></Image>
-            </TouchableOpacity>
-
-            {/* Core2 */}
-            <TouchableOpacity onPress={() => navigation.navigate("Detail")}>
-              <View
-                style={{
-                  flexDirection: "row",
-                  backgroundColor: "#fff",
-                  paddingVertical: 10,
-                  borderRadius: 15,
-                  marginTop: 20,
-                  marginLeft: 20,
-                  marginRight: 0,
-                  alignItems: "center",
-                }}
-              >
-                <Text
-                  style={{
-                    fontWeight: "bold",
-                    paddingLeft: 29,
-                    fontSize: 15,
-                    color: "#EA5455",
-                  }}
-                >
-                  2 Lõi
-                </Text>
-              </View>
-              <Image
-                source={require("../images/2cores.png")}
-                style={{
-                  height: SCREEN_WIDTH * 0.25,
-                  width: SCREEN_WIDTH * 0.25,
-                  marginTop: SCREEN_WIDTH * 0.03,
-                  marginLeft: SCREEN_WIDTH * 0.03,
-                }}
-              ></Image>
-            </TouchableOpacity>
-
-            {/* Core 4 */}
-            <TouchableOpacity onPress={() => navigation.navigate("Detail")}>
-              <View
-                style={{
-                  flexDirection: "row",
-                  backgroundColor: "#fff",
-                  paddingVertical: 10,
-                  borderRadius: 15,
-                  marginTop: 20,
-                  marginLeft: 20,
-                  marginRight: 0,
-                  alignItems: "center",
-                }}
-              >
-                <Text
-                  style={{
-                    fontWeight: "bold",
-                    paddingLeft: 29,
-                    fontSize: 15,
-                    color: "#EA5455",
-                  }}
-                >
-                  4 Lõi
-                </Text>
-              </View>
-              <Image
-                source={require("../images/3cores.png")}
-                style={{
-                  height: SCREEN_WIDTH * 0.25,
-                  width: SCREEN_WIDTH * 0.25,
-                  marginTop: SCREEN_WIDTH * 0.03,
-                  marginLeft: SCREEN_WIDTH * 0.03,
-                }}
-              ></Image>
-            </TouchableOpacity>
-
-            {/* Core 4 */}
-            <TouchableOpacity onPress={() => navigation.navigate("Detail")}>
-              <View
-                style={{
-                  flexDirection: "row",
-                  backgroundColor: "#fff",
-                  paddingVertical: 10,
-                  borderRadius: 15,
-                  marginTop: 20,
-                  marginLeft: 20,
-                  marginRight: 0,
-                  alignItems: "center",
-                }}
-              >
-                <Text
-                  style={{
-                    fontWeight: "bold",
-                    paddingLeft: 29,
-                    fontSize: 15,
-                    color: "#EA5455",
-                  }}
-                >
-                  4 Lõi
-                </Text>
-              </View>
-              <Image
-                source={require("../images/3cores.png")}
-                style={{
-                  height: SCREEN_WIDTH * 0.25,
-                  width: SCREEN_WIDTH * 0.25,
-                  marginTop: SCREEN_WIDTH * 0.03,
-                  marginLeft: SCREEN_WIDTH * 0.03,
-                }}
-              ></Image>
-            </TouchableOpacity>
-          </ScrollView>
         </View>
       </View>
     </ScrollView>
