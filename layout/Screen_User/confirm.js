@@ -1,7 +1,7 @@
-import { View, Text, Image, Dimensions } from "react-native";
-import React from "react";
+import { View, Text } from 'react-native'
+import React from 'react'
 
-const Profile = () => {
+const confirm = () => {
   return (
     <View style={{ backgroundColor: "black", flex: 1 }}>
       <View
@@ -53,6 +53,6 @@ const Profile = () => {
       </View>
     </View>
   );
-};
+}
 
-export default Profile;
+export default confirm

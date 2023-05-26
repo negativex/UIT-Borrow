@@ -32,18 +32,26 @@ const App = () => {
     //   </Stack.Navigator>
     // </NavigationContainer>
 
-    // NavigatorScreen
-    //  <NavigationContainer>
-    //   <Stack.Navigator initialRouteName='Navigator' headerMode="none">
-    //     <Stack.Screen name="Navigator" component={HomeStackNavigator} />
-    //   </Stack.Navigator>
-    // </NavigationContainer>
-    
-    <NavigationContainer>
-    <Stack.Navigator initialRouteName='Navigator' headerMode="none">
-        <Stack.Screen name="Navigator" component={Admin_user_details} />
+   // NavigatorScreen
+     <NavigationContainer>
+      <Stack.Navigator initialRouteName='Navigator' headerMode="none">
+        <Stack.Screen name="Navigator" component={HomeStackNavigator} />
       </Stack.Navigator>
     </NavigationContainer>
+    
+    //device_type_admin_screen
+    // <NavigationContainer>
+    // <Stack.Navigator initialRouteName='Navigator' headerMode="none">
+    //     <Stack.Screen name="Navigator" component={Admin_device_type} />
+    //   </Stack.Navigator>
+    // </NavigationContainer>
+    //device_type_admin_screen
+    // <NavigationContainer>
+    // <Stack.Navigator initialRouteName='Navigator' headerMode="none">
+    //     <Stack.Screen name="Navigator" component={Admin_devices_management} />
+    //   </Stack.Navigator>
+    // </NavigationContainer>
+
 
     //Detail Screen
     // <NavigationContainer>

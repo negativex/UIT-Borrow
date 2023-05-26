@@ -237,7 +237,7 @@ export default class Detail extends React.Component {
           }}
         >
           <Image
-            source={require("../images/add.png")}
+            source={require("../images/qr-code.png")}
             style={{
               alignItems: "center",
               width: 25,
