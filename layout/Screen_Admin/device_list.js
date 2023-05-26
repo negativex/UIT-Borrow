@@ -143,7 +143,7 @@ const Home = ({ navigation }) => {
         keyExtractor={item => item.id}
       />
     </SafeAreaView>
-    {/* Style Button More */}
+    {/* Style Button Back to top */}
     <View style={{ width: "100%", alignItems: "flex-end" }}>
             <View
               style={{
@@ -163,7 +163,7 @@ const Home = ({ navigation }) => {
                   color: "#fff",
                 }}
               >
-                Top
+                Lên đầu
               </Text>
             </View>
           </View>

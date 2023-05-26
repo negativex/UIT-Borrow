@@ -12,7 +12,7 @@ const Home = ({ navigation }) => {
     // Top View
     <ScrollView
       style={{
-        backgroundColor: "#000",
+        backgroundColor: "#FFF",
         flex: 1,
       }}
     >
@@ -85,7 +85,7 @@ const Home = ({ navigation }) => {
                 fontSize: 18,
                 marginTop: 35,
                 marginLeft: -15,
-                color: "#fff",
+                color: "#EA5455",
                 flexDirection: "row",
               }}
             >
@@ -134,7 +134,7 @@ const Home = ({ navigation }) => {
             style={{ height: 200 }}
           >
             {/* Raspi */}
-            <TouchableOpacity onPress={() => navigation.navigate("Detail")}>
+            <TouchableOpacity onPress={() => navigation.navigate("../Screen_User/detail.js")}>
               <View
                 style={{
                   flexDirection: "row",
@@ -171,7 +171,7 @@ const Home = ({ navigation }) => {
             </TouchableOpacity>
 
             {/* Arduino1 */}
-            <TouchableOpacity onPress={() => navigation.navigate("Detail")}>
+            <TouchableOpacity onPress={() => navigation.navigate("../Screen_User/detail.js")}>
               <View
                 style={{
                   flexDirection: "row",
@@ -208,7 +208,7 @@ const Home = ({ navigation }) => {
             </TouchableOpacity>
 
             {/* Arduino 2 */}
-            <TouchableOpacity onPress={() => navigation.navigate("Detail")}>
+            <TouchableOpacity onPress={() => navigation.navigate("../Screen_User/detail.js")}>
               <View
                 style={{
                   flexDirection: "row",
@@ -274,7 +274,7 @@ const Home = ({ navigation }) => {
                 fontSize: 18,
                 marginTop: 15,
                 marginLeft: -15,
-                color: "#fff",
+                color: "#EA5455",
                 flexDirection: "row",
               }}
             >
@@ -323,7 +323,7 @@ const Home = ({ navigation }) => {
             style={{ height: 280 }}
           >
             {/* Wire */}
-            <TouchableOpacity onPress={() => navigation.navigate("Detail")}>
+            <TouchableOpacity onPress={() => navigation.navigate("../Screen_User/detail.js")}>
               <View
                 style={{
                   flexDirection: "row",
@@ -359,7 +359,7 @@ const Home = ({ navigation }) => {
             </TouchableOpacity>
 
             {/* Core2 */}
-            <TouchableOpacity onPress={() => navigation.navigate("Detail")}>
+            <TouchableOpacity onPress={() => navigation.navigate("../Screen_User/detail.js")}>
               <View
                 style={{
                   flexDirection: "row",
@@ -396,7 +396,7 @@ const Home = ({ navigation }) => {
             </TouchableOpacity>
 
             {/* Core 4 */}
-            <TouchableOpacity onPress={() => navigation.navigate("Detail")}>
+            <TouchableOpacity onPress={() => navigation.navigate("../Screen_User/detail.js")}>
               <View
                 style={{
                   flexDirection: "row",
@@ -433,7 +433,7 @@ const Home = ({ navigation }) => {
             </TouchableOpacity>
 
             {/* Core 4 */}
-            <TouchableOpacity onPress={() => navigation.navigate("Detail")}>
+            <TouchableOpacity onPress={() => navigation.navigate("../Screen_User/detail.js")}>
               <View
                 style={{
                   flexDirection: "row",
