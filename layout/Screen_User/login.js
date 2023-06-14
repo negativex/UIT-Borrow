@@ -6,11 +6,21 @@ import {
   TouchableOpacity,
   ScrollView,
   Image,
+  Alert,
 } from "react-native";
-import React, { useState } from "react";
+import React, { useEffect,useState } from "react";
 import { Icon, Input, Item, Label } from "native-base";
+import colors from "../colors/colors";
+import { createStackNavigator } from "@react-navigation/stack";
+import Home from "./home";
+import RegisterScreen from "./register";
+import { auth } from "../Firebase/firebase";
+import { createUserWithEmailAndPassword } from "firebase/auth";
+import { useNavigation } from "@react-navigation/core";
+import { signInWithEmailAndPassword } from "firebase/auth";
 
-const LoginScreen = ({ navigation }) => {
+
+const LoginScreen = () => {
   const [email, setEmail] = useState("");
   const onChangeEmail = (newEmail) => {
     setEmail(newEmail);
@@ -19,27 +29,46 @@ const LoginScreen = ({ navigation }) => {
 
   const onChangePassword = (newPassword) => {
     setPassword(newPassword);
+  };  
+  const navigation = useNavigation();
+
+  useEffect(() => {
+    const unsubscribe = auth.onAuthStateChanged((user) => {
+      if (user) {
+        navigation.replace("home");
+      }
+    });
+
+    return unsubscribe;
+  }, []);
+
+  const handleLogin = () => {
+      signInWithEmailAndPassword(auth, email, password)
+        .then((userCredentials) => {
+          const user = userCredentials.user;
+          console.log("Đăng nhập với tài khoản:", user.email);
+        })
+        .catch((error) =>
+          Alert.alert(
+            "Đăng nhập thất bại",
+            "Tài khoản/mật khẩu chưa đúng",
+            [{ text: "Đóng", onPress: () => console.log("alert close") }]
+          )
+        );
   };
+
   return (
     <ScrollView
-      style={{ flex: 1, backgroundColor: "black" }}
+      style={{ flex: 1, backgroundColor: colors.blue }}
       showsVerticalScrollIndicator={false}
     >
-      <View
-        style={{
-          backgroundColor: "#fff",
-          height: "30%",
-          borderBottomLeftRadius: 50,
-          borderBottomRightRadius: 50,
-          paddingHorizontal: 20,
-        }}
-      >
+      <View>
         {/* Name */}
         <View
           style={{
             flexDirection: "column",
             alignItems: "center",
-            marginTop: -45,
+            marginTop: -55,
             paddingLeft: -5,
             width: "100%",
           }}
@@ -47,13 +76,13 @@ const LoginScreen = ({ navigation }) => {
           <View style={{ width: "110%", alignItems: "center" }}>
             <Text
               style={{
-                fontSize: 22,
+                fontSize: 30,
                 color: "#000",
                 fontWeight: "bold",
-                marginTop: 90,
+                marginTop: 120,
               }}
             >
-              University of Information Technology
+              Welcome To Room E3.1
             </Text>
           </View>
 
@@ -61,19 +90,10 @@ const LoginScreen = ({ navigation }) => {
           <View style={{ width: "100%" }}>
             <Image
               source={require("../images/logo_uit.png")}
-              style={{ marginLeft: 30, marginTop: 10 }}
+              style={{ marginLeft: 50, marginTop: 10 }}
             ></Image>
           </View>
-          <View
-            style={{
-              height: 4,
-              backgroundColor: "#EA5455",
-              width: 230,
-              marginTop: 10,
-              marginLeft: -15,
-              borderRadius: 30,
-            }}
-          ></View>
+          <View></View>
         </View>
       </View>
 
@@ -81,36 +101,33 @@ const LoginScreen = ({ navigation }) => {
       <View style={styles.bottomView}>
         {/* welcome view */}
         <View style={{ padding: 20 }}>
-          <Text style={{ color: "#000", fontSize: 22, fontWeight: "bold" }}>
-            Welcome To Room E3.1
-          </Text>
-          <Text style={{ paddingTop: 5, fontSize: 15 }}>
-            Use Verified Account To Log In
-          </Text>
-          <Text style={{ paddingTop: 5, fontSize: 15 }}>
-            Don't Have Account?
-            <Text style={{ color: "#EA5455", fontStyle: "italic" }}>
-              {"    "}Register
-            </Text>
-          </Text>
-          <View
+          <Text
             style={{
-              height: 4,
-              backgroundColor: "#EA5455",
-              width: 270,
-              marginTop: 7,
-              marginLeft: -9,
-              borderRadius: 30,
+              color: "#000",
+              fontSize: 35,
+              fontWeight: "bold",
+              paddingHorizontal: 75,
             }}
-          ></View>
+          >
+            Đăng Nhập
+          </Text>
         </View>
-
+        <View
+          style={{
+            height: 1,
+            backgroundColor: "#000",
+            width: 250,
+            marginTop: 0,
+            marginLeft: 55,
+            borderRadius: 30,
+          }}
+        ></View>
         {/* form input view */}
         <View style={{ padding: 30, paddingTop: 34 }}>
           <Item
             floatingLabel
             style={{
-              borderColor: "#EA5455",
+              borderColor: colors.blue,
               borderRadius: 20,
               paddingBottom: -10,
             }}
@@ -134,7 +151,7 @@ const LoginScreen = ({ navigation }) => {
           <Item
             floatingLabel
             style={{
-              borderColor: "#EA5455",
+              borderColor: colors.blue,
               marginTop: 30,
               borderRadius: 20,
               paddingStart: 20,
@@ -154,33 +171,49 @@ const LoginScreen = ({ navigation }) => {
             ></Icon>
           </Item>
         </View>
+        <TouchableOpacity onPress={() => navigation.navigate("register")}>
+          <Text
+            style={{
+              paddingTop: -5,
+              fontSize: 15,
+              paddingHorizontal: 20,
+              marginStart: 130,
+              padding: 15,
+            }}
+          >
+            Chưa có tài khoản?{"  "}
+            <Text
+              style={{
+                color: colors.primary,
+                fontStyle: "italic",
+                textDecorationLine: "underline",
+              }}
+            >
+              Đăng ký
+            </Text>
+          </Text>
+        </TouchableOpacity>
 
         {/* button Login */}
-        <TouchableOpacity style={styles.buttonContainer}>
-          <Text style={styles.buttonText}>Login</Text>
-        </TouchableOpacity>
-
-        {/* login with social acc */}
-        <TouchableOpacity style={styles.socialLogin}>
-          <Icon
-            type="MaterialCommunityIcons"
-            name="google"
-            style={{ fontSize: 45 }}
-          ></Icon>
-        </TouchableOpacity>
+        
+          <TouchableOpacity
+            style={styles.buttonContainer}
+            onPress={handleLogin}
+          >
+            <Text style={styles.buttonText}>Đăng Nhập</Text>
+          </TouchableOpacity>
+        
       </View>
     </ScrollView>
   );
 };
-export default LoginScreen;
 
 const styles = StyleSheet.create({
   bottomView: {
     flex: 1,
     marginTop: 25,
-    paddingBottom: 90,
+    paddingBottom: 130,
     backgroundColor: "#fff",
-    height: "100%",
     borderTopLeftRadius: 40,
     borderTopRightRadius: 40,
     paddingHorizontal: 10,
@@ -191,10 +224,9 @@ const styles = StyleSheet.create({
     backgroundColor: "#000",
     borderRadius: 20,
     paddingVertical: 10,
-    paddingHorizontal: 10,
     marginBottom: 20,
-    marginEnd: 100,
-    marginStart: 100,
+    marginEnd: 90,
+    marginStart: 90,
   },
   buttonText: {
     fontSize: 20,
@@ -204,13 +236,21 @@ const styles = StyleSheet.create({
   },
 
   //Login with social acc
-  socialLogin: {
-    flexDirection: "row",
-    flex: 1,
-    justifyContent: "space-around",
-    marginBottom: 10,
-    paddingBottom: 1,
-    marginLeft: 165,
-    marginRight: 165,
-  },
 });
+
+const Stack = createStackNavigator();
+const screenOptionStyle = {
+  headerShown: false,
+};
+
+const LoginStackNavigator = () => {
+  return (
+    <Stack.Navigator screenOptions={screenOptionStyle}>
+      <Stack.Screen name="login" component={LoginScreen}></Stack.Screen>
+      <Stack.Screen name="home" component={Home}></Stack.Screen>
+      <Stack.Screen name="register" component={RegisterScreen}></Stack.Screen>
+    </Stack.Navigator>
+  );
+};
+
+export default LoginStackNavigator;
