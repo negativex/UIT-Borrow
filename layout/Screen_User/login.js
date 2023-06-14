@@ -16,8 +16,9 @@ import Home from "./home";
 import RegisterScreen from "./register";
 import { auth } from "../Firebase/firebase";
 import { createUserWithEmailAndPassword } from "firebase/auth";
-
  
+import { signInWithEmailAndPassword } from "firebase/auth";
+
 
 const LoginScreen = ({ navigation }) => {
   const [email, setEmail] = useState("");
@@ -31,13 +32,10 @@ const LoginScreen = ({ navigation }) => {
   };  
 
   const handleLogin = () => {
-      createUserWithEmailAndPassword(auth, email, password)
+      signInWithEmailAndPassword(auth, email, password)
         .then((userCredentials) => {
           const user = userCredentials.user;
           console.log("Đăng nhập với tài khoản:", user.email);
-          Alert.alert("Đăng nhập thành công","Chào mừng bạn đến với ứng dụng",[
-            {text:"Đóng", onPress:()=>console.log('alert close')}
-          ])
         })
         .catch((error) => alert(error.message));
   };
@@ -180,7 +178,10 @@ const LoginScreen = ({ navigation }) => {
         </TouchableOpacity>
 
         {/* button Login */}
-        <TouchableOpacity style={styles.buttonContainer} onPress={handleLogin}>
+        <TouchableOpacity
+          style={styles.buttonContainer}
+          onPress={() => handleLogin}
+        >
           <Text style={styles.buttonText}>Đăng Nhập</Text>
         </TouchableOpacity>
       </View>
