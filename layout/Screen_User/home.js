@@ -1,12 +1,12 @@
 import { View, Text, Image, Dimensions } from "react-native";
 import React from "react";
 import {
-  TextInput,
   ScrollView,
   TouchableOpacity,
 } from "react-native-gesture-handler";
-import { LinearGradient } from "expo-linear-gradient";
 import colors from "../colors/colors";
+import { auth } from "../Firebase/firebase";
+
 const SCREEN_WIDTH = Dimensions.get("window").width;
 const Home = ({navigation}) => {
   return (
@@ -52,7 +52,7 @@ const Home = ({navigation}) => {
                   fontSize: 15,
                 }}
               >
-                MSSV: 20521668
+                {auth.currentUser?.email}
               </Text>
             </Text>
           </View>
@@ -67,36 +67,32 @@ const Home = ({navigation}) => {
 
         {/* Search */}
         <TouchableOpacity>
-          
+          <View
+            style={{
+              backgroundColor: colors.deepblue,
+              paddingVertical: 15,
+              paddingHorizontal: 20,
+              marginHorizontal: 80,
+              borderRadius: 15,
+              marginTop: 10,
+              flexDirection: "row",
+              marginBottom: 20,
+              alignItems: "center",
+            }}
+          >
+            {/* Input Search */}
 
-            <View
+            <Text
               style={{
-            
-                backgroundColor: colors.deepblue,
-                paddingVertical: 15,
-                paddingHorizontal: 20,
-                marginHorizontal: 80,
-                borderRadius: 15,
-                marginTop: 10,
-                flexDirection: "row",
-                marginBottom:20,
-                alignItems: "center",
+                fontSize: 14,
+                width: 260,
+                color: "#fff",
+                paddingLeft: 15,
               }}
             >
-              {/* Input Search */}
-
-              <Text
-                style={{
-                  fontSize: 14,
-                  width: 260,
-                  color: "#fff",
-                  paddingLeft: 15,
-                }}
-              >
-                Thông Tin Cá Nhân
-              </Text>
-            </View>
-          
+              Thông Tin Cá Nhân
+            </Text>
+          </View>
         </TouchableOpacity>
         <View>
           <Image
