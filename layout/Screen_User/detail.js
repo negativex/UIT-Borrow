@@ -236,7 +236,7 @@
 //             borderRadius: 25,
 //           }}
 //         >
-//           <Image
+//           {/* <Image
 //             source={require("../images/qr-code.png")}
 //             style={{
 //               alignItems: "center",
@@ -246,7 +246,7 @@
 //               marginLeft: -1,
 //               marginBottom: 20,
 //             }}
-//           ></Image>
+//           ></Image> */}
 //         </View>
 //       </View>
 //     );

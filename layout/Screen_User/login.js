@@ -7,7 +7,7 @@ import {
   Image,
   Alert,
 } from "react-native";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { Icon, Input, Item, Label } from "native-base";
 import colors from "../colors/colors";
 import { createStackNavigator } from "@react-navigation/stack";
@@ -122,7 +122,7 @@ const LoginScreen = ({}) => {
             }}
           >
             <Label style={{ paddingStart: 20, fontSize: 15, color: "black" }}>
-              Email Address
+              Địa chỉ Email
             </Label>
 
             <Input
@@ -147,7 +147,7 @@ const LoginScreen = ({}) => {
             }}
           >
             <Label style={{ paddingStart: 20, fontSize: 15, color: "black" }}>
-              Password
+              Mật khẩu
             </Label>
             <Input
               value={password}
