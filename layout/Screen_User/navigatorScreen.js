@@ -20,7 +20,7 @@ const BottomTabNavigator = () => {
           height: 60,
           position: "absolute",
           bottom: 20,
-          borderRadius: 90,
+          borderRadius: 20,
           marginHorizontal: 25,
           marginVertical: 1,
           keyboardHidesTabBar: true,      

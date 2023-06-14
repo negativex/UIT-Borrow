@@ -1,15 +1,16 @@
-import { StatusBar } from "expo-status-bar";
 import {
   Text,
   View,
-  Dimensions,
-  ImageBackground,
   StyleSheet,
   TouchableOpacity,
-  Image
+  ScrollView,
+  Image,
 } from "react-native";
 import React, { useState } from "react";
 import { Icon, Input, Item, Label } from "native-base";
+import colors from "../colors/colors";
+import { createStackNavigator } from "@react-navigation/stack";
+import LoginStackNavigator from "./login";
 
 const RegisterScreen = ({ navigation }) => {
   const [email, setEmail] = useState("");
@@ -26,27 +27,18 @@ const RegisterScreen = ({ navigation }) => {
   const onChangeNewPassword = (newNewPassword) => {
     setNewPassword(newNewPassword);
   };
-
   return (
-    <View
-      style={{ flex: 1, backgroundColor: "black" }}
+    <ScrollView
+      style={{ flex: 1, backgroundColor: colors.blue }}
       showsVerticalScrollIndicator={false}
     >
-      <View
-        style={{
-          backgroundColor: "#fff",
-          height: "30%",
-          borderBottomLeftRadius: 50,
-          borderBottomRightRadius: 50,
-          paddingHorizontal: 20,
-        }}
-      >
+      <View>
         {/* Name */}
         <View
           style={{
             flexDirection: "column",
             alignItems: "center",
-            marginTop: -45,
+            marginTop: -55,
             paddingLeft: -5,
             width: "100%",
           }}
@@ -54,13 +46,13 @@ const RegisterScreen = ({ navigation }) => {
           <View style={{ width: "110%", alignItems: "center" }}>
             <Text
               style={{
-                fontSize: 22,
+                fontSize: 30,
                 color: "#000",
                 fontWeight: "bold",
-                marginTop: 90,
+                marginTop: 120,
               }}
             >
-              University of Information Technology
+              Welcome To Room E3.1
             </Text>
           </View>
 
@@ -68,56 +60,50 @@ const RegisterScreen = ({ navigation }) => {
           <View style={{ width: "100%" }}>
             <Image
               source={require("../images/logo_uit.png")}
-              style={{ marginLeft: 30, marginTop: 10 }}
+              style={{ marginLeft: 50, marginTop: 10 }}
             ></Image>
           </View>
-          <View
-            style={{
-              height: 4,
-              backgroundColor: "#EA5455",
-              width: 230,
-              marginTop: 10,
-              marginLeft: -15,
-              borderRadius: 30,
-            }}
-          ></View>
+          <View></View>
         </View>
       </View>
 
       {/* bottom view*/}
       <View style={styles.bottomView}>
-        {/* register view */}
+        {/* welcome view */}
         <View style={{ padding: 20 }}>
-          <Text style={{ color: "#000", fontSize: 22, fontWeight: "bold" }}>
-            Welcome To Room E3.1
-          </Text>
-          <Text style={{ paddingBottom: 5, fontSize: 15 }}>
-            Fill All Information To Create New Account
-          </Text>
-          <View
+          <Text
             style={{
-              height: 4,
-              backgroundColor: "#EA5455",
-              width: 270,
-              marginTop: 7,
-              marginLeft: -9,
-              borderRadius: 30,
+              color: "#000",
+              fontSize: 35,
+              fontWeight: "bold",
+              paddingHorizontal: 90,
             }}
-          ></View>
+          >
+            Đăng Ký
+          </Text>
         </View>
-
+        <View
+          style={{
+            height: 1,
+            backgroundColor: "#000",
+            width: 250,
+            marginTop: 0,
+            marginLeft: 55,
+            borderRadius: 30,
+          }}
+        ></View>
         {/* form input view */}
         <View style={{ padding: 30, paddingTop: 34 }}>
           <Item
             floatingLabel
             style={{
-              borderColor: "#EA5455",
+              borderColor: colors.blue,
               borderRadius: 20,
               paddingBottom: -10,
             }}
           >
             <Label style={{ paddingStart: 20, fontSize: 15 }}>
-              Email Address
+              Địa chỉ Email
             </Label>
 
             <Input
@@ -135,13 +121,13 @@ const RegisterScreen = ({ navigation }) => {
           <Item
             floatingLabel
             style={{
-              borderColor: "#EA5455",
+              borderColor: colors.blue,
               marginTop: 30,
               borderRadius: 20,
               paddingStart: 20,
             }}
           >
-            <Label style={{ paddingStart: 20 }}>Set Your Password</Label>
+            <Label style={{ paddingStart: 20 }}>Nhập mật khẩu</Label>
             <Input
               value={password}
               onChangeText={onChangePassword}
@@ -156,13 +142,13 @@ const RegisterScreen = ({ navigation }) => {
           <Item
             floatingLabel
             style={{
-              borderColor: "#EA5455",
+              borderColor: colors.blue,
               marginTop: 30,
               borderRadius: 20,
               paddingStart: 20,
             }}
           >
-            <Label style={{ paddingStart: 20 }}>Retype Your Password</Label>
+            <Label style={{ paddingStart: 20 }}>Nhập lại mật khẩu</Label>
             <Input
               value={newpassword}
               onChangeText={onChangeNewPassword}
@@ -176,45 +162,36 @@ const RegisterScreen = ({ navigation }) => {
         </View>
 
         {/* button Login */}
-        <TouchableOpacity style={styles.buttonContainer}>
-          <Text style={styles.buttonText}>Register</Text>
-        </TouchableOpacity>
-
-        {/* login with social acc */}
-        <TouchableOpacity style={styles.socialLogin}>
-          <Icon
-            type="MaterialCommunityIcons"
-            name="google"
-            style={{ fontSize: 45 }}
-          ></Icon>
+        <TouchableOpacity
+          style={styles.buttonContainer}
+          onPress={() => navigation.navigate("login")}
+        >
+          <Text style={styles.buttonText}>Đăng Ký</Text>
         </TouchableOpacity>
       </View>
-    </View>
+    </ScrollView>
   );
 };
-export default RegisterScreen;
 
 const styles = StyleSheet.create({
   bottomView: {
     flex: 1,
     marginTop: 25,
-    paddingBottom: 90,
+    paddingBottom: 130,
     backgroundColor: "#fff",
     borderTopLeftRadius: 40,
     borderTopRightRadius: 40,
     paddingHorizontal: 10,
-    height: "100%",
   },
 
-  //button Login
+  //button Register
   buttonContainer: {
     backgroundColor: "#000",
     borderRadius: 20,
     paddingVertical: 10,
-    paddingHorizontal: 10,
     marginBottom: 20,
-    marginEnd: 100,
-    marginStart: 100,
+    marginEnd: 90,
+    marginStart: 90,
   },
   buttonText: {
     fontSize: 20,
@@ -223,12 +200,20 @@ const styles = StyleSheet.create({
     alignSelf: "center",
   },
 
-  //Login with social acc
-  socialLogin: {
-    flexDirection: "row",
-    flex: 1,
-    justifyContent: "space-around",
-    marginBottom: -30,
-    paddingBottom: 60,
-  },
 });
+
+const Stack = createStackNavigator();
+const screenOptionStyle = {
+  headerShown: false,
+};
+
+const RegisterStackNavigator = () => {
+  return (
+    <Stack.Navigator screenOptions={screenOptionStyle}>
+      <Stack.Screen name="register" component={RegisterScreen}></Stack.Screen>
+      <Stack.Screen name="login" component={LoginStackNavigator}></Stack.Screen>
+    </Stack.Navigator>
+  );
+};
+export default RegisterStackNavigator;
+
