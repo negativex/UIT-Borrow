@@ -6,21 +6,22 @@ import {
   TouchableOpacity,
 } from "react-native-gesture-handler";
 import { LinearGradient } from "expo-linear-gradient";
+import colors from "../colors/colors";
 const SCREEN_WIDTH = Dimensions.get("window").width;
-const Home = () => {
+const Home = ({navigation}) => {
   return (
     // Top View
     <ScrollView
       style={{
-        backgroundColor: "#000",
+        backgroundColor: "#fff",
         flex: 1,
       }}
     >
       {/* Style Top View */}
       <View
         style={{
-          backgroundColor: "#EA5455",
-          height: "22%",
+          backgroundColor: colors.blue,
+          height: "26%",
           borderBottomLeftRadius: 20,
           borderBottomRightRadius: 20,
           paddingHorizontal: 20,
@@ -31,7 +32,7 @@ const Home = () => {
           style={{
             flexDirection: "row",
             alignItems: "center",
-            marginTop: 10,
+            marginTop: 55,
             paddingLeft: 55,
             width: "100%",
           }}
@@ -41,7 +42,7 @@ const Home = () => {
             <Text
               style={{
                 fontSize: 25,
-                color: "#fff",
+                color: "#000",
                 fontWeight: "bold",
               }}
             >
@@ -65,54 +66,53 @@ const Home = () => {
         </View>
 
         {/* Search */}
-        <LinearGradient
-          colors={["transparent", "transparent"]}
-          style={{
-            left: 0,
-            right: 0,
-            height: 90,
-            marginTop: 60,
-          }}
-        >
-          {/* Style Search Bar */}
-          <View
-            style={{
-              backgroundColor: "#FFF",
-              paddingVertical: 12,
-              paddingHorizontal: 20,
-              marginHorizontal: 80,
-              borderRadius: 15,
-              marginTop: -50,
-              flexDirection: "row",
-              alignItems: "center",
-            }}
-          >
-            {/* Input Search */}
-            <TextInput
-              placeholder="Xem Thông Tin Cá Nhân"
-              placeholderTextColor="#EA5455"
+        <TouchableOpacity>
+          
+
+            <View
               style={{
-                fontSize: 14,
-                width: 260,
+            
+                backgroundColor: colors.deepblue,
+                paddingVertical: 15,
+                paddingHorizontal: 20,
+                marginHorizontal: 80,
+                borderRadius: 15,
+                marginTop: 10,
+                flexDirection: "row",
+                marginBottom:20,
+                alignItems: "center",
               }}
-            ></TextInput>
-          </View>
-        </LinearGradient>
+            >
+              {/* Input Search */}
+
+              <Text
+                style={{
+                  fontSize: 14,
+                  width: 260,
+                  color: "#fff",
+                  paddingLeft: 15,
+                }}
+              >
+                Thông Tin Cá Nhân
+              </Text>
+            </View>
+          
+        </TouchableOpacity>
         <View>
           <Image
-            source={require("../images/qr-code_white.png")}
+            source={require("../images/qr-scan.png")}
             style={{
               height: 250,
               width: 250,
               marginHorizontal: 50,
-              marginTop: -10,
+              marginTop: 80,
             }}
           ></Image>
 
           <View style={{ width: "90%", alignItems: "center" }}>
             <View
               style={{
-                backgroundColor: "#EA5455",
+                backgroundColor: "#000",
                 paddingHorizontal: 10,
                 marginHorizontal: 50,
                 marginTop: 50,
