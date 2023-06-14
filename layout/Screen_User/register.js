@@ -5,14 +5,16 @@ import {
   TouchableOpacity,
   ScrollView,
   Image,
+  Alert,
 } from "react-native";
 import React, { useState } from "react";
 import { Icon, Input, Item, Label } from "native-base";
 import colors from "../colors/colors";
-import { createStackNavigator } from "@react-navigation/stack";
-import LoginStackNavigator from "./login";
+import { createUserWithEmailAndPassword } from "firebase/auth";
+import { auth } from "../Firebase/firebase";
+import { useNavigation } from "@react-navigation/core";
 
-const RegisterScreen = ({ navigation }) => {
+const RegisterScreen = () => {
   const [email, setEmail] = useState("");
   const onChangeEmail = (newEmail) => {
     setEmail(newEmail);
@@ -27,6 +29,24 @@ const RegisterScreen = ({ navigation }) => {
   const onChangeNewPassword = (newNewPassword) => {
     setNewPassword(newNewPassword);
   };
+  const navigation = useNavigation();
+
+  const handleRegister = () => {
+    createUserWithEmailAndPassword(auth, email, password, newpassword)
+      .then((userCredentials) => {
+        const user = userCredentials.user;
+        console.log("Đăng ký tài khoản:", user.email);
+        Alert.alert("Đăng ký thành công", "Hãy đăng nhập ứng dụng", [
+          { text: "Đóng", onPress: () => console.log("alert close") },
+        ]);
+      })
+      .catch((error) =>
+        Alert.alert("Đăng nhập thành công", "Chào mừng bạn đến với ứng dụng", [
+          { text: "Đóng", onPress: () => console.log("alert close") },
+        ])
+      );
+  };
+
   return (
     <ScrollView
       style={{ flex: 1, backgroundColor: colors.blue }}
@@ -164,15 +184,38 @@ const RegisterScreen = ({ navigation }) => {
         {/* button Login */}
         <TouchableOpacity
           style={styles.buttonContainer}
-          onPress={() => navigation.navigate("login")}
+          onPress={handleRegister}
         >
           <Text style={styles.buttonText}>Đăng Ký</Text>
+        </TouchableOpacity>
+
+        <TouchableOpacity onPress={() => navigation.navigate("login")}>
+          <Text
+            style={{
+              paddingTop: -4,
+              fontSize: 15,
+              paddingHorizontal: 20,
+              marginStart: 50,
+              padding: 15,
+            }}
+          >
+            Bạn đã có có tài khoản?{"  "}
+            <Text
+              style={{
+                color: colors.primary,
+                fontStyle: "italic",
+                textDecorationLine: "underline",
+              }}
+            >
+              Đăng nhập
+            </Text>
+          </Text>
         </TouchableOpacity>
       </View>
     </ScrollView>
   );
 };
-
+export default RegisterScreen;
 const styles = StyleSheet.create({
   bottomView: {
     flex: 1,
@@ -199,21 +242,18 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     alignSelf: "center",
   },
-
 });
 
-const Stack = createStackNavigator();
-const screenOptionStyle = {
-  headerShown: false,
-};
+// const Stack = createStackNavigator();
+// const screenOptionStyle = {
+//   headerShown: false,
+// };
 
-const RegisterStackNavigator = () => {
-  return (
-    <Stack.Navigator screenOptions={screenOptionStyle}>
-      <Stack.Screen name="register" component={RegisterScreen}></Stack.Screen>
-      <Stack.Screen name="login" component={LoginStackNavigator}></Stack.Screen>
-    </Stack.Navigator>
-  );
-};
-export default RegisterStackNavigator;
-
+// const RegisterStackNavigator = () => {
+//   return (
+//     <Stack.Navigator screenOptions={screenOptionStyle}>
+//       <Stack.Screen name="register" component={RegisterScreen}></Stack.Screen>
+//       <Stack.Screen name="login" component={LoginStackNavigator}></Stack.Screen>
+//     </Stack.Navigator>
+//   );
+// };

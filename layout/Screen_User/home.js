@@ -7,7 +7,7 @@ import {
 } from "react-native-gesture-handler";
 import { LinearGradient } from "expo-linear-gradient";
 const SCREEN_WIDTH = Dimensions.get("window").width;
-const Home = ({ navigation }) => {
+const Home = () => {
   return (
     // Top View
     <ScrollView
