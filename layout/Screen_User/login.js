@@ -1,4 +1,3 @@
-import { StatusBar } from "expo-status-bar";
 import {
   Text,
   View,
@@ -8,19 +7,17 @@ import {
   Image,
   Alert,
 } from "react-native";
-import React, { useEffect,useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Icon, Input, Item, Label } from "native-base";
 import colors from "../colors/colors";
 import { createStackNavigator } from "@react-navigation/stack";
 import Home from "./home";
 import RegisterScreen from "./register";
 import { auth } from "../Firebase/firebase";
-import { createUserWithEmailAndPassword } from "firebase/auth";
 import { useNavigation } from "@react-navigation/core";
 import { signInWithEmailAndPassword } from "firebase/auth";
 
-
-const LoginScreen = () => {
+const LoginScreen = ({}) => {
   const [email, setEmail] = useState("");
   const onChangeEmail = (newEmail) => {
     setEmail(newEmail);
@@ -29,32 +26,24 @@ const LoginScreen = () => {
 
   const onChangePassword = (newPassword) => {
     setPassword(newPassword);
-  };  
+  };
   const navigation = useNavigation();
 
-  useEffect(() => {
-    const unsubscribe = auth.onAuthStateChanged((user) => {
-      if (user) {
-        navigation.replace("home");
-      }
-    });
-
-    return unsubscribe;
-  }, []);
-
   const handleLogin = () => {
-      signInWithEmailAndPassword(auth, email, password)
-        .then((userCredentials) => {
-          const user = userCredentials.user;
-          console.log("Đăng nhập với tài khoản:", user.email);
-        })
-        .catch((error) =>
-          Alert.alert(
-            "Đăng nhập thất bại",
-            "Tài khoản/mật khẩu chưa đúng",
-            [{ text: "Đóng", onPress: () => console.log("alert close") }]
-          )
-        );
+    signInWithEmailAndPassword(auth, email, password)
+      .then((userCredentials) => {
+        navigation.navigate("home");
+        const user = userCredentials.user;
+        console.log("Đăng nhập với tài khoản:", user.email);
+        Alert.alert("Đăng nhập thành công", "Chào mừng bạn đến với ứng dụng ứng dụng", [
+          { text: "Đóng", onPress: () => console.log("alert close") },
+        ]);
+      })
+      .catch(() =>
+        Alert.alert("Đăng nhập thất bại", "Tài khoản/mật khẩu chưa đúng", [
+          { text: "Đóng", onPress: () => console.log("alert close") },
+        ])
+      );
   };
 
   return (
@@ -195,14 +184,10 @@ const LoginScreen = () => {
         </TouchableOpacity>
 
         {/* button Login */}
-        
-          <TouchableOpacity
-            style={styles.buttonContainer}
-            onPress={handleLogin}
-          >
-            <Text style={styles.buttonText}>Đăng Nhập</Text>
-          </TouchableOpacity>
-        
+
+        <TouchableOpacity style={styles.buttonContainer} onPress={handleLogin}>
+          <Text style={styles.buttonText}>Đăng Nhập</Text>
+        </TouchableOpacity>
       </View>
     </ScrollView>
   );

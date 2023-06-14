@@ -3,7 +3,7 @@ import { StyleSheet, Text, View } from "react-native";
 import { createStackNavigator } from "@react-navigation/stack";
 import { NavigationContainer } from "@react-navigation/native";
 import react from "react";
-
+import LoginStackNavigator from "./layout/Screen_User/login";
 import RegisterScreen from "./layout/Screen_User/register";
 import HomeStackNavigator from "./layout/Screen_User/navigatorScreen";
 import Detail from "./layout/Screen_User/detail";
@@ -17,8 +17,8 @@ const App = () => {
   return (
     //  LoginScreen
     <NavigationContainer>
-      <Stack.Navigator initialRouteName='Login' headerMode="none">
-        <Stack.Screen name="Login" component={LoginScreen} />
+      <Stack.Navigator initialRouteName="login" headerMode="false">
+        <Stack.Screen name="login" component={LoginStackNavigator} />
       </Stack.Navigator>
     </NavigationContainer>
 
@@ -29,13 +29,13 @@ const App = () => {
     //   </Stack.Navigator>
     // </NavigationContainer>
 
-   // NavigatorScreen
+    // NavigatorScreen
     //  <NavigationContainer>
     //   <Stack.Navigator initialRouteName='Navigator' headerMode="none">
     //     <Stack.Screen name="Navigator" component={HomeStackNavigator} />
     //   </Stack.Navigator>
     // </NavigationContainer>
-    
+
     //device_type_admin_screen
     // <NavigationContainer>
     // <Stack.Navigator initialRouteName='Navigator' headerMode="none">
