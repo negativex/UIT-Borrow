@@ -1,58 +1,109 @@
-import { View, Text } from 'react-native'
-import React from 'react'
+import { View, Text, StyleSheet, TextInput, TouchableOpacity } from "react-native";
+import React, { useState } from "react";
+import { useEffect } from "react";
+import colors from "../colors/colors";
+import { auth } from "../Firebase/firebase";
 
-const confirm = () => {
+const Confirm = () => {
+   const [currentDate, setCurrentDate] = useState("");
+
+   useEffect(() => {
+     var date = new Date().getDate(); 
+     var month = new Date().getMonth() + 1; 
+     var year = new Date().getFullYear(); 
+     var hours = new Date().getHours(); 
+     var min = new Date().getMinutes(); 
+     var sec = new Date().getSeconds(); 
+     setCurrentDate(
+       date + "/" + month + "/" + year + " " + hours + ":" + min + ":" + sec
+     );
+   }, []);
   return (
-    <View style={{ backgroundColor: "black", flex: 1 }}>
+    <View style={{ backgroundColor: "white", flex: 1 }}>
       <View
         style={{
-          backgroundColor: "#EA5455",
+          backgroundColor: colors.blue,
           height: "12%",
-          borderBottomLeftRadius: 20,
-          borderBottomRightRadius: 20,
           paddingHorizontal: 20,
         }}
       >
         {/* Name profile */}
         <View
           style={{
-            flexDirection: "row",
             alignItems: "center",
-            marginTop: 10,
-            paddingLeft: 55,
+            marginTop: 46,
             width: "100%",
           }}
         >
           {/* Input User */}
-          <View style={{ width: "50%" }}>
-            <Text
-              style={{
-                fontSize: 25,
-                color: "#fff",
-                fontWeight: "bold",
-              }}
-            >
-              Ngoc Tran{"\n"}
-              <Text
-                style={{
-                  fontSize: 15,
-                }}
-              >
-                MSSV: 20521668
-              </Text>
-            </Text>
-          </View>
-          <View style={{ width: "40%", alignItems: "flex-end" }}>
-            {/* User Image Profile */}
-            <Image
-              source={require("../images/user_Top.png")}
-              style={{ height: 70, width: 70 }}
-            ></Image>
-          </View>
+          <Text
+            style={{
+              fontSize: 20,
+              color: "#000",
+              fontWeight: "bold",
+            }}
+          >
+            Xác nhận thông tin mượn thiết bị
+          </Text>
         </View>
       </View>
+
+      <View style={styles.inputContainer}>
+        <TextInput editable={false} selectTextOnFocus={false}>
+          <Text style={styles.textStyle}>Tên: </Text>
+          <Text style={styles.textStyle}>{auth.currentUser?.email}</Text>
+        </TextInput>
+      </View>
+
+      <View style={styles.inputContainer}>
+        <TextInput editable={false} selectTextOnFocus={false}>
+          <Text style={styles.textStyle}>Địa chỉ Email: </Text>
+          <Text style={styles.textStyle}>{auth.currentUser?.email}</Text>
+        </TextInput>
+      </View>
+
+      <View style={styles.inputContainer}>
+        <TextInput editable={false} selectTextOnFocus={false}>
+          <Text style={styles.textStyle}>Thiết bị mượn: </Text>
+          <Text style={styles.textStyle}>{auth.currentUser?.email}</Text>
+        </TextInput>
+      </View>
+
+      <View style={styles.inputContainer}>
+        <TextInput editable={false} selectTextOnFocus={false}>
+          <Text style={styles.textStyle}>Thời gian mượn: </Text>
+          <Text style={styles.textStyle}>{currentDate}</Text>
+        </TextInput>
+      </View>
+
+      <TouchableOpacity style={styles.buttonContainer}>
+        <Text style={{fontSize:18, color:"white",alignSelf:'center'}}>Xác nhận</Text>
+      </TouchableOpacity>
     </View>
   );
-}
+};
 
-export default confirm
+export default Confirm;
+const styles = StyleSheet.create({
+  textStyle: {
+    fontSize: 18,
+    color: "black",
+  },
+  inputContainer: {
+    borderBottomColor: colors["white-smoke"],
+    borderBottomWidth: 1,
+    zIndex: 0,
+    marginStart: 20,
+    marginEnd: 20,
+    marginVertical: 20,
+  },
+  buttonContainer: {
+    backgroundColor: colors.deepblue,
+    borderRadius: 20,
+    paddingVertical: 10,
+    paddingHorizontal: 10,
+    marginBottom: 20,
+    marginEnd: 100,
+    marginStart: 100,
+  },
+});

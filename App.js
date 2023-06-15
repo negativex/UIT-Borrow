@@ -10,20 +10,17 @@ import Detail from "./layout/Screen_User/detail";
 import Profile from "./layout/Screen_User/profile";
 import LoginScreen from "./layout/Screen_User/login";
 import Admin_device_type from "./layout/Screen_Admin/device_type"
-import Admin_device_list from "./layout/Screen_Admin/device_list"
-import Admin_device_details from "./layout/Screen_Admin/device_details"
-import Admin_user_list from "./layout/Screen_Admin/user_list"
-import Admin_user_details from "./layout/Screen_Admin/user_details"
-import Home from "./layout/Screen_Admin/device_type";
+import Admin_devices_management from "./layout/Screen_Admin/devices"
+import Confirm from "./layout/Screen_User/confirm";
 const Stack = createStackNavigator();
 const App = () => {
   return (
     //  LoginScreen
-    <NavigationContainer>
-      <Stack.Navigator initialRouteName="login" headerMode="false">
-        <Stack.Screen name="login" component={LoginStackNavigator} />
-      </Stack.Navigator>
-    </NavigationContainer>
+    // <NavigationContainer>
+    //   <Stack.Navigator initialRouteName="login" headerMode="false">
+    //     <Stack.Screen name="login" component={LoginStackNavigator} />
+    //   </Stack.Navigator>
+    // </NavigationContainer>
 
     //RegisterScreen
     //  <NavigationContainer>
@@ -65,6 +62,12 @@ const App = () => {
     //     <Stack.Screen name="Profile" component={Profile} />
     //   </Stack.Navigator>
     // </NavigationContainer>
+
+    <NavigationContainer>
+      <Stack.Navigator initialRouteName="confirm" headerMode="false">
+        <Stack.Screen name="confirm" component={Confirm} />
+      </Stack.Navigator>
+    </NavigationContainer>
   );
 };
 

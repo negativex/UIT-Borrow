@@ -302,32 +302,32 @@
 // //           </Text>
 // //         </ScrollView>
 
-// //         <View
-// //           style={{
-// //             position: "absolute",
-// //             backgroundColor: "#fff",
-// //             height: 50,
-// //             width: 50,
-// //             bottom: 20,
-// //             alignItems: "center",
-// //             justifyContent: "center",
-// //             alignSelf: "center",
-// //             borderRadius: 25,
-// //           }}
-// //         >
-// //           <Image
-// //             source={require("../images/qr-code.png")}
-// //             style={{
-// //               alignItems: "center",
-// //               width: 25,
-// //               height: 25,
-// //               marginTop: 22,
-// //               marginLeft: -1,
-// //               marginBottom: 20,
-// //             }}
-// //           ></Image>
-// //         </View>
-// //       </View>
-// //     );
-// //   }
-// // }
+//         <View
+//           style={{
+//             position: "absolute",
+//             backgroundColor: "#fff",
+//             height: 50,
+//             width: 50,
+//             bottom: 20,
+//             alignItems: "center",
+//             justifyContent: "center",
+//             alignSelf: "center",
+//             borderRadius: 25,
+//           }}
+//         >
+//           {/* <Image
+//             source={require("../images/qr-code.png")}
+//             style={{
+//               alignItems: "center",
+//               width: 25,
+//               height: 25,
+//               marginTop: 22,
+//               marginLeft: -1,
+//               marginBottom: 20,
+//             }}
+//           ></Image> */}
+//         </View>
+//       </View>
+//     );
+//   }
+// }

@@ -41,7 +41,7 @@ const RegisterScreen = () => {
         ]);
       })
       .catch((error) =>
-        Alert.alert("Đăng nhập thành công", "Chào mừng bạn đến với ứng dụng", [
+        Alert.alert("Đăng nhập thất bại", "Tài khoản/mật khẩu chưa đúng", [
           { text: "Đóng", onPress: () => console.log("alert close") },
         ])
       );
