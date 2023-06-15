@@ -49,6 +49,7 @@ const App = () => {
     //   </Stack.Navigator>
     // </NavigationContainer>
 
+
     //Detail Screen
     // <NavigationContainer>
     //   <Stack.Navigator initialRouteName="Detail" headerMode="none">
