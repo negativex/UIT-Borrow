@@ -9,11 +9,13 @@ import {
   FlatList,
   StatusBar,
 } from 'react-native';
+
 import {
   TextInput,
   ScrollView,
   TouchableOpacity,
 } from "react-native-gesture-handler";
+import colors from '../colors/colors';
 import { LinearGradient } from "expo-linear-gradient";
 const SCREEN_WIDTH = Dimensions.get("window").width;
 const DATA = [
@@ -72,26 +74,35 @@ headerComponent = () => {
 itemSeparator = () => {
   return <View style={styles.separator} />
 }
-const Home = ({ navigation }) => {
+const homeAdmin = ({ navigation }) => {
   return (
     // Top View
+
     <ScrollView
       style={{
         backgroundColor: "#fff",
         flex: 1,
       }}
     >
+      <FAB
+        style={{ width: "40%", margin: 20 }}
+        placement="right"
+        size="small"
+        visible
+        overlayColor="#454545"
+        title="Create"
+        icon={{ name: "edit", color: "#fff" }}
+      />
       {/* Style Top View */}
       <View
         style={{
-          backgroundColor: "#EA5455",
-          height: 150,
+          backgroundColor: colors.blue,
+          height: 120,
           borderBottomLeftRadius: 20,
           borderBottomRightRadius: 20,
           paddingHorizontal: 10,
         }}
       >
-        
         {/* Search */}
         <LinearGradient
           colors={["transparent", "transparent"]}
@@ -118,7 +129,7 @@ const Home = ({ navigation }) => {
             {/* Input Search */}
             <TextInput
               placeholder="Nhập tên/mã thiết bị cần tìm"
-              placeholderTextColor="#EA5455"
+              placeholderTextColor={colors["white-smoke"]}
               style={{
                 fontSize: 13,
                 width: 260,
@@ -134,42 +145,45 @@ const Home = ({ navigation }) => {
         </LinearGradient>
       </View>
       <SafeAreaView style={styles.container}>
-      <FlatList
-        ListHeaderComponentStyle= {styles.listHeader}
-        ListHeaderComponent={headerComponent}
-        data={DATA}
-        renderItem={ Device }
-        ItemSeparatorComponent= {itemSeparator}
-        keyExtractor={item => item.id}
-      />
-    </SafeAreaView>
-    {/* Style Button Back to top */}
-    <View style={{ width: "100%", alignItems: "flex-end" }}>
-            <View
-              style={{
-                backgroundColor: "#EA5455",
-                paddingHorizontal: 10,
-                marginTop: 0,
-                marginRight: 20,
-                marginBottom: 20,
-                paddingVertical: 6,
-                borderRadius: 100,
-              }}
-            >
-              <Text
-                style={{
-                  fontWeight: "bold",
-                  fontSize: 15,
-                  color: "#fff",
-                }}
-              >
-                Lên đầu
-              </Text>
-            </View>
-          </View>
+        <FlatList
+          ListHeaderComponentStyle={styles.listHeader}
+          ListHeaderComponent={headerComponent}
+          data={DATA}
+          renderItem={Device}
+          ItemSeparatorComponent={itemSeparator}
+          keyExtractor={(item) => item.id}
+        />
+      </SafeAreaView>
+      {/* Style Button More */}
+      <View style={{ width: "100%", alignItems: "flex-end" }}>
+        <View
+          style={{
+            backgroundColor: "#EA5455",
+            paddingHorizontal: 10,
+            marginTop: 0,
+            marginRight: 20,
+            marginBottom: 20,
+            paddingVertical: 6,
+            borderRadius: 100,
+          }}
+        >
+          <Text
+            style={{
+              fontWeight: "bold",
+              fontSize: 15,
+              color: "#fff",
+            }}
+          >
+            Top
+          </Text>
+        </View>
+      </View>
     </ScrollView>
   );
 };
+
+   
+  
 const styles = StyleSheet.create({
   listHeader: {
     height: 55,
@@ -218,4 +232,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Home;
+export default homeAdmin;

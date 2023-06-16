@@ -5,7 +5,7 @@ export default {
   blue: "#B2C8DF",
   deepblue: "#2f6690",
   "dark-light": "#2E333E",
-  light: "#4D4F52",
+  light: "#e5e5e5",
   white: "#fff",
   "white-smoke": "#b5b5b5",
 };
