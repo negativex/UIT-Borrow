@@ -28,6 +28,7 @@
 //           paddingHorizontal: 20,
 //         }}
 //       >
+
         
 //         {/* Search */}
 //         <LinearGradient
@@ -247,6 +248,7 @@
 //             </TouchableOpacity>
 //           </ScrollView>
 //         </View>
+
 
 //         <View
 //           style={{
