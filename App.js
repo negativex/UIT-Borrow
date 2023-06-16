@@ -13,6 +13,7 @@ import homeAdmin from "./layout/Screen_Admin/devices";
 import Admin_devices_management from "./layout/Screen_Admin/devices"
 import Confirm from "./layout/Screen_User/confirm";
 import DevicesDetail from "./layout/Screen_Admin/device_detail";
+import Device_add from "./layout/Screen_Admin/device_add";
 const Stack = createStackNavigator();
 const App = () => {
   return (
@@ -51,13 +52,24 @@ const App = () => {
     //   </Stack.Navigator>
     // </NavigationContainer>
 
+// <<<<<<< myngoc
+//     //deviceadd
+// =======
+
+//     //Detail Screen
+// >>>>>>> master
+//     <NavigationContainer>
+//       <Stack.Navigator initialRouteName="device_add" headerMode="false">
+//         <Stack.Screen name="device_add" component={Device_add} />
+//       </Stack.Navigator>
+//     </NavigationContainer>
 
     //Detail Screen
-    <NavigationContainer>
-      <Stack.Navigator initialRouteName="Device_detail" headerMode="none">
-        <Stack.Screen name="Device_detail" component={DevicesDetail} />
-      </Stack.Navigator>
-    </NavigationContainer>
+    // <NavigationContainer>
+    //   <Stack.Navigator initialRouteName="Device_detail" headerMode="none">
+    //     <Stack.Screen name="Device_detail" component={DevicesDetail} />
+    //   </Stack.Navigator>
+    // </NavigationContainer>
 
     // <NavigationContainer>
     //   <Stack.Navigator initialRouteName="Profile" headerMode="none">

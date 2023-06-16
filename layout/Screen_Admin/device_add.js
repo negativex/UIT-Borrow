@@ -9,7 +9,7 @@ import {
 import colors from "../colors/colors";
 import { db } from "../Firebase/firebase";
 
-const DevicesDetail = () => {
+const Device_add = () => {
   const [count, setCount] = useState(0);
   const addQuantity = () => setCount((prevCount) => prevCount + 1);
   const subtractQuantity = () => setCount((prevCount) => prevCount - 1);
@@ -18,10 +18,10 @@ const DevicesDetail = () => {
   const [type, setType] = useState("");
   const [content, setContent] = useState("");
   function create() {
-    set(ref(db, "Thong tin thiet bi/"+ type), {
+    set(ref(db, "Thong tin thiet bi/" + type), {
       Ten: name,
       Loai: type,
-      Soluong: count
+      Soluong: count,
     })
       .then(() => {
         console.log("success");
@@ -195,7 +195,7 @@ const DevicesDetail = () => {
     </View>
   );
 };
-export default DevicesDetail;
+export default Device_add;
 
 const styles = StyleSheet.create({
   textStyle: {
