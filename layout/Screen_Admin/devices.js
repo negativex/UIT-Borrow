@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect,useState} from 'react';
 import {
   StyleSheet,
   Text,
@@ -7,9 +7,10 @@ import {
   Dimensions,
   SafeAreaView,
   FlatList,
-  StatusBar,
+  
 } from 'react-native';
-
+import { db } from '../Firebase/firebase';
+import { ref, onValue } from "firebase/database";
 import {
   TextInput,
   ScrollView,
@@ -18,6 +19,20 @@ import {
 import colors from '../colors/colors';
 import { LinearGradient } from "expo-linear-gradient";
 const SCREEN_WIDTH = Dimensions.get("window").width;
+// const [data, setData]=useState([]);
+
+// useEffect(()=>{
+//   const startCountRef=ref(db,'Thong tin thiet bi/');
+//   onValue(startCountRef,(snapshot)=>{
+//     const data=snapshot.val();
+//     const newitems=Object.keys(data).map(key=>({
+//       id:key,
+//       ...data[key]
+//     }))
+//     console.log(newitems);
+//     setData(newitems);
+//   });
+// },[])
 const DATA = [
   {
     id: '11',
@@ -84,15 +99,7 @@ const homeAdmin = ({ navigation }) => {
         flex: 1,
       }}
     >
-      <FAB
-        style={{ width: "40%", margin: 20 }}
-        placement="right"
-        size="small"
-        visible
-        overlayColor="#454545"
-        title="Create"
-        icon={{ name: "edit", color: "#fff" }}
-      />
+   
       {/* Style Top View */}
       <View
         style={{
