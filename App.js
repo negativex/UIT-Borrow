@@ -51,6 +51,7 @@ const App = () => {
     //   </Stack.Navigator>
     // </NavigationContainer>
 
+
     //Detail Screen
     // <NavigationContainer>
     //   <Stack.Navigator initialRouteName="Device_detail" headerMode="none">
