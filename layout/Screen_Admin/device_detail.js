@@ -7,13 +7,27 @@ import {
   TouchableOpacity,
 } from "react-native-gesture-handler";
 import colors from "../colors/colors";
-import button from "../textStyle/button";
-import { useEffect } from "react";
+import { db } from "../Firebase/firebase";
 
 const DevicesDetail = () => {
   const [count, setCount] = useState(0);
   const addQuantity = () => setCount((prevCount) => prevCount + 1);
   const subtractQuantity = () => setCount((prevCount) => prevCount - 1);
+ const [name, setName] = useState("");
+  const [type, setType] = useState("");
+  function create() {
+    
+    set(ref(db, "users/"), {
+      name: name,
+      type: type,
+    })
+      .then(() => {
+        console.log("success");
+      })
+      .catch((error) =>{
+       console.log(error);
+    });
+  };
 
   return (
     <View style={{ flex: 1, backgroundColor: "white" }}>
@@ -125,6 +139,10 @@ const DevicesDetail = () => {
             selectTextOnFocus={true}
             placeholder="Nhập tên thiết bị..."
             style={styles.inputContainer}
+            onChangeText={(name) => {
+              setName(name);
+            }}
+            value={name}
           ></TextInput>
         </View>
 
@@ -134,6 +152,10 @@ const DevicesDetail = () => {
             selectTextOnFocus={true}
             placeholder="Nhập loại thiết bị..."
             style={styles.inputContainer}
+            onChangeText={(type) => {
+              setType(type);
+            }}
+            value={type}
           ></TextInput>
         </View>
 
@@ -159,7 +181,7 @@ const DevicesDetail = () => {
           placeholder="Nhập thông tin thiết bị..."
         ></TextInput>
       </ScrollView>
-      <TouchableOpacity style={styles.buttonContainer} >
+      <TouchableOpacity style={styles.buttonContainer} onPress={create}>
         <Text style={styles.textButton}>Thêm thiết bị</Text>
       </TouchableOpacity>
     </View>
