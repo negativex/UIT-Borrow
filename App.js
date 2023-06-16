@@ -46,31 +46,13 @@ const App = () => {
     // </NavigationContainer>
 
     // device_type_admin_screen
-<<<<<<< HEAD
+
     <NavigationContainer>
       <Stack.Navigator initialRouteName="device" headerMode="none">
         <Stack.Screen name="device" component={homeAdmin} />
       </Stack.Navigator>
     </NavigationContainer>
-=======
-    // <NavigationContainer>
-    //   <Stack.Navigator initialRouteName="device" headerMode="none">
-    //     <Stack.Screen name="device" component={homeAdmin} />
-    //   </Stack.Navigator>
-    // </NavigationContainer>
 
-// <<<<<<< myngoc
-//     //deviceadd
-// =======
-
-//     //Detail Screen
-// >>>>>>> master
-//     <NavigationContainer>
-//       <Stack.Navigator initialRouteName="device_add" headerMode="false">
-//         <Stack.Screen name="device_add" component={Device_add} />
-//       </Stack.Navigator>
-//     </NavigationContainer>
->>>>>>> master
 
     //deviceadd
     // <NavigationContainer>
