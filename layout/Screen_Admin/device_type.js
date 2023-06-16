@@ -1,4 +1,5 @@
 
+<<<<<<< HEAD
 import { View, Text, Image, Dimensions } from "react-native";
 import React from "react";
 import {
@@ -28,6 +29,38 @@ const device_type = ({ navigation }) => {
           paddingHorizontal: 20,
         }}
       >
+=======
+// import { View, Text, Image, Dimensions } from "react-native";
+// import React from "react";
+// import {
+//   TextInput,
+//   ScrollView,
+//   TouchableOpacity,
+// } from "react-native-gesture-handler";
+// import { LinearGradient } from "expo-linear-gradient";
+// import colors from "../colors/colors";
+// const SCREEN_WIDTH = Dimensions.get("window").width;
+// const Home = ({ navigation }) => {
+//   return (
+//     // Top View
+//     <ScrollView
+//       style={{
+//         backgroundColor: "#000",
+//         flex: 1,
+//       }}
+//     >
+//       {/* Style Top View */}
+//       <View
+//         style={{
+//           backgroundColor: colors.blue,
+//           height: "20%",
+//           borderBottomLeftRadius: 20,
+//           borderBottomRightRadius: 20,
+//           paddingHorizontal: 20,
+//         }}
+//       >
+
+>>>>>>> master
         
         {/* Search */}
         <LinearGradient
@@ -248,6 +281,7 @@ const device_type = ({ navigation }) => {
           </ScrollView>
         </View>
 
+<<<<<<< HEAD
         <View
           style={{
             height: 1,
@@ -258,6 +292,19 @@ const device_type = ({ navigation }) => {
             borderRadius: 30,
           }}
         ></View>
+=======
+
+//         <View
+//           style={{
+//             height: 1,
+//             backgroundColor: "#EA5455",
+//             width: 340,
+//             marginTop: 10,
+//             marginLeft: -15,
+//             borderRadius: 30,
+//           }}
+//         ></View>
+>>>>>>> master
 
         {/* Cables/Wires*/}
         <View
