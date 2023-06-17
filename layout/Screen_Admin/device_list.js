@@ -38,15 +38,13 @@ const Device_list = ({ navigation }) => {
     //setDeviceText(item.text);
   }
   const Device = ({ item }) => (
-      <TouchableOpacity 
-        style={styles.item}
-        onPress={() => onPressItem(item)}
-      >
-        <View style={styles.avatarContainer}>
-          <Image source={item.image} style={styles.avatar} />
-        </View>
-        <Text style={styles.name}>{item.key}</Text>
-      </TouchableOpacity>
+    <TouchableOpacity style={styles.item} onPress={() => onPressItem(item)}>
+      <View style={styles.avatarContainer}>
+        <Image source={item.image} style={styles.avatar} />
+      </View>
+      <Text style={styles.name}>{item.key}</Text>
+      <Text style={styles.name}>{item.kind}</Text>
+    </TouchableOpacity>
   );
   useEffect(() => {
     onValue(ref(db, "Thong tin thiet bi"), (snapshot) => {
@@ -57,6 +55,7 @@ const Device_list = ({ navigation }) => {
         setDeviceData(fetchedData);
         main.push({
           key: child.val().Ten,
+          kind:child.val().Loai
         });
       });
       setValue(main);
