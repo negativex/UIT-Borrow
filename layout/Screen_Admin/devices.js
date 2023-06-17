@@ -9,7 +9,6 @@ import {
   FlatList,
 } from "react-native";
 import { db } from "../Firebase/firebase";
-import { ref, onValue } from "firebase/database";
 import {
   TextInput,
   ScrollView,
@@ -17,70 +16,58 @@ import {
 } from "react-native-gesture-handler";
 import colors from "../colors/colors";
 import { LinearGradient } from "expo-linear-gradient";
-const SCREEN_WIDTH = Dimensions.get("window").width;
-// const [data, setData] = useState("");
 
-// useEffect(() => {
-//   const startCountRef = ref(db, "Thong tin thiet bi/");
-//   onValue(startCountRef, (snapshot) => {
-//     const data1 = snapshot.val();
-//     const newitems = Object.keys(data1).map((key) => ({
-//       id: key,
-//       ...data1[key],
-//     }));
-//     console.log(newitems);
-//     setData(newitems);
-//   });
-// }, []);
+import {ref, onValue } from "firebase/database";
+const SCREEN_WIDTH = Dimensions.get("window").width;
+
 const DATA = [
   {
-    id: '11',
-    name: 'First Item',
+    id: "11",
+    name: "First Item",
     image: require("../images/jetson.png"),
   },
   {
-    id: '22',
-    name: 'Second Item',
+    id: "22",
+    name: "Second Item",
     image: require("../images/jetson.png"),
   },
   {
-    id: '33',
-    name: 'Third Item',
+    id: "33",
+    name: "Third Item",
     image: require("../images/jetson.png"),
   },
   {
-    id: '44',
-    name: 'First Item',
+    id: "44",
+    name: "First Item",
     image: require("../images/jetson.png"),
   },
   {
-    id: '55',
-    name: 'Second Item',
+    id: "55",
+    name: "Second Item",
     image: require("../images/jetson.png"),
   },
   {
-    id: '66',
-    name: 'Third Item',
+    id: "66",
+    name: "Third Item",
     image: require("../images/jetson.png"),
   },
   {
-    id: '77',
-    name: 'Item',
+    id: "77",
+    name: "Item",
     image: require("../images/jetson.png"),
   },
   {
-    id: '88',
-    name: 'Item',
+    id: "88",
+    name: "Item",
     image: require("../images/jetson.png"),
   },
-  
 ];
 const Device = ({ item }) => (
   <View style={styles.item}>
     <View style={styles.avatarContainer}>
       <Image source={item.image} style={styles.avatar} />
     </View>
-    <Text style={styles.name}>{item.name}</Text>
+    <Text style={styles.name}>{item.key}</Text>
   </View>
 );
 headerComponent = () => {
@@ -90,6 +77,21 @@ itemSeparator = () => {
   return <View style={styles.separator} />;
 };
 const homeAdmin = ({ navigation }) => {
+  const [value, setValue] = useState([]);
+  
+  useEffect(() => {
+     onValue(ref(db, 'Thong tin thiet bi'), (snapshot) => {
+        var main = [];
+        snapshot.forEach((child) => {
+          console.log(child.val());
+          main.push({
+            key: child.val().name,
+          });
+        });
+        setValue(main);
+      });
+  }, []);
+  
   return (
     // Top View
 
@@ -154,10 +156,10 @@ const homeAdmin = ({ navigation }) => {
         <FlatList
           ListHeaderComponentStyle={styles.listHeader}
           ListHeaderComponent={headerComponent}
-          data={DATA}
+          data={value}
           renderItem={Device}
           ItemSeparatorComponent={itemSeparator}
-          keyExtractor={(item) => item.id}
+          keyExtractor={(item) => item.key}
         />
       </SafeAreaView>
       {/* Style Button More */}
@@ -205,10 +207,7 @@ const styles = StyleSheet.create({
   //   marginHorizontal: 16
   // },
   item: {
-    //backgroundColor: '#ff7f50',
-    // padding: 20,
-    // marginVertical: 8,
-    // marginHorizontal: 16,
+ 
     flex: 1,
     flexDirection: "row",
     alignItems: "center",
@@ -230,6 +229,7 @@ const styles = StyleSheet.create({
     fontWeight: "600",
     fontSize: 16,
     marginLeft: 13,
+    color:"black"
   },
   title: {
     fontSize: 20,
