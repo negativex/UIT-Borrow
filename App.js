@@ -1,26 +1,21 @@
-import { StatusBar } from "expo-status-bar";
-import { StyleSheet, Text, View } from "react-native";
+
 import { createStackNavigator } from "@react-navigation/stack";
 import { NavigationContainer } from "@react-navigation/native";
-import react from "react";
-import LoginStackNavigator from "./layout/Screen_User/login";
 import RegisterScreen from "./layout/Screen_User/register";
-import HomeStackNavigator from "./layout/Screen_User/navigatorScreen";
 import Profile from "./layout/Screen_User/profile";
-import LoginScreen from "./layout/Screen_User/login";
 import Admin_device_type from "./layout/Screen_Admin/device_type"
-import homeAdmin from "./layout/Screen_Admin/devices";
-import Admin_devices_management from "./layout/Screen_Admin/devices"
 import Confirm from "./layout/Screen_User/confirm";
-import DevicesDetail from "./layout/Screen_Admin/device_detail";
 import Device_add from "./layout/Screen_Admin/device_add";
+import LoginScreen from "./layout/Screen_User/login";
+import Device_list from "./layout/Screen_Admin/device_list";
 const Stack = createStackNavigator();
+
 const App = () => {
   return (
-    //  LoginScreen
+    //LoginScreen
     // <NavigationContainer>
     //   <Stack.Navigator initialRouteName="login" headerMode="false">
-    //     <Stack.Screen name="login" component={LoginStackNavigator} />
+    //     <Stack.Screen name="login" component={LoginScreen} />
     //   </Stack.Navigator>
     // </NavigationContainer>
 
@@ -31,28 +26,12 @@ const App = () => {
     //   </Stack.Navigator>
     // </NavigationContainer>
 
-    // NavigatorScreen
-    //  <NavigationContainer>
-    //   <Stack.Navigator initialRouteName='Navigator' headerMode="none">
-    //     <Stack.Screen name="Navigator" component={HomeStackNavigator} />
-    //   </Stack.Navigator>
-    // </NavigationContainer>
-
-    //device_type_admin_screen
-    // <NavigationContainer>
-    // <Stack.Navigator initialRouteName='Navigator' headerMode="false">
-    //     <Stack.Screen name="Navigator" component={Admin_device_type} />
-    //   </Stack.Navigator>
-    // </NavigationContainer>
-
     // device_type_admin_screen
-
     <NavigationContainer>
-      <Stack.Navigator initialRouteName="device" headerMode="none">
-        <Stack.Screen name="device" component={homeAdmin} />
+      <Stack.Navigator initialRouteName="device_list" headerMode="none">
+        <Stack.Screen name="device_list" component={Device_list} />
       </Stack.Navigator>
     </NavigationContainer>
-
 
     //deviceadd
     // <NavigationContainer>
@@ -64,7 +43,7 @@ const App = () => {
     //Detail Screen
     // <NavigationContainer>
     //   <Stack.Navigator initialRouteName="Device_detail" headerMode="none">
-    //     <Stack.Screen name="Device_detail" component={DevicesDetail} />
+    //     <Stack.Screen name="Device_detail" component={Device_detail} />
     //   </Stack.Navigator>
     // </NavigationContainer>
 

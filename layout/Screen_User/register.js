@@ -243,17 +243,3 @@ const styles = StyleSheet.create({
     alignSelf: "center",
   },
 });
-
-// const Stack = createStackNavigator();
-// const screenOptionStyle = {
-//   headerShown: false,
-// };
-
-// const RegisterStackNavigator = () => {
-//   return (
-//     <Stack.Navigator screenOptions={screenOptionStyle}>
-//       <Stack.Screen name="register" component={RegisterScreen}></Stack.Screen>
-//       <Stack.Screen name="login" component={LoginStackNavigator}></Stack.Screen>
-//     </Stack.Navigator>
-//   );
-// };

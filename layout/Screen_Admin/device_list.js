@@ -1,95 +1,54 @@
-import React, {useEffect,useState} from 'react';
+import React, { useEffect, useState } from "react";
 import {
   StyleSheet,
   Text,
   View,
-  Image, 
+  Image,
   Dimensions,
   SafeAreaView,
   FlatList,
-  
-} from 'react-native';
-import { db } from '../Firebase/firebase';
-import { ref, onValue } from "firebase/database";
+} from "react-native";
+import { db } from "../Firebase/firebase";
 import {
   TextInput,
   ScrollView,
   TouchableOpacity,
 } from "react-native-gesture-handler";
-import colors from '../colors/colors';
+import colors from "../colors/colors";
 import { LinearGradient } from "expo-linear-gradient";
+import { ref, onValue } from "firebase/database";
 const SCREEN_WIDTH = Dimensions.get("window").width;
-// const [data, setData]=useState([]);
 
-// useEffect(()=>{
-//   const startCountRef=ref(db,'Thong tin thiet bi/');
-//   onValue(startCountRef,(snapshot)=>{
-//     const data=snapshot.val();
-//     const newitems=Object.keys(data).map(key=>({
-//       id:key,
-//       ...data[key]
-//     }))
-//     console.log(newitems);
-//     setData(newitems);
-//   });
-// },[])
-const DATA = [
-  {
-    id: '11',
-    name: 'First Item',
-    image: require("../images/jetson.png"),
-  },
-  {
-    id: '22',
-    name: 'Second Item',
-    image: require("../images/jetson.png"),
-  },
-  {
-    id: '33',
-    name: 'Third Item',
-    image: require("../images/jetson.png"),
-  },
-  {
-    id: '44',
-    name: 'First Item',
-    image: require("../images/jetson.png"),
-  },
-  {
-    id: '55',
-    name: 'Second Item',
-    image: require("../images/jetson.png"),
-  },
-  {
-    id: '66',
-    name: 'Third Item',
-    image: require("../images/jetson.png"),
-  },
-  {
-    id: '77',
-    name: 'Item',
-    image: require("../images/jetson.png"),
-  },
-  {
-    id: '88',
-    name: 'Item',
-    image: require("../images/jetson.png"),
-  },
-];
-const Device = ( {item} ) => ( 
+const Device = ({ item }) => (
   <View style={styles.item}>
     <View style={styles.avatarContainer}>
-      <Image source={item.image} style={styles.avatar}/>
+      <Image source={item.image} style={styles.avatar} />
     </View>
-    <Text style={styles.name}>{item.name}</Text> 
+    <Text style={styles.name}>{item.key}</Text>
   </View>
 );
 headerComponent = () => {
-  return <Text>Danh sách toàn bộ Thiết bị</Text>
-}
+  return <Text style={{ fontSize: 18 }}>Danh sách toàn bộ Thiết bị</Text>;
+};
 itemSeparator = () => {
-  return <View style={styles.separator} />
-}
-const homeAdmin = ({ navigation }) => {
+  return <View style={styles.separator} />;
+};
+const Device_list = ({ navigation }) => {
+  const [value, setValue] = useState([]);
+
+  useEffect(() => {
+    onValue(ref(db, "Thong tin thiet bi"), (snapshot) => {
+      var main = [];
+      snapshot.forEach((child) => {
+        console.log(child.val());
+        main.push({
+          key: child.val().Ten,
+        });
+      });
+      setValue(main);
+    });
+  }, []);
+
   return (
     // Top View
 
@@ -99,7 +58,6 @@ const homeAdmin = ({ navigation }) => {
         flex: 1,
       }}
     >
-   
       {/* Style Top View */}
       <View
         style={{
@@ -155,88 +113,71 @@ const homeAdmin = ({ navigation }) => {
         <FlatList
           ListHeaderComponentStyle={styles.listHeader}
           ListHeaderComponent={headerComponent}
-          data={DATA}
+          data={value}
           renderItem={Device}
           ItemSeparatorComponent={itemSeparator}
-          keyExtractor={(item) => item.id}
+          keyExtractor={(item) => item.key}
         />
-      </SafeAreaView>
-      {/* Style Button More */}
-      <View style={{ width: "100%", alignItems: "flex-end" }}>
-        <View
-          style={{
-            backgroundColor: "#EA5455",
-            paddingHorizontal: 10,
-            marginTop: 0,
-            marginRight: 20,
-            marginBottom: 20,
-            paddingVertical: 6,
-            borderRadius: 100,
-          }}
-        >
-          <Text
-            style={{
-              fontWeight: "bold",
-              fontSize: 15,
-              color: "#fff",
-            }}
-          >
-            Top
-          </Text>
-        </View>
-      </View>
+      </SafeAreaView>      
     </ScrollView>
   );
 };
 
-   
-  
 const styles = StyleSheet.create({
+  buttonContainer: {
+    backgroundColor: colors.deepblue,
+    borderRadius: 20,
+    paddingVertical: 10,
+    margin: 10,
+  },
+
+  textButton: {
+    marginStart: 10,
+    marginEnd: 10,
+    marginVertical: 10,
+    color: "white",
+    fontSize: 18,
+    alignSelf: "center",
+  },
   listHeader: {
-    height: 55,
-    alignItems: 'center',
-    justifyContent: 'center',
+    height: 50,
+    alignItems: "center",
+    justifyContent: "center",
   },
-  separator:{
-    height:1,
-    width: '100%',
-    backgroundColor: '#CCC',
+  separator: {
+    height: 1,
+    width: "100%",
   },
-  // container: {
-  //   flex: 1,
-  //   marginTop: StatusBar.currentHeight || 0,
-  //   marginHorizontal: 16
-  // },
+
   item: {
-    //backgroundColor: '#ff7f50',
-    // padding: 20,
-    // marginVertical: 8,
-    // marginHorizontal: 16,
-    flex:1 ,
-    flexDirection: 'row',
-    alignItems: 'center',
+    flex: 1,
+    flexDirection: "row",
+    alignItems: "center",
     paddingVertical: 13,
   },
+
   avatarContainer: {
-    backgroundColor: '#D9D9D9',
+    backgroundColor: "#D9D9D9",
     borderRadius: 100,
     height: 80,
-    width:80,
-    justifyContent:'center',
-    alignItems:'center',
+    width: 80,
+    margin: 10,
+    justifyContent: "center",
+    alignItems: "center",
   },
-  avatar:{
-    height:55,
-    width:55,
+  avatar: {
+    height: 50,
+    width: 50,
   },
-  name:{
-    fontWeight: '600',
+  name: {
+    fontWeight: "600",
     fontSize: 16,
     marginLeft: 13,
+    color: "black",
   },
   title: {
     fontSize: 20,
   },
 });
 
-export default homeAdmin;
+export default Device_list;

@@ -7,7 +7,6 @@
 // import Profile from "./profile";
 // import Detail from "./detail";
 
-import devicesDetail from "../Screen_Admin/device_detail";
 
 // const Tab = createBottomTabNavigator();
 
@@ -117,13 +116,13 @@ import devicesDetail from "../Screen_Admin/device_detail";
 //   headerShown: false,
 // };
 
-const HomeStackNavigator = () => {
-  return (
-    <Stack.Navigator screenOptions={screenOptionStyle}>
-      <Stack.Screen name="Home" component={BottomTabNavigator}></Stack.Screen>
-      <Stack.Screen name="Detail" component={devicesDetail}></Stack.Screen>
-    </Stack.Navigator>
-  );
-};
+// const HomeStackNavigator = () => {
+//   return (
+//     <Stack.Navigator screenOptions={screenOptionStyle}>
+//       <Stack.Screen name="Home" component={BottomTabNavigator}></Stack.Screen>
+//       <Stack.Screen name="Detail" component={devicesDetail}></Stack.Screen>
+//     </Stack.Navigator>
+//   );
+// };
 
-export default HomeStackNavigator;
+// export default HomeStackNavigator;
