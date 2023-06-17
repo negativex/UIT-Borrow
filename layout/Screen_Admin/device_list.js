@@ -30,8 +30,9 @@ itemSeparator = () => {
 };
 const Device_list = ({ navigation }) => {
   const [value, setValue] = useState([]);
+  const [DeviceData, setDeviceData] = useState('');
   const [modalVisible, setModalVisible] = useState(false);
-  const [DeviceText, setDeviceText] = useState()
+  const [DeviceText, setDeviceText] = useState();
   const onPressItem = (item) => {
     setModalVisible(true);
     //setDeviceText(item.text);
@@ -52,6 +53,8 @@ const Device_list = ({ navigation }) => {
       var main = [];
       snapshot.forEach((child) => {
         console.log(child.val());
+        const fetchedData = child.val();
+        setDeviceData(fetchedData);
         main.push({
           key: child.val().Ten,
         });
@@ -82,7 +85,13 @@ const Device_list = ({ navigation }) => {
             <View style={styles.modalView}>
               <Text 
                 style={styles.modalText}
-              >Chua biet day cai data vao ;-;</Text>
+              >Tên thiết bị: {DeviceData.Ten}</Text>
+              <Text 
+                style={styles.modalText}
+              >Số lượng thiết bị: {DeviceData.Soluong}</Text>
+              <Text 
+                style={styles.modalText}
+              >Loại thiết bị: {DeviceData.Loai}</Text>
               <Pressable
                 style={[styles.button, styles.buttonClose]}
                 onPress={() => setModalVisible(!modalVisible)}>
@@ -217,7 +226,7 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
     borderRadius: 20,
     padding: 35,
-    alignItems: 'center',
+    alignItems: 'flex-start',
     shadowColor: '#000',
     shadowOffset: {
       width: 0,
@@ -245,7 +254,7 @@ const styles = StyleSheet.create({
   },
   modalText: {
     marginBottom: 15,
-    textAlign: 'center',
+    textAlign: 'left',
     fontSize: 25,
   },
 });
