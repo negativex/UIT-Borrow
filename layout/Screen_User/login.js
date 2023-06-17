@@ -10,9 +10,6 @@ import {
 import React, { useState } from "react";
 import { Icon, Input, Item, Label } from "native-base";
 import colors from "../colors/colors";
-import { createStackNavigator } from "@react-navigation/stack";
-import Home from "./home";
-import RegisterScreen from "./register";
 import { auth } from "../Firebase/firebase";
 import { useNavigation } from "@react-navigation/core";
 import { signInWithEmailAndPassword } from "firebase/auth";
@@ -192,7 +189,7 @@ const LoginScreen = ({}) => {
     </ScrollView>
   );
 };
-
+export default LoginScreen;
 const styles = StyleSheet.create({
   bottomView: {
     flex: 1,
@@ -203,10 +200,8 @@ const styles = StyleSheet.create({
     borderTopRightRadius: 40,
     paddingHorizontal: 10,
   },
-
-  //button Login
   buttonContainer: {
-    backgroundColor: "#000",
+    backgroundColor: colors.deepblue,
     borderRadius: 20,
     paddingVertical: 10,
     marginBottom: 20,
@@ -219,23 +214,8 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     alignSelf: "center",
   },
-
-  //Login with social acc
 });
 
-const Stack = createStackNavigator();
-const screenOptionStyle = {
-  headerShown: false,
-};
 
-const LoginStackNavigator = () => {
-  return (
-    <Stack.Navigator screenOptions={screenOptionStyle}>
-      <Stack.Screen name="login" component={LoginScreen}></Stack.Screen>
-      <Stack.Screen name="home" component={Home}></Stack.Screen>
-      <Stack.Screen name="register" component={RegisterScreen}></Stack.Screen>
-    </Stack.Navigator>
-  );
-};
 
-export default LoginStackNavigator;
+
