@@ -7,6 +7,9 @@ import {
   Dimensions,
   SafeAreaView,
   FlatList,
+  Modal,
+  Pressable,
+  Alert,
 } from "react-native";
 import { db } from "../Firebase/firebase";
 import {
@@ -17,16 +20,8 @@ import {
 import colors from "../colors/colors";
 import { LinearGradient } from "expo-linear-gradient";
 import { ref, onValue } from "firebase/database";
-const SCREEN_WIDTH = Dimensions.get("window").width;
 
-const Device = ({ item }) => (
-  <View style={styles.item}>
-    <View style={styles.avatarContainer}>
-      <Image source={item.image} style={styles.avatar} />
-    </View>
-    <Text style={styles.name}>{item.key}</Text>
-  </View>
-);
+const SCREEN_WIDTH = Dimensions.get("window").width;
 headerComponent = () => {
   return <Text style={{ fontSize: 18 }}>Danh sách toàn bộ Thiết bị</Text>;
 };
@@ -35,7 +30,23 @@ itemSeparator = () => {
 };
 const Device_list = ({ navigation }) => {
   const [value, setValue] = useState([]);
-
+  const [modalVisible, setModalVisible] = useState(false);
+  const [DeviceText, setDeviceText] = useState()
+  const onPressItem = (item) => {
+    setModalVisible(true);
+    //setDeviceText(item.text);
+  }
+  const Device = ({ item }) => (
+      <TouchableOpacity 
+        style={styles.item}
+        onPress={() => onPressItem(item)}
+      >
+        <View style={styles.avatarContainer}>
+          <Image source={item.image} style={styles.avatar} />
+        </View>
+        <Text style={styles.name}>{item.key}</Text>
+      </TouchableOpacity>
+  );
   useEffect(() => {
     onValue(ref(db, "Thong tin thiet bi"), (snapshot) => {
       var main = [];
@@ -51,13 +62,36 @@ const Device_list = ({ navigation }) => {
 
   return (
     // Top View
-
+    
     <ScrollView
       style={{
         backgroundColor: "#fff",
         flex: 1,
       }}
     >
+      <View style={styles.centeredView}>
+        <Modal
+          animationType="slide"
+          transparent={true}
+          visible={modalVisible}
+          onRequestClose={() => {
+            Alert.alert('Modal has been closed.');
+            setModalVisible(!modalVisible);
+          }}>
+          <View style={styles.centeredView}>
+            <View style={styles.modalView}>
+              <Text 
+                style={styles.modalText}
+              >Chua biet day cai data vao ;-;</Text>
+              <Pressable
+                style={[styles.button, styles.buttonClose]}
+                onPress={() => setModalVisible(!modalVisible)}>
+                <Text style={styles.textStyle}>Back</Text>
+              </Pressable>
+            </View>
+          </View>
+        </Modal>
+      </View>
       {/* Style Top View */}
       <View
         style={{
@@ -178,6 +212,41 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 20,
   },
+  modalView: {
+    margin: 20,
+    backgroundColor: 'white',
+    borderRadius: 20,
+    padding: 35,
+    alignItems: 'center',
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 4,
+    elevation: 5,
+  },
+  button: {
+    borderRadius: 20,
+    padding: 10,
+    elevation: 2,
+  },
+  buttonOpen: {
+    backgroundColor: '#F194FF',
+  },
+  buttonClose: {
+    backgroundColor: '#2196F3',
+  },
+  textStyle: {
+    color: 'white',
+    fontWeight: 'bold',
+    textAlign: 'center',
+  },
+  modalText: {
+    marginBottom: 15,
+    textAlign: 'center',
+    fontSize: 25,
+  },
 });
-
 export default Device_list;
