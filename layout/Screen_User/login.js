@@ -6,21 +6,28 @@ import {
   ScrollView,
   Image,
   Alert,
+  Button,
+  Dimensions,
+  Modal,
 } from "react-native";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Icon, Input, Item, Label } from "native-base";
 import colors from "../colors/colors";
 import { auth } from "../Firebase/firebase";
 import { useNavigation } from "@react-navigation/core";
 import { signInWithEmailAndPassword } from "firebase/auth";
+import { BarCodeScanner } from 'expo-barcode-scanner';
+import { StatusBar } from 'expo-status-bar';
 
+const { height, width } = Dimensions.get('window');
+const modalWidth = (3 * width) / 4;
+const modalHeight = (3 * height) / 4;
 const LoginScreen = ({}) => {
   const [email, setEmail] = useState("");
   const onChangeEmail = (newEmail) => {
     setEmail(newEmail);
   };
   const [password, setPassword] = useState("");
-
   const onChangePassword = (newPassword) => {
     setPassword(newPassword);
   };
@@ -42,13 +49,59 @@ const LoginScreen = ({}) => {
         ])
       );
   };
-
+  // start Barcode part
+  const [hasPermission, setHasPermission] = React.useState(false);
+  const [scanData, setScanData] = React.useState();
+  const [modalVisible, setModalVisible] = React.useState(false);
+  const handleBarCodeScanned = ({type, data}) => {
+    setScanData(data);
+    onChangeEmail(data);
+    console.log(`Data: ${data}`);
+    console.log(`Type: ${type}`);
+  };
+  const scanBarcode = () =>{
+    console.log("Scan Barcode Pressed");
+    setModalVisible(true);
+  };
+  useEffect(() => {
+    (async() => {
+      const {status} = await BarCodeScanner.requestPermissionsAsync();
+      setHasPermission(status === "granted");
+    })();
+  }, []);
+  if (!hasPermission) {
+    return (
+      <View style={styles.container}>
+        <Text>Please grant camera permissions to app.</Text>
+      </View>
+    );
+  }
+  //end Barcode part
   return (
     <ScrollView
       style={{ flex: 1, backgroundColor: colors.blue }}
       showsVerticalScrollIndicator={false}
     >
       <View>
+        <Modal
+          animationType="slide"
+          transparent={true}
+          visible={modalVisible}
+          onRequestClose={() => {
+            Alert.alert('Modal has been closed.');
+            setModalVisible(!modalVisible);
+          }}>
+          <View style={styles.modalView}>
+            <View style={styles.modalView}>
+              <BarCodeScanner 
+                style={StyleSheet.absoluteFillObject}
+                onBarCodeScanned={scanData ? undefined : handleBarCodeScanned}
+                />
+              {scanData && <Button title='Done' onPress={() => {setScanData(undefined); setModalVisible(false);}}  />}
+              <StatusBar style="auto" />
+            </View>
+          </View>
+        </Modal>
         {/* Name */}
         <View
           style={{
@@ -110,6 +163,12 @@ const LoginScreen = ({}) => {
         ></View>
         {/* form input view */}
         <View style={{ padding: 30, paddingTop: 34 }}>
+          <TouchableOpacity
+            style={styles.buttonBarcode}
+            onPress={scanBarcode}
+          >
+            <Text style={styles.buttonText}>Quét Barcode</Text>
+          </TouchableOpacity>
           <Item
             floatingLabel
             style={{
@@ -213,6 +272,31 @@ const styles = StyleSheet.create({
     color: "#fff",
     fontWeight: "bold",
     alignSelf: "center",
+  },
+  container: {
+    flex: 1,
+    backgroundColor: '#fff',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  buttonBarcode: {
+    backgroundColor: colors.blue,
+    borderRadius: 20,
+    paddingVertical: 10,
+    marginBottom: 20,
+    marginEnd: 90,
+    marginStart: 90,
+  },
+  modalView: {
+    flex:1,
+    // backgroundColor: colors.deepblue,
+    width: modalWidth,
+    // height: modalHeight,
+    borderRadius: 20,
+    //marginTop: 40,
+    alignSelf: 'center',
+    justifyContent: 'center',
+    alignItems: 'center',
   },
 });
 
