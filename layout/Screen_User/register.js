@@ -6,14 +6,22 @@ import {
   ScrollView,
   Image,
   Alert,
+  Button,
+  Dimensions,
+  Modal,
 } from "react-native";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Icon, Input, Item, Label } from "native-base";
 import colors from "../colors/colors";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../Firebase/firebase";
 import { useNavigation } from "@react-navigation/core";
+import { BarCodeScanner } from 'expo-barcode-scanner';
+import { StatusBar } from 'expo-status-bar';
 
+const { height, width } = Dimensions.get('window');
+const modalWidth = (4 * width) / 5;
+const modalHeight = (4 * height) / 5;
 const RegisterScreen = () => {
   const [email, setEmail] = useState("");
   const onChangeEmail = (newEmail) => {
@@ -30,6 +38,9 @@ const RegisterScreen = () => {
     setNewPassword(newNewPassword);
   };
   const navigation = useNavigation();
+  const [hasPermission, setHasPermission] = React.useState(false);
+  const [scanData, setScanData] = React.useState();
+  const [modalVisible, setModalVisible] = React.useState(false);
 
   const handleRegister = () => {
     createUserWithEmailAndPassword(auth, email, password, newpassword)
@@ -46,13 +57,54 @@ const RegisterScreen = () => {
         ])
       );
   };
-
+  const handleBarCodeScanned = ({type, data}) => {
+    setScanData(data);
+    onChangeEmail(data);
+    console.log(`Data: ${data}`);
+    console.log(`Type: ${type}`);
+  };
+  const scanBarcode = () =>{
+    console.log("Scan Barcode Pressed");
+    setModalVisible(true);
+  };
+  useEffect(() => {
+    (async() => {
+      const {status} = await BarCodeScanner.requestPermissionsAsync();
+      setHasPermission(status === "granted");
+    })();
+  }, []);
+  if (!hasPermission) {
+    return (
+      <View style={styles.container}>
+        <Text>Please grant camera permissions to app.</Text>
+      </View>
+    );
+  }
   return (
     <ScrollView
       style={{ flex: 1, backgroundColor: colors.blue }}
       showsVerticalScrollIndicator={false}
     >
       <View>
+        <Modal
+          animationType="slide"
+          transparent={true}
+          visible={modalVisible}
+          onRequestClose={() => {
+            Alert.alert('Modal has been closed.');
+            setModalVisible(!modalVisible);
+          }}>
+          <View style={styles.modalView}>
+            <View style={styles.modalView}>
+              <BarCodeScanner 
+                style={StyleSheet.absoluteFillObject}
+                onBarCodeScanned={scanData ? undefined : handleBarCodeScanned}
+                />
+              {scanData && <Button title='Done' onPress={() => {setScanData(undefined); setModalVisible(false);}}  />}
+              <StatusBar style="auto" />
+            </View>
+          </View>
+        </Modal>
         {/* Name */}
         <View
           style={{
@@ -114,6 +166,12 @@ const RegisterScreen = () => {
         ></View>
         {/* form input view */}
         <View style={{ padding: 30, paddingTop: 34 }}>
+          <TouchableOpacity
+            style={styles.buttonBarcode}
+            onPress={scanBarcode}
+          >
+            <Text style={styles.buttonText}>Quét Barcode</Text>
+          </TouchableOpacity>
           <Item
             floatingLabel
             style={{
@@ -226,10 +284,23 @@ const styles = StyleSheet.create({
     borderTopRightRadius: 40,
     paddingHorizontal: 10,
   },
-
+  container: {
+    flex: 1,
+    backgroundColor: '#fff',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
   //button Register
   buttonContainer: {
     backgroundColor: "#000",
+    borderRadius: 20,
+    paddingVertical: 10,
+    marginBottom: 20,
+    marginEnd: 90,
+    marginStart: 90,
+  },
+  buttonBarcode: {
+    backgroundColor: "#6495ed",
     borderRadius: 20,
     paddingVertical: 10,
     marginBottom: 20,
@@ -241,5 +312,14 @@ const styles = StyleSheet.create({
     color: "#fff",
     fontWeight: "bold",
     alignSelf: "center",
+  },
+  modalView: {
+    backgroundColor: colors.blue,
+    width: modalWidth,
+    height: modalHeight,
+    borderRadius: 10,
+    alignSelf: 'center',
+    justifyContent: 'center',
+    alignItems: 'center',
   },
 });
