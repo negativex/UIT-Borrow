@@ -54,7 +54,7 @@ const Device_list = ({ navigation }) => {
         const fetchedData = child.val();
         setDeviceData(fetchedData);
         main.push({
-          key: child.val().Ten,
+          key: child.val().id,
           kind:child.val().Loai
         });
       });
