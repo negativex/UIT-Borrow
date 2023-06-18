@@ -13,11 +13,26 @@ const Stack = createStackNavigator();
 const App = () => {
   return (
     //LoginScreen
+<<<<<<< HEAD
     // <NavigationContainer>
     //   <Stack.Navigator initialRouteName="login" headerMode="false">
     //     <Stack.Screen name="login" component={LoginScreen} />
     //   </Stack.Navigator>
     // </NavigationContainer>
+
+    //RegisterScreen
+    //  <NavigationContainer>
+    //   <Stack.Navigator initialRouteName='Register' headerMode="none">
+    //     <Stack.Screen name="Register" component={RegisterScreen} />
+    //   </Stack.Navigator>
+    // </NavigationContainer>
+=======
+    <NavigationContainer>
+      <Stack.Navigator initialRouteName="login" headerMode="false">
+        <Stack.Screen name="login" component={LoginScreen} />
+      </Stack.Navigator>
+    </NavigationContainer>
+>>>>>>> master
 
     //RegisterScreen
     //  <NavigationContainer>
