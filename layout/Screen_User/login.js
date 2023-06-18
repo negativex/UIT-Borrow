@@ -55,7 +55,9 @@ const LoginScreen = ({}) => {
   const [modalVisible, setModalVisible] = React.useState(false);
   const handleBarCodeScanned = ({type, data}) => {
     setScanData(data);
-    onChangeEmail(data);
+    const string = data;
+    const modifiedString = string.substring(5) + "@gm.uit.edu.vn";
+    onChangeEmail(modifiedString);
     console.log(`Data: ${data}`);
     console.log(`Type: ${type}`);
   };
