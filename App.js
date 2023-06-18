@@ -13,18 +13,18 @@ const Stack = createStackNavigator();
 const App = () => {
   return (
     //LoginScreen
-    // <NavigationContainer>
-    //   <Stack.Navigator initialRouteName="login" headerMode="false">
-    //     <Stack.Screen name="login" component={LoginScreen} />
-    //   </Stack.Navigator>
-    // </NavigationContainer>
-
-    //RegisterScreen
-     <NavigationContainer>
-      <Stack.Navigator initialRouteName='Register' headerMode="none">
-        <Stack.Screen name="Register" component={RegisterScreen} />
+    <NavigationContainer>
+      <Stack.Navigator initialRouteName="login" headerMode="false">
+        <Stack.Screen name="login" component={LoginScreen} />
       </Stack.Navigator>
     </NavigationContainer>
+
+    //RegisterScreen
+    //  <NavigationContainer>
+    //   <Stack.Navigator initialRouteName='Register' headerMode="none">
+    //     <Stack.Screen name="Register" component={RegisterScreen} />
+    //   </Stack.Navigator>
+    // </NavigationContainer>
 
     // device_type_admin_screen
     // <NavigationContainer>
