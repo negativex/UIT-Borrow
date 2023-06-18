@@ -20,18 +20,18 @@ const App = () => {
     // </NavigationContainer>
 
     //RegisterScreen
-    //  <NavigationContainer>
-    //   <Stack.Navigator initialRouteName='Register' headerMode="none">
-    //     <Stack.Screen name="Register" component={RegisterScreen} />
-    //   </Stack.Navigator>
-    // </NavigationContainer>
-
-    // device_type_admin_screen
-    <NavigationContainer>
-      <Stack.Navigator initialRouteName="device_list" headerMode="none">
-        <Stack.Screen name="device_list" component={Device_list} />
+     <NavigationContainer>
+      <Stack.Navigator initialRouteName='Register' headerMode="none">
+        <Stack.Screen name="Register" component={RegisterScreen} />
       </Stack.Navigator>
     </NavigationContainer>
+
+    // device_type_admin_screen
+    // <NavigationContainer>
+    //   <Stack.Navigator initialRouteName="device_list" headerMode="none">
+    //     <Stack.Screen name="device_list" component={Device_list} />
+    //   </Stack.Navigator>
+    // </NavigationContainer>
 
     //deviceadd
     // <NavigationContainer>
