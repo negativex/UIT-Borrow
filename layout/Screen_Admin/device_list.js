@@ -20,6 +20,8 @@ import {
 import colors from "../colors/colors";
 import { LinearGradient } from "expo-linear-gradient";
 import { ref, onValue } from "firebase/database";
+import { Button } from "react-native-paper";
+import { useNavigation } from "@react-navigation/core";
 
 const SCREEN_WIDTH = Dimensions.get("window").width;
 headerComponent = () => {
@@ -28,7 +30,8 @@ headerComponent = () => {
 itemSeparator = () => {
   return <View style={styles.separator} />;
 };
-const Device_list = ({ navigation }) => {
+const Device_list = ({ route }) => {
+  const navigation=useNavigation();
   const [value, setValue] = useState([]);
   const [DeviceData, setDeviceData] = useState('');
   const [modalVisible, setModalVisible] = useState(false);
@@ -38,12 +41,12 @@ const Device_list = ({ navigation }) => {
     //setDeviceText(item.text);
   }
   const Device = ({ item }) => (
-    <TouchableOpacity style={styles.item} onPress={() => onPressItem(item)}>
+    <TouchableOpacity style={styles.item} onPress={() => navigation.navigate('device_update', {item})}>
       <View style={styles.avatarContainer}>
         <Image source={item.image} style={styles.avatar} />
       </View>
-      <Text style={styles.name}>{item.key}</Text>
-      <Text style={styles.name}>{item.kind}</Text>
+      <Text style={styles.name}>{item.Ten}</Text>
+      <Text style={styles.name}>{item.Loai}</Text>
     </TouchableOpacity>
   );
   useEffect(() => {
@@ -54,8 +57,9 @@ const Device_list = ({ navigation }) => {
         const fetchedData = child.val();
         setDeviceData(fetchedData);
         main.push({
-          key: child.val().id,
-          kind:child.val().Loai
+          Ten: child.val().Ten,
+          Loai:child.val().Loai,
+          
         });
       });
       setValue(main);
@@ -71,7 +75,7 @@ const Device_list = ({ navigation }) => {
         flex: 1,
       }}
     >
-      <View style={styles.centeredView}>
+      {/* <View style={styles.centeredView}>
         <Modal
           animationType="slide"
           transparent={true}
@@ -99,7 +103,7 @@ const Device_list = ({ navigation }) => {
             </View>
           </View>
         </Modal>
-      </View>
+      </View> */}
       {/* Style Top View */}
       <View
         style={{
@@ -161,6 +165,7 @@ const Device_list = ({ navigation }) => {
           keyExtractor={(item) => item.key}
         />
       </SafeAreaView>      
+      
     </ScrollView>
   );
 };
