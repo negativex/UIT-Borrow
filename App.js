@@ -35,12 +35,12 @@ const App = () => {
     // </NavigationContainer>
 
     // device_type_admin_screen
-    <NavigationContainer>
-      <Stack.Navigator initialRouteName="device_list" headerMode="none">
-        <Stack.Screen name="device_list" component={Device_list} />
-        <Stack.Screen name="device_update" component={Device_update} />
-      </Stack.Navigator>
-    </NavigationContainer>
+    // <NavigationContainer>
+    //   <Stack.Navigator initialRouteName="device_list" headerMode="none">
+    //     <Stack.Screen name="device_list" component={Device_list} />
+    //     <Stack.Screen name="device_update" component={Device_update} />
+    //   </Stack.Navigator>
+    // </NavigationContainer>
     // <NavigationContainer>
     //   <Stack.Navigator initialRouteName="device_update" headerMode="none">
     //     <Stack.Screen name="device_update" component={Device_update} />
@@ -48,11 +48,11 @@ const App = () => {
     // </NavigationContainer>
 
     //deviceadd
-    // <NavigationContainer>
-    //   <Stack.Navigator initialRouteName="device_add" headerMode="false">
-    //     <Stack.Screen name="device_add" component={Device_add} />
-    //   </Stack.Navigator>
-    // </NavigationContainer>
+    <NavigationContainer>
+      <Stack.Navigator initialRouteName="device_add" headerMode="false">
+        <Stack.Screen name="device_add" component={Device_add} />
+      </Stack.Navigator>
+    </NavigationContainer>
 
     //Detail Screen
     // <NavigationContainer>
