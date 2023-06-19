@@ -14,14 +14,14 @@ const Device_update = ({ route }) => {
   const navigation= useNavigation();
   const [name, setName]= useState(route.params.item.Ten);
   const [type, setType] = useState(route.params.item.Loai);
-   const [count, setCount] = useState(0);
+   const [count, setCount] = useState(route.params.item.SL);
   const addQuantity = () => setCount((prevCount) => prevCount + 1);
   const subtractQuantity = () => setCount((prevCount) => prevCount - 1);
-  function create() {
+  function Update() {
     update(ref(db, "Thong tin thiet bi/" + name), {
       Ten: name,
       Loai: type,
-      Soluong: count,
+      SL: count,
     })
       .then(() => {
         console.log("success");
@@ -187,7 +187,7 @@ const Device_update = ({ route }) => {
           }}
           placeholder="Nhập thông tin thiết bị..."
         ></TextInput>
-        <TouchableOpacity style={styles.buttonContainer} onPress={create}>
+        <TouchableOpacity style={styles.buttonContainer} onPress={Update}>
           <Text style={styles.textButton}>Cập nhập</Text>
         </TouchableOpacity>
       </ScrollView>
