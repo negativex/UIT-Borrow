@@ -9,7 +9,7 @@ import {
 import colors from "../colors/colors";
 import { db } from "../Firebase/firebase";
 
-const Device_add = () => {
+const Device_add = ({navigation}) => {
   const [count, setCount] = useState(0);
   const addQuantity = () => setCount((prevCount) => prevCount + 1);
   const subtractQuantity = () => setCount((prevCount) => prevCount - 1);
@@ -18,10 +18,11 @@ const Device_add = () => {
   const [type, setType] = useState("");
   const [content, setContent] = useState("");
   function create() {
-    set(ref(db, "Thong tin thiet bi/" + type), {
+    set(ref(db, "Thong tin thiet bi/" + name), {
       Ten: name,
       Loai: type,
       Soluong: count,
+      
     })
       .then(() => {
         console.log("success");
@@ -47,7 +48,7 @@ const Device_add = () => {
             margin: 10,
             marginTop: 30,
           }}
-          onPress={() => this.props.navigation.goBack()}
+          onPress={() => navigation.navigate('device_list')}
         >
           <Image
             source={require("../images/back.png")}

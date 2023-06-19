@@ -8,16 +8,24 @@ import Confirm from "./layout/Screen_User/confirm";
 import Device_add from "./layout/Screen_Admin/device_add";
 import LoginScreen from "./layout/Screen_User/login";
 import Device_list from "./layout/Screen_Admin/device_list";
+import Device_update from "./layout/Screen_Admin/device_update";
 const Stack = createStackNavigator();
 
 const App = () => {
   return (
     //LoginScreen
-    <NavigationContainer>
-      <Stack.Navigator initialRouteName="login" headerMode="false">
-        <Stack.Screen name="login" component={LoginScreen} />
-      </Stack.Navigator>
-    </NavigationContainer>
+    // <NavigationContainer>
+    //   <Stack.Navigator initialRouteName="login" headerMode="false">
+    //     <Stack.Screen name="login" component={LoginScreen} />
+    //   </Stack.Navigator>
+    // </NavigationContainer>
+
+    //RegisterScreen
+    //  <NavigationContainer>
+    //   <Stack.Navigator initialRouteName='Register' headerMode="none">
+    //     <Stack.Screen name="Register" component={RegisterScreen} />
+    //   </Stack.Navigator>
+    // </NavigationContainer>
 
     //RegisterScreen
     //  <NavigationContainer>
@@ -27,9 +35,15 @@ const App = () => {
     // </NavigationContainer>
 
     // device_type_admin_screen
+    <NavigationContainer>
+      <Stack.Navigator initialRouteName="device_list" headerMode="none">
+        <Stack.Screen name="device_list" component={Device_list} />
+        <Stack.Screen name="device_update" component={Device_update} />
+      </Stack.Navigator>
+    </NavigationContainer>
     // <NavigationContainer>
-    //   <Stack.Navigator initialRouteName="device_list" headerMode="none">
-    //     <Stack.Screen name="device_list" component={Device_list} />
+    //   <Stack.Navigator initialRouteName="device_update" headerMode="none">
+    //     <Stack.Screen name="device_update" component={Device_update} />
     //   </Stack.Navigator>
     // </NavigationContainer>
 
