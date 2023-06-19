@@ -1,6 +1,7 @@
 import { View, Text, Image, StyleSheet } from "react-native";
 import React, { useState } from "react";
 import { ref, set } from "firebase/database";
+import uuid from "react-native-uuid";
 import {
   ScrollView,
   TextInput,
@@ -13,16 +14,17 @@ const Device_add = ({navigation, route}) => {
   const [count, setCount] = useState(0);
   const addQuantity = () => setCount((prevCount) => prevCount + 1);
   const subtractQuantity = () => setCount((prevCount) => prevCount - 1);
-
+  const [id, setID] = useState(uuid.v4());
   const [name, setName] = useState("");
   const [type, setType] = useState("");
   const [content, setContent] = useState("");
   function create() {
-    set(ref(db, "Thong tin thiet bi/" + name), {
+    
+    set(ref(db, "Thong tin thiet bi/" + id), {
       Ten: name,
       Loai: type,
-      SL: count,
-      
+      Soluong: count,
+      ID: id
     })
       .then(() => {
         console.log("success");
