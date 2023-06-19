@@ -41,12 +41,16 @@ const Device_list = ({ route }) => {
     //setDeviceText(item.text);
   }
   const Device = ({ item }) => (
-    <TouchableOpacity style={styles.item} onPress={() => navigation.navigate('device_update', {item})}>
+    <TouchableOpacity
+      style={styles.item}
+      onPress={() => navigation.navigate("device_update", { item })}
+    >
       <View style={styles.avatarContainer}>
         <Image source={item.image} style={styles.avatar} />
       </View>
       <Text style={styles.name}>{item.Ten}</Text>
       <Text style={styles.name}>{item.Loai}</Text>
+      <Text style={styles.name}>{item.SL}</Text>
     </TouchableOpacity>
   );
   useEffect(() => {
@@ -59,7 +63,7 @@ const Device_list = ({ route }) => {
         main.push({
           Ten: child.val().Ten,
           Loai:child.val().Loai,
-          
+          SL: child.val().Soluong,
         });
       });
       setValue(main);

@@ -9,7 +9,7 @@ import {
 import colors from "../colors/colors";
 import { db } from "../Firebase/firebase";
 
-const Device_add = ({navigation}) => {
+const Device_add = ({navigation, route}) => {
   const [count, setCount] = useState(0);
   const addQuantity = () => setCount((prevCount) => prevCount + 1);
   const subtractQuantity = () => setCount((prevCount) => prevCount - 1);
@@ -21,7 +21,7 @@ const Device_add = ({navigation}) => {
     set(ref(db, "Thong tin thiet bi/" + name), {
       Ten: name,
       Loai: type,
-      Soluong: count,
+      SL: count,
       
     })
       .then(() => {
