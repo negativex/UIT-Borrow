@@ -16,8 +16,8 @@ const App = () => {
     //LoginScreen
     <NavigationContainer>
       <Stack.Navigator initialRouteName="login" headerMode="false">
-        {/* <Stack.Screen name="login" component={LoginScreen} /> */}
-        <Stack.Screen name="Register" component={RegisterScreen} />
+        <Stack.Screen name="login" component={LoginScreen} />
+        {/* <Stack.Screen name="Register" component={RegisterScreen} /> */}
       </Stack.Navigator>
     </NavigationContainer>
 
