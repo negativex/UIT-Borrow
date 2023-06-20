@@ -68,6 +68,8 @@ const RegisterScreen = () => {
     }
     console.log(`Data: ${data}`);
     console.log(`Type: ${type}`);
+    setScanData(undefined); 
+    setModalVisible(false);
   };
   const scanBarcode = () =>{
     console.log("Scan Barcode Pressed");
@@ -106,7 +108,7 @@ const RegisterScreen = () => {
                 style={StyleSheet.absoluteFillObject}
                 onBarCodeScanned={scanData ? undefined : handleBarCodeScanned}
                 />
-              {scanData && <Button title='Done' onPress={() => {setScanData(undefined); setModalVisible(false);}}  />}
+              {scanData}
               <StatusBar style="auto" />
             </View>
           </View>
