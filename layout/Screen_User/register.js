@@ -60,8 +60,12 @@ const RegisterScreen = () => {
   const handleBarCodeScanned = ({type, data}) => {
     setScanData(data);
     const string = data;
-    const modifiedString = string.substring(5) + "@gm.uit.edu.vn";
-    onChangeEmail(modifiedString);
+    if (string.startsWith("15000")){
+      const modifiedString = string.substring(5) + "@gm.uit.edu.vn";
+      onChangeEmail(modifiedString);
+    } else {
+      onChangeEmail("Barcode không hợp lệ");
+    }
     console.log(`Data: ${data}`);
     console.log(`Type: ${type}`);
   };
@@ -187,7 +191,8 @@ const RegisterScreen = () => {
             </Label>
 
             <Input
-              value={email}
+              value={email} readOnly
+              editable={true}
               keyboardType="email-address"
               onChangeText={onChangeEmail}
               style={{ paddingStart: 20 }}
@@ -316,10 +321,12 @@ const styles = StyleSheet.create({
     alignSelf: "center",
   },
   modalView: {
-    backgroundColor: colors.blue,
+    flex:1,
+    // backgroundColor: colors.deepblue,
     width: modalWidth,
-    height: modalHeight,
-    borderRadius: 10,
+    // height: modalHeight,
+    borderRadius: 20,
+    //marginTop: 40,
     alignSelf: 'center',
     justifyContent: 'center',
     alignItems: 'center',
