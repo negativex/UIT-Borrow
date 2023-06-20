@@ -4,9 +4,8 @@ import {
   ScrollView,
   TouchableOpacity,
 } from "react-native-gesture-handler";
-import colors from "../colors/colors";
 import { auth } from "../Firebase/firebase";
-
+import colors from "../Style/colors";
 const SCREEN_WIDTH = Dimensions.get("window").width;
 const Home = ({navigation}) => {
   return (
