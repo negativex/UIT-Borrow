@@ -110,12 +110,7 @@ const RegisterScreen = () => {
                 onBarCodeScanned={scanData ? undefined : handleBarCodeScanned}
               />
               {scanData && (
-                <Pressable
-                 
-                  onPress={() => setModalVisible(!modalVisible)}
-                >
-                  <Text>Back</Text>
-                </Pressable>
+            
               )}
               <StatusBar style="auto" />
             </View>
@@ -332,19 +327,11 @@ const styles = StyleSheet.create({
     flex:1,
     // backgroundColor: colors.deepblue,
     width: modalWidth,
-<<<<<<< HEAD
-    height: modalHeight,
-    borderRadius: 10,
-    alignSelf: "center",
-    justifyContent: "center",
-    alignItems: "center",
-=======
     // height: modalHeight,
     borderRadius: 20,
     //marginTop: 40,
     alignSelf: 'center',
     justifyContent: 'center',
     alignItems: 'center',
->>>>>>> master
   },
 });
