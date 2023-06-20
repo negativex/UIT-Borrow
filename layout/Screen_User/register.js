@@ -12,17 +12,40 @@ import {
 } from "react-native";
 import React, { useState, useEffect } from "react";
 import { Icon, Input, Item, Label } from "native-base";
-import colors from "../colors/colors";
+import colors from "../Style/colors";
+import text from "../Style/text";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../Firebase/firebase";
+import { db } from "../Firebase/firebase";
 import { useNavigation } from "@react-navigation/core";
-import { BarCodeScanner } from 'expo-barcode-scanner';
-import { StatusBar } from 'expo-status-bar';
+import { BarCodeScanner } from "expo-barcode-scanner";
+import { StatusBar } from "expo-status-bar";
+import { ref, set } from "firebase/database";
 
-const { height, width } = Dimensions.get('window');
+const { height, width } = Dimensions.get("window");
 const modalWidth = (4 * width) / 5;
-const modalHeight = (4 * height) / 5;
+
 const RegisterScreen = () => {
+  const navigation = useNavigation();
+  const [hasPermission, setHasPermission] = React.useState(false);
+  const [scanData, setScanData] = React.useState();
+  const [modalVisible, setModalVisible] = React.useState(false);
+
+  const [lop, setLop] = useState("");
+  const onChangeClass = (Lop) => {
+    setLop(Lop);
+  };
+
+    const [mssv, setMSSV] = useState("");
+    const onChangeMSSV = (mssv) => {
+      setMSSV(mssv);
+    };
+
+  const [name, setName] = useState("");
+  const onChangeName = (Name) => {
+    setName(Name);
+  };
+
   const [email, setEmail] = useState("");
   const onChangeEmail = (newEmail) => {
     setEmail(newEmail);
@@ -33,36 +56,42 @@ const RegisterScreen = () => {
     setPassword(newPassword);
   };
 
-  const [newpassword, setNewPassword] = useState("");
-  const onChangeNewPassword = (newNewPassword) => {
-    setNewPassword(newNewPassword);
+  const [repassword, setRePassword] = useState("");
+  const onChangeRePassword = (rePassword) => {
+    setRePassword(rePassword);
   };
-  const navigation = useNavigation();
-  const [hasPermission, setHasPermission] = React.useState(false);
-  const [scanData, setScanData] = React.useState();
-  const [modalVisible, setModalVisible] = React.useState(false);
 
   const handleRegister = () => {
-    createUserWithEmailAndPassword(auth, email, password, newpassword)
+   set(ref(db, "User/"+ mssv), {
+     Ten: name,
+     Email: email,
+     Password: password,
+     Lop: lop,
+   });
+    createUserWithEmailAndPassword(auth, email, password)
       .then((userCredentials) => {
-        const user = userCredentials.user;
+         const user = userCredentials.user;
         console.log("Đăng ký tài khoản:", user.email);
+        
         Alert.alert("Đăng ký thành công", "Hãy đăng nhập ứng dụng", [
           { text: "Đóng", onPress: () => console.log("alert close") },
         ]);
       })
-      .catch((error) =>
-        Alert.alert("Đăng nhập thất bại", "Tài khoản/mật khẩu chưa đúng", [
+      .catch(() =>
+        Alert.alert("Đăng ký thất bại", "Tài khoản/mật khẩu chưa đúng", [
           { text: "Đóng", onPress: () => console.log("alert close") },
         ])
       );
   };
-  const handleBarCodeScanned = ({type, data}) => {
+
+  const handleBarCodeScanned = ({ type, data }) => {
     setScanData(data);
     const string = data;
-    if (string.startsWith("15000")){
+    if (string.startsWith("15000")) {
       const modifiedString = string.substring(5) + "@gm.uit.edu.vn";
+      const modifiedMSSV = string.substring(5);
       onChangeEmail(modifiedString);
+      onChangeMSSV(modifiedMSSV);
     } else {
       onChangeEmail("Barcode không hợp lệ");
     }
@@ -71,40 +100,39 @@ const RegisterScreen = () => {
     setScanData(undefined); 
     setModalVisible(false);
   };
-  const scanBarcode = () =>{
+  const scanBarcode = () => {
     console.log("Scan Barcode Pressed");
     setModalVisible(true);
   };
   useEffect(() => {
-    (async() => {
-      const {status} = await BarCodeScanner.requestPermissionsAsync();
+    (async () => {
+      const { status } = await BarCodeScanner.requestPermissionsAsync();
       setHasPermission(status === "granted");
     })();
   }, []);
   if (!hasPermission) {
     return (
       <View style={styles.container}>
-        <Text>Please grant camera permissions to app.</Text>
+        <Text>Cấp quyền truy cập Camera cho ứng dụng</Text>
       </View>
     );
   }
+
   return (
-    <ScrollView
-      style={{ flex: 1, backgroundColor: colors.blue }}
-      showsVerticalScrollIndicator={false}
-    >
+    <ScrollView style={{ flex: 1, backgroundColor: colors.blue }}>
       <View>
         <Modal
           animationType="slide"
           transparent={true}
           visible={modalVisible}
           onRequestClose={() => {
-            Alert.alert('Modal has been closed.');
+            Alert.alert("Modal has been closed.");
             setModalVisible(!modalVisible);
-          }}>
+          }}
+        >
           <View style={styles.modalView}>
             <View style={styles.modalView}>
-              <BarCodeScanner 
+              <BarCodeScanner
                 style={StyleSheet.absoluteFillObject}
                 onBarCodeScanned={scanData ? undefined : handleBarCodeScanned}
                 />
@@ -113,91 +141,113 @@ const RegisterScreen = () => {
             </View>
           </View>
         </Modal>
-        {/* Name */}
-        <View
-          style={{
-            flexDirection: "column",
-            alignItems: "center",
-            marginTop: -55,
-            paddingLeft: -5,
-            width: "100%",
-          }}
-        >
-          <View style={{ width: "110%", alignItems: "center" }}>
-            <Text
-              style={{
-                fontSize: 30,
-                color: "#000",
-                fontWeight: "bold",
-                marginTop: 120,
-              }}
-            >
-              Welcome To Room E3.1
-            </Text>
-          </View>
-
-          {/*Image UIT */}
-          <View style={{ width: "100%" }}>
-            <Image
-              source={require("../images/logo_uit.png")}
-              style={{ marginLeft: 50, marginTop: 10 }}
-            ></Image>
-          </View>
-          <View></View>
-        </View>
       </View>
 
-      {/* bottom view*/}
+      {/* header */}
+      <View
+        style={{
+          flexDirection: "column",
+          margin: 50,
+        }}
+      >
+        <Image source={require("../images/logo_uit.png")} />
+      </View>
+
+      {/* bottom*/}
       <View style={styles.bottomView}>
-        {/* welcome view */}
-        <View style={{ padding: 20 }}>
+        <View>
           <Text
             style={{
               color: "#000",
-              fontSize: 35,
+              fontSize: text.header,
               fontWeight: "bold",
-              paddingHorizontal: 90,
+              padding: 10,
             }}
           >
             Đăng Ký
           </Text>
         </View>
+
         <View
           style={{
             height: 1,
             backgroundColor: "#000",
             width: 250,
-            marginTop: 0,
-            marginLeft: 55,
-            borderRadius: 30,
           }}
         ></View>
-        {/* form input view */}
-        <View style={{ padding: 30, paddingTop: 34 }}>
-          <TouchableOpacity
-            style={styles.buttonBarcode}
-            onPress={scanBarcode}
-          >
-            <Text style={styles.buttonText}>Quét Barcode</Text>
-          </TouchableOpacity>
+
+        {/*input*/}
+
+        <View style={{ marginVertical: 20, width: 350 }}>
+          <View style={{ height: 52 }}>
+            <Item
+              floatingLabel
+              style={{
+                borderColor: colors.blue,
+                borderRadius: 20,
+                padding: 1,
+                marginEnd: 60,
+                backgroundColor: colors["white-smoke"],
+              }}
+            >
+              <Label
+                style={{
+                  paddingTop: -10,
+                  padding: 10,
+                  paddingStart: 15,
+                  fontSize: text.inputText,
+                }}
+              >
+                Địa chỉ Email
+              </Label>
+              <Input
+                value={email}
+                readOnly
+                style={{ paddingStart: 15 }}
+                onChangeText={onChangeEmail}
+              ></Input>
+            </Item>
+
+            <TouchableOpacity
+              style={{
+                alignItems: "flex-end",
+                marginTop: -46,
+                marginStart: 310,
+              }}
+              onPress={scanBarcode}
+            >
+              <Image
+                style={{ width: 40, height: 40 }}
+                source={require("../images/barcode.png")}
+              ></Image>
+            </TouchableOpacity>
+          </View>
+
           <Item
             floatingLabel
             style={{
               borderColor: colors.blue,
+              padding: 1,
+              marginTop: 30,
               borderRadius: 20,
-              paddingBottom: -10,
+              paddingStart: 20,
+              backgroundColor: colors.container,
             }}
           >
-            <Label style={{ paddingStart: 20, fontSize: 15 }}>
-              Địa chỉ Email
+            <Label
+              style={{
+                paddingTop: -10,
+                padding: 10,
+                paddingStart: 15,
+                fontSize: text.inputText,
+              }}
+            >
+              Họ và tên
             </Label>
-
             <Input
-              value={email} readOnly
-              editable={true}
-              keyboardType="email-address"
-              onChangeText={onChangeEmail}
-              style={{ paddingStart: 20 }}
+              value={name}
+              onChangeText={onChangeName}
+              style={{ paddingStart: -10 }}
             ></Input>
             <Icon
               name="checkmark"
@@ -209,16 +259,60 @@ const RegisterScreen = () => {
             floatingLabel
             style={{
               borderColor: colors.blue,
+              padding: 1,
               marginTop: 30,
               borderRadius: 20,
               paddingStart: 20,
+              backgroundColor: colors.container,
             }}
           >
-            <Label style={{ paddingStart: 20 }}>Nhập mật khẩu</Label>
+            <Label
+              style={{
+                paddingTop: -10,
+                padding: 10,
+                paddingStart: 15,
+                fontSize: text.inputText,
+              }}
+            >
+              Lớp
+            </Label>
+            <Input
+              value={lop}
+              onChangeText={onChangeClass}
+              style={{ paddingStart: -10 }}
+            ></Input>
+            <Icon
+              name="checkmark"
+              style={{ color: "black", paddingBottom: 15, paddingEnd: 20 }}
+            ></Icon>
+          </Item>
+
+          <Item
+            floatingLabel
+            style={{
+              borderColor: colors.blue,
+              padding: 1,
+              marginTop: 30,
+              borderRadius: 20,
+              paddingStart: 20,
+              backgroundColor: colors.container,
+            }}
+          >
+            <Label
+              style={{
+                paddingTop: -10,
+                padding: 10,
+                paddingStart: 15,
+                fontSize: text.inputText,
+              }}
+            >
+              Nhập mật khẩu
+            </Label>
             <Input
               value={password}
               onChangeText={onChangePassword}
-              style={{ paddingStart: -9 }}
+              secureTextEntry={true}
+              style={{ paddingStart: -10 }}
             ></Input>
             <Icon
               name="eye"
@@ -230,16 +324,28 @@ const RegisterScreen = () => {
             floatingLabel
             style={{
               borderColor: colors.blue,
+              padding: 1,
               marginTop: 30,
               borderRadius: 20,
               paddingStart: 20,
+              backgroundColor: colors.container,
             }}
           >
-            <Label style={{ paddingStart: 20 }}>Nhập lại mật khẩu</Label>
+            <Label
+              style={{
+                paddingTop: -10,
+                padding: 10,
+                paddingStart: 15,
+                fontSize: text.inputText,
+              }}
+            >
+              Nhập lại mật khẩu
+            </Label>
             <Input
-              value={newpassword}
-              onChangeText={onChangeNewPassword}
-              style={{ paddingStart: -9 }}
+              value={repassword}
+              onChangeText={onChangeRePassword}
+              secureTextEntry={true}
+              style={{ paddingStart: -10 }}
             ></Input>
             <Icon
               name="eye"
@@ -253,17 +359,17 @@ const RegisterScreen = () => {
           style={styles.buttonContainer}
           onPress={handleRegister}
         >
-          <Text style={styles.buttonText}>Đăng Ký</Text>
+          <Text style={styles.textButton}>Đăng Ký</Text>
         </TouchableOpacity>
 
-        <TouchableOpacity onPress={() => navigation.navigate("login")}>
+        <TouchableOpacity
+          style={{ alignItems: "center" }}
+          onPress={() => navigation.navigate("login")}
+        >
           <Text
             style={{
-              paddingTop: -4,
               fontSize: 15,
               paddingHorizontal: 20,
-              marginStart: 50,
-              padding: 15,
             }}
           >
             Bạn đã có có tài khoản?{"  "}
@@ -283,54 +389,46 @@ const RegisterScreen = () => {
   );
 };
 export default RegisterScreen;
+
 const styles = StyleSheet.create({
   bottomView: {
-    flex: 1,
-    marginTop: 25,
-    paddingBottom: 130,
     backgroundColor: "#fff",
     borderTopLeftRadius: 40,
     borderTopRightRadius: 40,
-    paddingHorizontal: 10,
+    paddingBottom: 20,
+    alignItems: "center",
   },
+
   container: {
     flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
+    backgroundColor: "#fff",
+    alignItems: "center",
+    justifyContent: "center",
   },
-  //button Register
+
   buttonContainer: {
-    backgroundColor: "#000",
+    backgroundColor: colors.blue,
     borderRadius: 20,
     paddingVertical: 10,
-    marginBottom: 20,
-    marginEnd: 90,
-    marginStart: 90,
+    width: 130,
+    margin: 10,
   },
-  buttonBarcode: {
-    backgroundColor: "#6495ed",
-    borderRadius: 20,
-    paddingVertical: 10,
-    marginBottom: 20,
-    marginEnd: 90,
-    marginStart: 90,
-  },
-  buttonText: {
-    fontSize: 20,
-    color: "#fff",
-    fontWeight: "bold",
+
+  textButton: {
+    marginStart: 10,
+    marginEnd: 10,
+    marginVertical: 10,
+    color: "white",
+    fontSize: text.buttonText,
     alignSelf: "center",
+    fontWeight: "bold",
   },
   modalView: {
-    flex:1,
-    // backgroundColor: colors.deepblue,
+    flex: 1,
     width: modalWidth,
-    // height: modalHeight,
     borderRadius: 20,
-    //marginTop: 40,
-    alignSelf: 'center',
-    justifyContent: 'center',
-    alignItems: 'center',
+    alignSelf: "center",
+    justifyContent: "center",
+    alignItems: "center",
   },
 });
