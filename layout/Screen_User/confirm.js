@@ -1,8 +1,8 @@
 import { View, Text, StyleSheet, TextInput, TouchableOpacity } from "react-native";
 import React, { useState } from "react";
 import { useEffect } from "react";
-import colors from "../colors/colors";
 import { auth } from "../Firebase/firebase";
+import colors from "../Style/colors";
 
 const Confirm = () => {
    const [currentDate, setCurrentDate] = useState("");

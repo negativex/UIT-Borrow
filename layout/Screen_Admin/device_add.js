@@ -7,10 +7,10 @@ import {
   TextInput,
   TouchableOpacity,
 } from "react-native-gesture-handler";
-import colors from "../colors/colors";
 import { db } from "../Firebase/firebase";
+import colors from "../Style/colors";
 
-const Device_add = ({navigation, route}) => {
+const Device_add = ({ navigation, route }) => {
   const [count, setCount] = useState(0);
   const addQuantity = () => setCount((prevCount) => prevCount + 1);
   const subtractQuantity = () => setCount((prevCount) => prevCount - 1);
@@ -19,12 +19,11 @@ const Device_add = ({navigation, route}) => {
   const [type, setType] = useState("");
   const [content, setContent] = useState("");
   function create() {
-    
     set(ref(db, "Thong tin thiet bi/" + id), {
       Ten: name,
       Loai: type,
       Soluong: count,
-      ID: id
+      ID: id,
     })
       .then(() => {
         console.log("success");
@@ -50,7 +49,7 @@ const Device_add = ({navigation, route}) => {
             margin: 10,
             marginTop: 30,
           }}
-          onPress={() => navigation.navigate('device_list')}
+          onPress={() => navigation.navigate("device_list")}
         >
           <Image
             source={require("../images/back.png")}

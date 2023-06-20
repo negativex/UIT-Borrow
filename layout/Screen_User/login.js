@@ -12,7 +12,7 @@ import {
 } from "react-native";
 import React, { useState, useEffect } from "react";
 import { Icon, Input, Item, Label } from "native-base";
-import colors from "../colors/colors";
+import colors from "../Style/colors";
 import { auth } from "../Firebase/firebase";
 import { useNavigation } from "@react-navigation/core";
 import { signInWithEmailAndPassword } from "firebase/auth";

@@ -6,9 +6,9 @@ import {
   TextInput,
   TouchableOpacity,
 } from "react-native-gesture-handler";
-import colors from "../colors/colors";
 import { db } from "../Firebase/firebase";
 import { useNavigation } from "@react-navigation/core";
+import colors from "../Style/colors";
 
 const Device_update = ({ route }) => {
   const navigation= useNavigation();

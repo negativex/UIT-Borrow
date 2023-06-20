@@ -17,8 +17,8 @@ import {
   ScrollView,
   TouchableOpacity,
 } from "react-native-gesture-handler";
-import colors from "../colors/colors";
 import { LinearGradient } from "expo-linear-gradient";
+import colors from "../Style/colors";
 import { ref, onValue } from "firebase/database";
 import { Button } from "react-native-paper";
 import { useNavigation } from "@react-navigation/core";
