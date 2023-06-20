@@ -56,8 +56,12 @@ const LoginScreen = ({}) => {
   const handleBarCodeScanned = ({type, data}) => {
     setScanData(data);
     const string = data;
-    const modifiedString = string.substring(5) + "@gm.uit.edu.vn";
-    onChangeEmail(modifiedString);
+    if (string.startsWith("15000")){
+      const modifiedString = string.substring(5) + "@gm.uit.edu.vn";
+      onChangeEmail(modifiedString);
+    } else {
+      onChangeEmail("Barcode không hợp lệ");
+    }
     console.log(`Data: ${data}`);
     console.log(`Type: ${type}`);
   };
@@ -184,7 +188,8 @@ const LoginScreen = ({}) => {
             </Label>
 
             <Input
-              value={email}
+              value={email} readOnly
+              editable={true}
               keyboardType="email-address"
               onChangeText={onChangeEmail}
               style={{ paddingStart: 20 }}
