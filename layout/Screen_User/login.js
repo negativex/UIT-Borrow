@@ -63,6 +63,8 @@ const LoginScreen = ({}) => {
     }
     console.log(`Data: ${data}`);
     console.log(`Type: ${type}`);
+    setScanData(undefined); 
+    setModalVisible(false);
   };
 
   const scanBarcode = () => {
@@ -85,10 +87,7 @@ const LoginScreen = ({}) => {
   }
 
   return (
-    <ScrollView
-      style={{ flex: 1, backgroundColor: colors.blue }}
-     
-    >
+    <ScrollView style={{ flex: 1, backgroundColor: colors.blue }}>
       <View>
         <Modal
           animationType="slide"
@@ -105,15 +104,7 @@ const LoginScreen = ({}) => {
                 style={StyleSheet.absoluteFillObject}
                 onBarCodeScanned={scanData ? undefined : handleBarCodeScanned}
               />
-              {scanData && (
-                <Button
-                  title="Done"
-                  onPress={() => {
-                    setScanData(undefined);
-                    setModalVisible(false);
-                  }}
-                />
-              )}
+              {scanData}
               <StatusBar style="auto" />
             </View>
           </View>
@@ -175,17 +166,22 @@ const LoginScreen = ({}) => {
                   fontSize: text.inputText,
                 }}
               >
-                Địa chỉ Email 
+                Địa chỉ Email
               </Label>
               <Input
                 value={email}
                 readOnly
                 onChangeText={onChangeEmail}
-                style={{ paddingStart: 15, color: colors.secondary                                         }}
+                style={{ paddingStart: 15, color: colors.secondary }}
               ></Input>
               <Icon
                 name="checkmark"
-                style={{ color: "black", paddingBottom: 15, paddingEnd: 20,fontSize:2 }}
+                style={{
+                  color: "black",
+                  paddingBottom: 15,
+                  paddingEnd: 20,
+                  fontSize: 2,
+                }}
               ></Icon>
             </Item>
 
