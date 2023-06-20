@@ -9,6 +9,7 @@ import {
   Button,
   Dimensions,
   Modal,
+  Pressable,
 } from "react-native";
 import React, { useState, useEffect } from "react";
 import { Icon, Input, Item, Label } from "native-base";
@@ -16,13 +17,19 @@ import colors from "../colors/colors";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../Firebase/firebase";
 import { useNavigation } from "@react-navigation/core";
-import { BarCodeScanner } from 'expo-barcode-scanner';
-import { StatusBar } from 'expo-status-bar';
+import { BarCodeScanner } from "expo-barcode-scanner";
+import { StatusBar } from "expo-status-bar";
 
-const { height, width } = Dimensions.get('window');
+const { height, width } = Dimensions.get("window");
 const modalWidth = (4 * width) / 5;
 const modalHeight = (4 * height) / 5;
+
 const RegisterScreen = () => {
+  const navigation = useNavigation();
+  const [hasPermission, setHasPermission] = React.useState(false);
+  const [scanData, setScanData] = React.useState();
+  const [modalVisible, setModalVisible] = React.useState(false);
+
   const [email, setEmail] = useState("");
   const onChangeEmail = (newEmail) => {
     setEmail(newEmail);
@@ -33,31 +40,28 @@ const RegisterScreen = () => {
     setPassword(newPassword);
   };
 
-  const [newpassword, setNewPassword] = useState("");
-  const onChangeNewPassword = (newNewPassword) => {
-    setNewPassword(newNewPassword);
+  const [rePassword, setRePassword] = useState("");
+  const onChangeRePassword = (RePassword) => {
+    setRePassword(RePassword);
   };
-  const navigation = useNavigation();
-  const [hasPermission, setHasPermission] = React.useState(false);
-  const [scanData, setScanData] = React.useState();
-  const [modalVisible, setModalVisible] = React.useState(false);
 
   const handleRegister = () => {
-    createUserWithEmailAndPassword(auth, email, password, newpassword)
+    createUserWithEmailAndPassword(auth, email, password, rePassword)
       .then((userCredentials) => {
         const user = userCredentials.user;
-        console.log("Đăng ký tài khoản:", user.email);
+        console.log("Tài khoản đăng ký:", user.email);
         Alert.alert("Đăng ký thành công", "Hãy đăng nhập ứng dụng", [
           { text: "Đóng", onPress: () => console.log("alert close") },
         ]);
       })
-      .catch((error) =>
+      .catch(() =>
         Alert.alert("Đăng nhập thất bại", "Tài khoản/mật khẩu chưa đúng", [
           { text: "Đóng", onPress: () => console.log("alert close") },
         ])
       );
   };
-  const handleBarCodeScanned = ({type, data}) => {
+
+  const handleBarCodeScanned = ({ type, data }) => {
     setScanData(data);
     const string = data;
     const modifiedString = string.substring(5) + "@gm.uit.edu.vn";
@@ -65,48 +69,55 @@ const RegisterScreen = () => {
     console.log(`Data: ${data}`);
     console.log(`Type: ${type}`);
   };
-  const scanBarcode = () =>{
+  const scanBarcode = () => {
     console.log("Scan Barcode Pressed");
     setModalVisible(true);
   };
   useEffect(() => {
-    (async() => {
-      const {status} = await BarCodeScanner.requestPermissionsAsync();
+    (async () => {
+      const { status } = await BarCodeScanner.requestPermissionsAsync();
       setHasPermission(status === "granted");
     })();
   }, []);
   if (!hasPermission) {
     return (
       <View style={styles.container}>
-        <Text>Please grant camera permissions to app.</Text>
+        <Text>Cho phép truy cập Camera thiết bị</Text>
       </View>
     );
   }
+
   return (
-    <ScrollView
-      style={{ flex: 1, backgroundColor: colors.blue }}
-      showsVerticalScrollIndicator={false}
-    >
+    <ScrollView style={{ flex: 1, backgroundColor: colors.blue }}>
       <View>
         <Modal
           animationType="slide"
           transparent={true}
           visible={modalVisible}
           onRequestClose={() => {
-            Alert.alert('Modal has been closed.');
+            Alert.alert("Modal has been closed.");
             setModalVisible(!modalVisible);
-          }}>
+          }}
+        >
           <View style={styles.modalView}>
             <View style={styles.modalView}>
-              <BarCodeScanner 
+              <BarCodeScanner
                 style={StyleSheet.absoluteFillObject}
                 onBarCodeScanned={scanData ? undefined : handleBarCodeScanned}
-                />
-              {scanData && <Button title='Done' onPress={() => {setScanData(undefined); setModalVisible(false);}}  />}
+              />
+              {scanData && (
+                <Pressable
+                 
+                  onPress={() => setModalVisible(!modalVisible)}
+                >
+                  <Text>Back</Text>
+                </Pressable>
+              )}
               <StatusBar style="auto" />
             </View>
           </View>
         </Modal>
+
         {/* Name */}
         <View
           style={{
@@ -168,10 +179,7 @@ const RegisterScreen = () => {
         ></View>
         {/* form input view */}
         <View style={{ padding: 30, paddingTop: 34 }}>
-          <TouchableOpacity
-            style={styles.buttonBarcode}
-            onPress={scanBarcode}
-          >
+          <TouchableOpacity style={styles.buttonBarcode} onPress={scanBarcode}>
             <Text style={styles.buttonText}>Quét Barcode</Text>
           </TouchableOpacity>
           <Item
@@ -230,8 +238,8 @@ const RegisterScreen = () => {
           >
             <Label style={{ paddingStart: 20 }}>Nhập lại mật khẩu</Label>
             <Input
-              value={newpassword}
-              onChangeText={onChangeNewPassword}
+              value={rePassword}
+              onChangeText={onChangeRePassword}
               style={{ paddingStart: -9 }}
             ></Input>
             <Icon
@@ -288,9 +296,9 @@ const styles = StyleSheet.create({
   },
   container: {
     flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
+    backgroundColor: "#fff",
+    alignItems: "center",
+    justifyContent: "center",
   },
   //button Register
   buttonContainer: {
@@ -320,8 +328,8 @@ const styles = StyleSheet.create({
     width: modalWidth,
     height: modalHeight,
     borderRadius: 10,
-    alignSelf: 'center',
-    justifyContent: 'center',
-    alignItems: 'center',
+    alignSelf: "center",
+    justifyContent: "center",
+    alignItems: "center",
   },
 });
