@@ -22,7 +22,7 @@ import text from "../Style/text";
 const { height, width } = Dimensions.get("window");
 const modalWidth = (3 * width) / 4;
 
-const LoginScreen = ({}) => {
+const LoginScreen = ({props}) => {
   const navigation = useNavigation();
   const [hasPermission, setHasPermission] = React.useState(false);
   const [scanData, setScanData] = React.useState();
@@ -242,7 +242,7 @@ const LoginScreen = ({}) => {
 
         <TouchableOpacity
           style={{ alignItems: "center" }}
-          onPress={() => navigation.navigate("register")}
+          onPress={() => this.props.navigation.navigate("register")}
         >
           <Text
             style={{
@@ -274,7 +274,7 @@ const styles = StyleSheet.create({
     borderTopRightRadius: 40,
     paddingBottom: 20,
     alignItems: "center",
-    height:579
+    height:608
   },
 
   container: {

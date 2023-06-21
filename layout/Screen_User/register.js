@@ -28,7 +28,7 @@ const modalWidth = (4 * width) / 5;
 
 const modalHeight = (4 * height) / 5;
 
-const RegisterScreen = ({ route }) => {
+const RegisterScreen = ({route} ) => {
   const navigation = useNavigation();
   const [hasPermission, setHasPermission] = React.useState(false);
   const [scanData, setScanData] = React.useState();
@@ -38,6 +38,12 @@ const RegisterScreen = ({ route }) => {
   const onChangeClass = (Lop) => {
     setLop(Lop);
   };
+
+  const [item,setItem]=useState({
+    ten: name,
+    lop: lop,
+
+  })
 
   const [mssv, setMSSV] = useState("");
   const onChangeMSSV = (mssv) => {
@@ -70,12 +76,12 @@ const RegisterScreen = ({ route }) => {
       Email: email,
       Password: password,
       Lop: lop,
+     
     });
     createUserWithEmailAndPassword(auth, email, password)
       .then((userCredentials) => {
         const user = userCredentials.user;
         console.log("Đăng ký tài khoản:", user.email);
-
         Alert.alert("Đăng ký thành công", "Hãy đăng nhập ứng dụng", [
           { text: "Đóng", onPress: () => console.log("alert close") },
         ]);
@@ -206,7 +212,7 @@ const RegisterScreen = ({ route }) => {
               <Input
                 value={email}
                 readOnly
-                style={{ paddingStart: 15, color: colors.secondary, fontSize:2 }}
+                style={{ paddingStart: 15, color: colors.secondary }}
                 onChangeText={onChangeEmail}
               ></Input>
             </Item>
