@@ -10,6 +10,7 @@ import LoginScreen from "./layout/Screen_User/login";
 import Home from "./layout/Screen_User/home"
 import Device_list from "./layout/Screen_Admin/device_list";
 import Device_update from "./layout/Screen_Admin/device_update";
+import HomeScreen from "./layout/Screen_User/home";
 const Stack = createStackNavigator();
 
 const App = () => {
@@ -17,7 +18,9 @@ const App = () => {
     //LoginScreen
     // <NavigationContainer>
     //   <Stack.Navigator initialRouteName="login" headerMode="false">
+
     //     {/* <Stack.Screen name="login" component={LoginScreen} /> */}
+
     //     <Stack.Screen name="Register" component={RegisterScreen} />
     //   </Stack.Navigator>
     // </NavigationContainer>

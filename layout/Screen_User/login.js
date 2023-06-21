@@ -22,11 +22,13 @@ import text from "../Style/text";
 const { height, width } = Dimensions.get("window");
 const modalWidth = (3 * width) / 4;
 
+
 const LoginScreen = ({props}) => {
   const navigation = useNavigation();
   const [hasPermission, setHasPermission] = React.useState(false);
   const [scanData, setScanData] = React.useState();
   const [modalVisible, setModalVisible] = React.useState(false);
+
 
   const [email, setEmail] = useState("");
   const onChangeEmail = (newEmail) => {
@@ -86,6 +88,8 @@ const LoginScreen = ({props}) => {
     );
   }
 
+
+
   return (
     <ScrollView style={{ flex: 1, backgroundColor: colors.blue }}>
       <View>
@@ -133,7 +137,8 @@ const LoginScreen = ({props}) => {
               padding: 10,
             }}
           >
-            Đăng Nhập
+            {/* Đăng Nhập */}
+            {data}
           </Text>
         </View>
 

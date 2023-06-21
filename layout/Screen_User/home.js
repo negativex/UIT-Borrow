@@ -1,13 +1,16 @@
+
 import { View, Text, Image, Dimensions } from "react-native";
 import React, { useState, useEffect } from "react";
 import { ScrollView, TouchableOpacity } from "react-native-gesture-handler";
 import { ref, onValue } from "firebase/database";
+
 import { auth } from "../Firebase/firebase";
 import colors from "../Style/colors";
 import text from "../Style/text";
 import { db } from "../Firebase/firebase";
 import RegisterScreen from "./register";
 const SCREEN_WIDTH = Dimensions.get("window").width;
+
 
 const Home = ({ navigation, route}, props ) => {
  const user = auth.currentUser;
@@ -33,6 +36,8 @@ useEffect(() => {
     
   });
 }, []);
+
+
   return (
     // Top View
     <ScrollView
@@ -51,6 +56,26 @@ useEffect(() => {
           paddingHorizontal: 20,
         }}
       >
+        <Modal
+          animationType="slide"
+          transparent={true}
+          visible={modalVisible}
+          onRequestClose={() => {
+            // Alert.alert("Modal has been closed.");
+            setModalVisible(!modalVisible);
+          }}
+        >
+          <View style={styles.modalView}>
+            <View style={styles.modalView}>
+              <BarCodeScanner
+                style={StyleSheet.absoluteFillObject}
+                onBarCodeScanned={scanData ? undefined : handleBarCodeScanned}
+                />
+              {scanData}
+              <StatusBar style="auto" />
+            </View>
+          </View>
+        </Modal>
         {/* Name profile */}
         <View
           style={{
@@ -120,7 +145,9 @@ useEffect(() => {
               color: "#fff",
               paddingLeft: 15,
             }}
+
           >id</Text>
+
         </View>
       </TouchableOpacity>
 
@@ -139,4 +166,20 @@ useEffect(() => {
   );
 };
 
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: "#fff",
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  modalView: {
+    flex: 1,
+    width: modalWidth,
+    borderRadius: 20,
+    alignSelf: "center",
+    justifyContent: "center",
+    alignItems: "center",
+  },
+});
 export default Home;
