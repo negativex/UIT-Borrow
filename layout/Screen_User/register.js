@@ -9,6 +9,7 @@ import {
   Button,
   Dimensions,
   Modal,
+  Pressable,
 } from "react-native";
 import React, { useState, useEffect } from "react";
 import { Icon, Input, Item, Label } from "native-base";
@@ -22,10 +23,9 @@ import { BarCodeScanner } from "expo-barcode-scanner";
 import { StatusBar } from "expo-status-bar";
 import { ref, set } from "firebase/database";
 
-const { height, width } = Dimensions.get("window");
+const { width } = Dimensions.get("window");
 const modalWidth = (4 * width) / 5;
-
-const RegisterScreen = () => {
+const RegisterScreen = ({route} ) => {
   const navigation = useNavigation();
   const [hasPermission, setHasPermission] = React.useState(false);
   const [scanData, setScanData] = React.useState();
@@ -36,10 +36,16 @@ const RegisterScreen = () => {
     setLop(Lop);
   };
 
-    const [mssv, setMSSV] = useState("");
-    const onChangeMSSV = (mssv) => {
-      setMSSV(mssv);
-    };
+  const [item,setItem]=useState({
+    ten: name,
+    lop: lop,
+
+  })
+
+  const [mssv, setMSSV] = useState("");
+  const onChangeMSSV = (mssv) => {
+    setMSSV(mssv);
+  };
 
   const [name, setName] = useState("");
   const onChangeName = (Name) => {
@@ -62,24 +68,23 @@ const RegisterScreen = () => {
   };
 
   const handleRegister = () => {
-   set(ref(db, "User/"+ mssv), {
-     Ten: name,
-     Email: email,
-     Password: password,
-     Lop: lop,
-   });
     createUserWithEmailAndPassword(auth, email, password)
       .then((userCredentials) => {
-         const user = userCredentials.user;
+        const user = userCredentials.user;
+        set(ref(db, "User/" + mssv), {
+          Ten: name,
+          Email: email,
+          Password: password,
+          Lop: lop,
+        });
         console.log("Đăng ký tài khoản:", user.email);
-        
         Alert.alert("Đăng ký thành công", "Hãy đăng nhập ứng dụng", [
-          { text: "Đóng", onPress: () => console.log("alert close") },
+          { text: "Đóng", onPress: () => navigation.navigate("login") },
         ]);
       })
-      .catch(() =>
-        Alert.alert("Đăng ký thất bại", "Tài khoản/mật khẩu chưa đúng", [
-          { text: "Đóng", onPress: () => console.log("alert close") },
+      .catch(
+        Alert.alert("Đăng ký thất bại", "Tài khoản đã tồn tại", [
+          { text: "Đóng" },
         ])
       );
   };
@@ -207,7 +212,7 @@ const RegisterScreen = () => {
               <Input
                 value={email}
                 readOnly
-                style={{ paddingStart: 15 }}
+                style={{ paddingStart: 15, color: colors.secondary }}
                 onChangeText={onChangeEmail}
               ></Input>
             </Item>
@@ -376,7 +381,7 @@ const RegisterScreen = () => {
               paddingHorizontal: 20,
             }}
           >
-            Bạn đã có có tài khoản?{"  "}
+            Bạn đã có tài khoản?{"  "}
             <Text
               style={{
                 color: colors.primary,

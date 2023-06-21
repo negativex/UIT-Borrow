@@ -1,17 +1,17 @@
-import { View, Text, Image, Dimensions, Modal, StyleSheet } from "react-native";
-import React, {useEffect } from "react";
-import {
-  ScrollView,
-  TouchableOpacity,
-} from "react-native-gesture-handler";
-import { BarCodeScanner } from "expo-barcode-scanner";
-import { StatusBar } from "expo-status-bar";
+
+import { View, Text, Image, Dimensions,StyleSheet,Modal } from "react-native";
+import React, { useState, useEffect } from "react";
+import { ScrollView, TouchableOpacity } from "react-native-gesture-handler";
+import { ref, onValue } from "firebase/database";
 import colors from "../Style/colors";
 import { auth } from "../Firebase/firebase";
 import { useNavigation } from "@react-navigation/core";
+import { BarCodeScanner } from "expo-barcode-scanner";
+import { StatusBar } from "expo-status-bar";
+import text from "../Style/text";
 
 const SCREEN_WIDTH = Dimensions.get("window").width;
-const { height, width } = Dimensions.get("window");
+const { width } = Dimensions.get("window");
 const modalWidth = (4 * width) / 5;
 
 const Home = ({route}) => {
@@ -37,13 +37,13 @@ const Home = ({route}) => {
       setHasPermission(status === "granted");
     })();
   }, []);
-  if (!hasPermission) {
-    return (
-      <View style={styles.container}>
-        <Text>Cấp quyền truy cập Camera cho ứng dụng</Text>
-      </View>
-    );
-  }
+  // if (!hasPermission) {
+  //   return (
+  //     <View style={styles.container}>
+  //       <Text>Cấp quyền truy cập Camera cho ứng dụng</Text>
+  //     </View>
+  //   );
+  // }
   // const { data } = route.params;
   const data = auth.currentUser?.email.substring(0,8);
   // console.log(data);
