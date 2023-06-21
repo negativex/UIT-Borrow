@@ -7,9 +7,7 @@ import {
   Dimensions,
   SafeAreaView,
   FlatList,
-  Modal,
-  Pressable,
-  Alert,
+ 
 } from "react-native";
 import { db } from "../Firebase/firebase";
 import {
@@ -54,10 +52,10 @@ const Device_list = ({ route }) => {
     </TouchableOpacity>
   );
   useEffect(() => {
-    onValue(ref(db, "Thong tin thiet bi"), (snapshot) => {
+    onValue(ref(db, "Thong tin thiet bi/"), (snapshot) => {
       var main = [];
       snapshot.forEach((child) => {
-        console.log(child.val());
+        console.log(child.val().Id);
         const fetchedData = child.val();
         setDeviceData(fetchedData);
         main.push({
@@ -79,35 +77,7 @@ const Device_list = ({ route }) => {
         flex: 1,
       }}
     >
-      {/* <View style={styles.centeredView}>
-        <Modal
-          animationType="slide"
-          transparent={true}
-          visible={modalVisible}
-          onRequestClose={() => {
-            Alert.alert('Modal has been closed.');
-            setModalVisible(!modalVisible);
-          }}>
-          <View style={styles.centeredView}>
-            <View style={styles.modalView}>
-              <Text 
-                style={styles.modalText}
-              >Tên thiết bị: {DeviceData.Ten}</Text>
-              <Text 
-                style={styles.modalText}
-              >Số lượng thiết bị: {DeviceData.Soluong}</Text>
-              <Text 
-                style={styles.modalText}
-              >Loại thiết bị: {DeviceData.Loai}</Text>
-              <Pressable
-                style={[styles.button, styles.buttonClose]}
-                onPress={() => setModalVisible(!modalVisible)}>
-                <Text style={styles.textStyle}>Back</Text>
-              </Pressable>
-            </View>
-          </View>
-        </Modal>
-      </View> */}
+     
       {/* Style Top View */}
       <View
         style={{

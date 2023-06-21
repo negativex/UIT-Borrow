@@ -7,6 +7,7 @@ import Admin_device_type from "./layout/Screen_Admin/device_type"
 import Confirm from "./layout/Screen_User/confirm";
 import Device_add from "./layout/Screen_Admin/device_add";
 import LoginScreen from "./layout/Screen_User/login";
+import Home from "./layout/Screen_User/home"
 import Device_list from "./layout/Screen_Admin/device_list";
 import Device_update from "./layout/Screen_Admin/device_update";
 import HomeScreen from "./layout/Screen_User/home";
@@ -17,21 +18,9 @@ const App = () => {
     //LoginScreen
     // <NavigationContainer>
     //   <Stack.Navigator initialRouteName="login" headerMode="false">
-    //     <Stack.Screen name="login" component={LoginScreen} />
-    //   </Stack.Navigator>
-    // </NavigationContainer>
-    //HomeScreen
-    <NavigationContainer>
-    <Stack.Navigator>
-      <Stack.Screen name="register" component={RegisterScreen} />
-      <Stack.Screen name="login" component={LoginScreen} />
-      
-      {/* <Stack.Screen name="homeScreen" component={HomeScreen} /> */}
-    </Stack.Navigator>
-  </NavigationContainer>
-    //RegisterScreen
-    //  <NavigationContainer>
-    //   <Stack.Navigator initialRouteName='Register' headerMode="none">
+
+    //     {/* <Stack.Screen name="login" component={LoginScreen} /> */}
+
     //     <Stack.Screen name="Register" component={RegisterScreen} />
     //   </Stack.Navigator>
     // </NavigationContainer>
@@ -42,6 +31,15 @@ const App = () => {
     //     <Stack.Screen name="Register" component={RegisterScreen} />
     //   </Stack.Navigator>
     // </NavigationContainer>
+
+    //RegisterScreen
+    <NavigationContainer>
+      <Stack.Navigator initialRouteName="Register" headerMode="false">
+        <Stack.Screen name="register" component={RegisterScreen} />
+        <Stack.Screen name="login" component={LoginScreen} />
+        <Stack.Screen name="home" component={Home}/>
+      </Stack.Navigator>
+    </NavigationContainer>
 
     // device_type_admin_screen
     // <NavigationContainer>
