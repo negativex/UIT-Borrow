@@ -1,38 +1,37 @@
 import { View, Text, Image, Dimensions } from "react-native";
 import React, { useState, useEffect } from "react";
 import { ScrollView, TouchableOpacity } from "react-native-gesture-handler";
-import { ref, onValue } from "firebase/database";
+import { ref, onValue, orderByChild, query, equalTo } from "firebase/database";
 import { auth } from "../Firebase/firebase";
 import colors from "../Style/colors";
 import text from "../Style/text";
 import { db } from "../Firebase/firebase";
+
 import RegisterScreen from "./register";
 const SCREEN_WIDTH = Dimensions.get("window").width;
 
-const Home = ({ navigation, route}, props ) => {
- const user = auth.currentUser;
-const [value, setValue] = useState([]);
-const [info,setInfo]=useState('')
-useEffect(() => {
-  onValue(ref(db, "User/"), (snapshot) => {
-    var main = [];
-    var id = auth.currentUser.email;
-    var Id=id.substring(0,8)
-    console.log(Id);
-    snapshot.forEach((child) => {
+const Home = ({ navigation, route }, props) => {
+  const user = auth.currentUser;
+  const [value, setValue] = useState([]);
+  const [info, setInfo] = useState("");
+
+  useEffect(() => {
+    // q.once("value", function (snapshot) {
+    //   snapshot.forEach(function (child) {
+    //     console.log(child.key, child.val().Ten);
+    //   });
+    // });
+    onValue(ref(db, "User/"), (snapshot) => {
+      var main = [];
+      var id = auth.currentUser.email;
+      var Id = id.substring(0, 8);
       
-      const fetchedData = child.val();
-      setInfo(fetchedData);
-      main.push({
-        Ten: child.val().Ten,
-        Email: child.val().Email,
-        Lop: child.val().Lop,
+      snapshot.forEach((child) => {
+        const q = query(ref(db, "User/"+child.key), orderByChild(child.key), equalTo(Id));
+            console.log(q);
+          });
       });
-    });
-    setValue(main);
-    
-  });
-}, []);
+  }, []);
   return (
     // Top View
     <ScrollView
@@ -120,7 +119,9 @@ useEffect(() => {
               color: "#fff",
               paddingLeft: 15,
             }}
-          >id</Text>
+          >
+            id
+          </Text>
         </View>
       </TouchableOpacity>
 

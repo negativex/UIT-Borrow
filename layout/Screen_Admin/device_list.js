@@ -55,7 +55,9 @@ const Device_list = ({ route }) => {
     onValue(ref(db, "Thong tin thiet bi/"), (snapshot) => {
       var main = [];
       snapshot.forEach((child) => {
-        console.log(child.val().Id);
+        let item = child.val();
+        item.key = child.key;
+        console.log(item.key);
         const fetchedData = child.val();
         setDeviceData(fetchedData);
         main.push({
