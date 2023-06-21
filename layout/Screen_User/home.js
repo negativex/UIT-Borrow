@@ -1,43 +1,56 @@
 
-import { View, Text, Image, Dimensions } from "react-native";
+import { View, Text, Image, Dimensions,StyleSheet,Modal } from "react-native";
 import React, { useState, useEffect } from "react";
 import { ScrollView, TouchableOpacity } from "react-native-gesture-handler";
 import { ref, onValue } from "firebase/database";
-
-import { auth } from "../Firebase/firebase";
 import colors from "../Style/colors";
+import { auth } from "../Firebase/firebase";
+import { useNavigation } from "@react-navigation/core";
+import { BarCodeScanner } from "expo-barcode-scanner";
+import { StatusBar } from "expo-status-bar";
 import text from "../Style/text";
-import { db } from "../Firebase/firebase";
-import RegisterScreen from "./register";
+
 const SCREEN_WIDTH = Dimensions.get("window").width;
+const { width } = Dimensions.get("window");
+const modalWidth = (4 * width) / 5;
 
-
-const Home = ({ navigation, route}, props ) => {
- const user = auth.currentUser;
-const [value, setValue] = useState([]);
-const [info,setInfo]=useState('')
-useEffect(() => {
-  onValue(ref(db, "User/"), (snapshot) => {
-    var main = [];
-    var id = auth.currentUser.email;
-    var Id=id.substring(0,8)
-    console.log(Id);
-    snapshot.forEach((child) => {
-      
-      const fetchedData = child.val();
-      setInfo(fetchedData);
-      main.push({
-        Ten: child.val().Ten,
-        Email: child.val().Email,
-        Lop: child.val().Lop,
-      });
-    });
-    setValue(main);
-    
-  });
-}, []);
-
-
+const Home = ({route}) => {
+  const navigation = useNavigation();
+  const [hasPermission, setHasPermission] = React.useState(false);
+  const [scanData, setScanData] = React.useState();
+  const [modalVisible, setModalVisible] = React.useState(false);
+  const handleBarCodeScanned = ({ type, data }) => {
+    setScanData(data);
+    const string = data;
+    // console.log(`Data: ${data}`);
+    // console.log(`Type: ${type}`);
+    setScanData(undefined); 
+    setModalVisible(false);
+  };
+  const scanBarcode = () => {
+    console.log("Scan Barcode Pressed");
+    setModalVisible(true);
+  };
+  useEffect(() => {
+    (async () => {
+      const { status } = await BarCodeScanner.requestPermissionsAsync();
+      setHasPermission(status === "granted");
+    })();
+  }, []);
+  // if (!hasPermission) {
+  //   return (
+  //     <View style={styles.container}>
+  //       <Text>Cấp quyền truy cập Camera cho ứng dụng</Text>
+  //     </View>
+  //   );
+  // }
+  // const { data } = route.params;
+  const data = auth.currentUser?.email.substring(0,8);
+  // console.log(data);
+  const navigateProfile = () => {
+    navigation.navigate('profile', { data: data });
+    // navigation.navigate('profile');
+  };
   return (
     // Top View
     <ScrollView
@@ -50,7 +63,7 @@ useEffect(() => {
       <View
         style={{
           backgroundColor: colors.blue,
-          height: 150,
+          height: "26%",
           borderBottomLeftRadius: 20,
           borderBottomRightRadius: 20,
           paddingHorizontal: 20,
@@ -82,85 +95,106 @@ useEffect(() => {
             flexDirection: "row",
             alignItems: "center",
             marginTop: 55,
-            margin: 20,
+            paddingLeft: 55,
+            width: "100%",
           }}
         >
           {/* Input User */}
-          <View style={{ alignItems: "center" }}>
+          <View style={{ width: "50%" }}>
             <Text
               style={{
-                fontSize: text.nameText,
-                color: "#fff",
+                fontSize: 25,
+                color: "#000",
                 fontWeight: "bold",
               }}
             >
-              {info.Ten}
-              {"\n"}
+              {/* Ngoc Tran{"\n"} */}
+              
+              <Text
+                style={{
+                  fontSize: 15,
+                }}
+              >
+                {auth.currentUser?.email}
+              </Text>
             </Text>
+          </View>
+          <View style={{ width: "40%", alignItems: "flex-end" }}>
+            {/* User Image Profile */}
+            <Image
+              source={require("../images/user_Top.png")}
+              style={{ height: 70, width: 70 }}
+            ></Image>
+          </View>
+        </View>
+
+        {/* Search */}
+        <TouchableOpacity
+          onPress={navigateProfile}  
+        >
+          <View
+            style={{
+              backgroundColor: colors.deepblue,
+              paddingVertical: 15,
+              paddingHorizontal: 20,
+              marginHorizontal: 80,
+              borderRadius: 15,
+              marginTop: 10,
+              flexDirection: "row",
+              marginBottom: 20,
+              alignItems: "center",
+            }}
+          >
+            {/* Input Search */}
 
             <Text
               style={{
-                marginTop: -20,
-                fontSize: text.mailText,
-                color: colors.white,
+                fontSize: 14,
+                width: 260,
+                color: "#fff",
+                paddingLeft: 15,
               }}
             >
-              {auth.currentUser?.email}
+              Thông Tin Cá Nhân
             </Text>
           </View>
-        </View>
-        <View
-          style={{
-            alignItems: "flex-end",
-            marginVertical: -95,
-            marginLeft: 275,
-          }}
-        >
-          {/* User Image Profile */}
+        </TouchableOpacity>
+        <View>
           <Image
-            source={require("../images/user_Top.png")}
-            style={{ height: 70, width: 70 }}
-          ></Image>
-        </View>
-      </View>
-      {/* Search */}
-      <TouchableOpacity>
-        <View
-          style={{
-            backgroundColor: colors.deepblue,
-            paddingVertical: 15,
-            paddingHorizontal: 20,
-            marginHorizontal: 80,
-            borderRadius: 15,
-            marginTop: 10,
-            flexDirection: "row",
-            marginBottom: 20,
-            alignItems: "center",
-          }}
-        >
-          <Text
+            source={require("../images/qr-scan.png")}
             style={{
-              fontSize: 14,
-              width: 260,
-              color: "#fff",
-              paddingLeft: 15,
+              height: 250,
+              width: 250,
+              marginHorizontal: 50,
+              marginTop: 80,
             }}
+          ></Image>
 
-          >id</Text>
-
+          <View style={{ width: "90%", alignItems: "center" }}>
+            <TouchableOpacity
+              style={{
+                backgroundColor: "#000",
+                paddingHorizontal: 10,
+                marginHorizontal: 50,
+                marginTop: 50,
+                paddingVertical: 6,
+                borderRadius: 10,
+                marginLeft: 70,
+              }}
+              onPress={scanBarcode}
+            >
+              <Text
+                style={{
+                  fontWeight: "bold",
+                  fontSize: 18,
+                  color: "#fff",
+                }}
+              >
+                Quét Mã
+              </Text>
+            </TouchableOpacity>
+          </View>
         </View>
-      </TouchableOpacity>
-
-      <View style={{ alignItems: "center" }}>
-        <Image
-          source={require("../images/qr-scan.png")}
-          style={{
-            height: 250,
-            width: 250,
-            marginHorizontal: 50,
-            marginTop: 80,
-          }}
-        ></Image>
       </View>
     </ScrollView>
   );

@@ -18,9 +18,21 @@ const App = () => {
     //LoginScreen
     // <NavigationContainer>
     //   <Stack.Navigator initialRouteName="login" headerMode="false">
-
-    //     {/* <Stack.Screen name="login" component={LoginScreen} /> */}
-
+    //     <Stack.Screen name="login" component={LoginScreen} />
+    //   </Stack.Navigator>
+    // </NavigationContainer>
+    //HomeScreen
+  //   <NavigationContainer>
+  //   <Stack.Navigator>
+  //     <Stack.Screen name="register" component={RegisterScreen} />
+  //     <Stack.Screen name="login" component={LoginScreen} />
+      
+  //     {/* <Stack.Screen name="homeScreen" component={HomeScreen} /> */}
+  //   </Stack.Navigator>
+  // </NavigationContainer>
+    //RegisterScreen
+    //  <NavigationContainer>
+    //   <Stack.Navigator initialRouteName='Register' headerMode="none">
     //     <Stack.Screen name="Register" component={RegisterScreen} />
     //   </Stack.Navigator>
     // </NavigationContainer>
@@ -34,10 +46,11 @@ const App = () => {
 
     //RegisterScreen
     <NavigationContainer>
-      <Stack.Navigator initialRouteName="Register" headerMode="false">
-        <Stack.Screen name="register" component={RegisterScreen} />
+      <Stack.Navigator>
         <Stack.Screen name="login" component={LoginScreen} />
+        <Stack.Screen name="register" component={RegisterScreen} />
         <Stack.Screen name="home" component={Home}/>
+        <Stack.Screen name="profile" component={Profile}/>
       </Stack.Navigator>
     </NavigationContainer>
 
