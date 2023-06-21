@@ -71,24 +71,23 @@ const RegisterScreen = ({route} ) => {
   };
 
   const handleRegister = () => {
-    set(ref(db, "User/" + mssv), {
-      Ten: name,
-      Email: email,
-      Password: password,
-      Lop: lop,
-     
-    });
     createUserWithEmailAndPassword(auth, email, password)
       .then((userCredentials) => {
         const user = userCredentials.user;
+        set(ref(db, "User/" + mssv), {
+          Ten: name,
+          Email: email,
+          Password: password,
+          Lop: lop,
+        });
         console.log("Đăng ký tài khoản:", user.email);
         Alert.alert("Đăng ký thành công", "Hãy đăng nhập ứng dụng", [
-          { text: "Đóng", onPress: () => console.log("alert close") },
+          { text: "Đóng", onPress: () => navigation.navigate("login") },
         ]);
       })
-      .catch(() =>
-        Alert.alert("Đăng ký thất bại", "Tài khoản/mật khẩu chưa đúng", [
-          { text: "Đóng", onPress: () => navigation.navigate("login") },
+      .catch(
+        Alert.alert("Đăng ký thất bại", "Tài khoản đã tồn tại", [
+          { text: "Đóng" },
         ])
       );
   };
