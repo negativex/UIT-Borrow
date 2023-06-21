@@ -8,20 +8,22 @@ import { BarCodeScanner } from "expo-barcode-scanner";
 import { StatusBar } from "expo-status-bar";
 import colors from "../Style/colors";
 import { auth } from "../Firebase/firebase";
+import { useNavigation } from "@react-navigation/core";
 
 const SCREEN_WIDTH = Dimensions.get("window").width;
 const { height, width } = Dimensions.get("window");
 const modalWidth = (4 * width) / 5;
 
-const Home = ({navigation}) => {
+const Home = ({route}) => {
+  const navigation = useNavigation();
   const [hasPermission, setHasPermission] = React.useState(false);
   const [scanData, setScanData] = React.useState();
   const [modalVisible, setModalVisible] = React.useState(false);
   const handleBarCodeScanned = ({ type, data }) => {
     setScanData(data);
     const string = data;
-    console.log(`Data: ${data}`);
-    console.log(`Type: ${type}`);
+    // console.log(`Data: ${data}`);
+    // console.log(`Type: ${type}`);
     setScanData(undefined); 
     setModalVisible(false);
   };
@@ -42,6 +44,13 @@ const Home = ({navigation}) => {
       </View>
     );
   }
+  // const { data } = route.params;
+  const data = auth.currentUser?.email.substring(0,8);
+  // console.log(data);
+  const navigateProfile = () => {
+    navigation.navigate('profile', { data: data });
+    // navigation.navigate('profile');
+  };
   return (
     // Top View
     <ScrollView
@@ -99,7 +108,8 @@ const Home = ({navigation}) => {
                 fontWeight: "bold",
               }}
             >
-              Ngoc Tran{"\n"}
+              {/* Ngoc Tran{"\n"} */}
+              
               <Text
                 style={{
                   fontSize: 15,
@@ -119,7 +129,9 @@ const Home = ({navigation}) => {
         </View>
 
         {/* Search */}
-        <TouchableOpacity>
+        <TouchableOpacity
+          onPress={navigateProfile}  
+        >
           <View
             style={{
               backgroundColor: colors.deepblue,

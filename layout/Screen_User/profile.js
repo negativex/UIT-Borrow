@@ -1,12 +1,25 @@
 import { View, Text, Image, Dimensions } from "react-native";
 import React, { useState } from "react";
 import { Icon, Input, Item, Label } from "native-base";
+import { getDatabase, ref, onValue} from "firebase/database";
+import { useNavigation } from "@react-navigation/core";
 
-const Profile = (navigation) => {
-  const [email, setEmail] = useState("");
-  const onChangeEmail = (newEmail) => {
-    setEmail(newEmail);
-  };
+const Profile = ({route}) => {
+  const navigation = useNavigation();
+  //database part start
+  const { data } = route.params;
+  // console.log({data});
+  const db = getDatabase();
+  // const starCountRef = ref(db, 'User/'+ data +'/Ten'); //get Ten, đoạn này mình set get thuộc tính gì nó get thuộc tính đó, key là mssv thì nó route từ màn home qua rồi
+  const starCountRef = ref(db, 'User/'+ data);
+  onValue(starCountRef, (snapshot) => {
+    const data2 = snapshot.val();
+    // setEmail(data2);
+    console.log({data2});
+  });
+  
+  //database part end
+  
   return (
     <View style={{ backgroundColor: "black", flex: 1 }}>
       <View

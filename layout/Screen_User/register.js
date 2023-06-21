@@ -95,8 +95,8 @@ const RegisterScreen = () => {
     } else {
       onChangeEmail("Barcode không hợp lệ");
     }
-    console.log(`Data: ${data}`);
-    console.log(`Type: ${type}`);
+    // console.log(`Data: ${data}`);
+    // console.log(`Type: ${type}`);
     setScanData(undefined); 
     setModalVisible(false);
   };
@@ -117,9 +117,10 @@ const RegisterScreen = () => {
       </View>
     );
   }
-  const data = 'Dữ liệu từ Regis';
+  // const data = 'Dữ liệu từ Regis';
   const navigateToDiffScreen = () => {
-    navigation.navigate('login', { data: data });
+    // navigation.navigate('login', { data: data });
+    navigation.navigate('login');
   };
   return (
     <ScrollView style={{ flex: 1, backgroundColor: colors.blue }}>

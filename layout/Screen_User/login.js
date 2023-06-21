@@ -18,6 +18,7 @@ import { useNavigation } from "@react-navigation/core";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { BarCodeScanner } from 'expo-barcode-scanner';
 import { StatusBar } from 'expo-status-bar';
+// import { getDatabase, ref, onValue} from "firebase/database";
 
 const { height, width } = Dimensions.get('window');
 const modalWidth = (3 * width) / 4;
@@ -32,11 +33,20 @@ const LoginScreen = ({route}) => {
     setPassword(newPassword);
   };
   const navigation = useNavigation();
-
+  //database part start
+  // const mssv = email.substring(0,8);
+  // console.log({mssv});
+  // const db = getDatabase();
+  // const starCountRef = ref(db, 'User/'+ mssv +'/Ten');
+  // onValue(starCountRef, (snapshot) => {
+  //   const data = snapshot.val();
+  //   // console.log({data});
+  // });
+  //database part end
   const handleLogin = () => {
     signInWithEmailAndPassword(auth, email, password)
       .then((userCredentials) => {
-        navigation.navigate("home");
+        navigation.navigate("home", { data: email});
         const user = userCredentials.user;
         console.log("Đăng nhập với tài khoản:", user.email);
         Alert.alert("Đăng nhập thành công", "Chào mừng bạn đến với ứng dụng ứng dụng", [
@@ -62,8 +72,8 @@ const LoginScreen = ({route}) => {
     } else {
       onChangeEmail("Barcode không hợp lệ");
     }
-    console.log(`Data: ${data}`);
-    console.log(`Type: ${type}`);
+    // console.log(`Data: ${data}`);
+    // console.log(`Type: ${type}`);
     setScanData(undefined); 
     setModalVisible(false);
   };
@@ -85,8 +95,8 @@ const LoginScreen = ({route}) => {
     );
   }
   //end Barcode part
-  const { data } = route.params;
-  console.log({data});
+  // const { data } = route.params;
+  // console.log({data});
   return (
     <ScrollView
       style={{ flex: 1, backgroundColor: colors.blue }}
@@ -161,8 +171,7 @@ const LoginScreen = ({route}) => {
               paddingHorizontal: 75,
             }}
           >
-            {/* Đăng Nhập */}
-            {data}
+            Đăng Nhập
           </Text>
         </View>
         <View

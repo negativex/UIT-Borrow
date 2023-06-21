@@ -23,10 +23,10 @@ const App = () => {
     //HomeScreen
     <NavigationContainer>
     <Stack.Navigator>
-      <Stack.Screen name="register" component={RegisterScreen} />
       <Stack.Screen name="login" component={LoginScreen} />
-      
-      {/* <Stack.Screen name="homeScreen" component={HomeScreen} /> */}
+      <Stack.Screen name="home" component={HomeScreen} />
+      <Stack.Screen name="profile" component={Profile} />
+      <Stack.Screen name="register" component={RegisterScreen} />
     </Stack.Navigator>
   </NavigationContainer>
     //RegisterScreen
