@@ -1,14 +1,47 @@
-import { View, Text, Image, Dimensions } from "react-native";
-import React from "react";
+import { View, Text, Image, Dimensions, Modal, StyleSheet } from "react-native";
+import React, {useEffect } from "react";
 import {
   ScrollView,
   TouchableOpacity,
 } from "react-native-gesture-handler";
-import colors from "../colors/colors";
+import { BarCodeScanner } from "expo-barcode-scanner";
+import { StatusBar } from "expo-status-bar";
+import colors from "../Style/colors";
 import { auth } from "../Firebase/firebase";
 
 const SCREEN_WIDTH = Dimensions.get("window").width;
+const { height, width } = Dimensions.get("window");
+const modalWidth = (4 * width) / 5;
+
 const Home = ({navigation}) => {
+  const [hasPermission, setHasPermission] = React.useState(false);
+  const [scanData, setScanData] = React.useState();
+  const [modalVisible, setModalVisible] = React.useState(false);
+  const handleBarCodeScanned = ({ type, data }) => {
+    setScanData(data);
+    const string = data;
+    console.log(`Data: ${data}`);
+    console.log(`Type: ${type}`);
+    setScanData(undefined); 
+    setModalVisible(false);
+  };
+  const scanBarcode = () => {
+    console.log("Scan Barcode Pressed");
+    setModalVisible(true);
+  };
+  useEffect(() => {
+    (async () => {
+      const { status } = await BarCodeScanner.requestPermissionsAsync();
+      setHasPermission(status === "granted");
+    })();
+  }, []);
+  if (!hasPermission) {
+    return (
+      <View style={styles.container}>
+        <Text>Cấp quyền truy cập Camera cho ứng dụng</Text>
+      </View>
+    );
+  }
   return (
     // Top View
     <ScrollView
@@ -27,6 +60,26 @@ const Home = ({navigation}) => {
           paddingHorizontal: 20,
         }}
       >
+        <Modal
+          animationType="slide"
+          transparent={true}
+          visible={modalVisible}
+          onRequestClose={() => {
+            // Alert.alert("Modal has been closed.");
+            setModalVisible(!modalVisible);
+          }}
+        >
+          <View style={styles.modalView}>
+            <View style={styles.modalView}>
+              <BarCodeScanner
+                style={StyleSheet.absoluteFillObject}
+                onBarCodeScanned={scanData ? undefined : handleBarCodeScanned}
+                />
+              {scanData}
+              <StatusBar style="auto" />
+            </View>
+          </View>
+        </Modal>
         {/* Name profile */}
         <View
           style={{
@@ -106,7 +159,7 @@ const Home = ({navigation}) => {
           ></Image>
 
           <View style={{ width: "90%", alignItems: "center" }}>
-            <View
+            <TouchableOpacity
               style={{
                 backgroundColor: "#000",
                 paddingHorizontal: 10,
@@ -116,6 +169,7 @@ const Home = ({navigation}) => {
                 borderRadius: 10,
                 marginLeft: 70,
               }}
+              onPress={scanBarcode}
             >
               <Text
                 style={{
@@ -126,7 +180,7 @@ const Home = ({navigation}) => {
               >
                 Quét Mã
               </Text>
-            </View>
+            </TouchableOpacity>
           </View>
         </View>
       </View>
@@ -134,4 +188,20 @@ const Home = ({navigation}) => {
   );
 };
 
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: "#fff",
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  modalView: {
+    flex: 1,
+    width: modalWidth,
+    borderRadius: 20,
+    alignSelf: "center",
+    justifyContent: "center",
+    alignItems: "center",
+  },
+});
 export default Home;

@@ -117,7 +117,10 @@ const RegisterScreen = () => {
       </View>
     );
   }
-
+  const data = 'Dữ liệu từ Regis';
+  const navigateToDiffScreen = () => {
+    navigation.navigate('login', { data: data });
+  };
   return (
     <ScrollView style={{ flex: 1, backgroundColor: colors.blue }}>
       <View>
@@ -364,7 +367,7 @@ const RegisterScreen = () => {
 
         <TouchableOpacity
           style={{ alignItems: "center" }}
-          onPress={() => navigation.navigate("login")}
+          onPress={navigateToDiffScreen}
         >
           <Text
             style={{
