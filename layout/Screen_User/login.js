@@ -22,7 +22,7 @@ import { StatusBar } from 'expo-status-bar';
 const { height, width } = Dimensions.get('window');
 const modalWidth = (3 * width) / 4;
 const modalHeight = (3 * height) / 4;
-const LoginScreen = ({}) => {
+const LoginScreen = ({route}) => {
   const [email, setEmail] = useState("");
   const onChangeEmail = (newEmail) => {
     setEmail(newEmail);
@@ -85,6 +85,8 @@ const LoginScreen = ({}) => {
     );
   }
   //end Barcode part
+  const { data } = route.params;
+  console.log({data});
   return (
     <ScrollView
       style={{ flex: 1, backgroundColor: colors.blue }}
@@ -159,7 +161,8 @@ const LoginScreen = ({}) => {
               paddingHorizontal: 75,
             }}
           >
-            Đăng Nhập
+            {/* Đăng Nhập */}
+            {data}
           </Text>
         </View>
         <View
