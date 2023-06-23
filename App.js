@@ -51,6 +51,7 @@ const App = () => {
         <Stack.Screen name="register" component={RegisterScreen} />
         <Stack.Screen name="home" component={Home}/>
         <Stack.Screen name="profile" component={Profile}/>
+        <Stack.Screen name="confirm" component={Confirm}/>
       </Stack.Navigator>
     </NavigationContainer>
 

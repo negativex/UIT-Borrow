@@ -72,7 +72,7 @@ const LoginScreen = ({props}) => {
   };
 
   const scanBarcode = () => {
-    console.log("Scan Barcode Pressed");
+    // console.log("Scan Barcode Pressed");
     setModalVisible(true);
   };
 
