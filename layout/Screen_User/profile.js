@@ -1,162 +1,258 @@
 import { View, Text, Image, Dimensions } from "react-native";
 import React, { useState } from "react";
 import { Icon, Input, Item, Label } from "native-base";
+import { getDatabase, ref, onValue } from "firebase/database";
+import { useNavigation } from "@react-navigation/core";
+import { ScrollView } from "react-native-gesture-handler";
+import colors from "../Style/colors";
+import { db } from "../Firebase/firebase";
+import { auth } from "../Firebase/firebase";
+import { useEffect } from "react";
 
-const Profile = (navigation) => {
-  const [email, setEmail] = useState("");
-  const onChangeEmail = (newEmail) => {
-    setEmail(newEmail);
-  };
+const Profile = ({ route }) => {
+  const navigation = useNavigation();
+  const { data } = route.params;
+  const [info, setInfo] = useState("");
+  useEffect(() => {
+    const starCountRef = ref(db, "User/" + data + "/Ten");
+    onValue(starCountRef, (snapshot) => {
+      const data2 = snapshot.val();
+      setInfo(data2);
+      console.log({ data2 });
+    });
+  }, []);
+
   return (
-    <View style={{ backgroundColor: "black", flex: 1 }}>
+    <ScrollView
+      style={{
+        backgroundColor: "#fff",
+        flex: 1,
+      }}
+    >
+      {/* Style Top View */}
       <View
         style={{
-          backgroundColor: "#EA5455",
-          height: "12%",
+          backgroundColor: colors.blue,
+          height: 150,
           borderBottomLeftRadius: 20,
           borderBottomRightRadius: 20,
           paddingHorizontal: 20,
+          alignItems: "center",
         }}
       >
-        {/* Name profile */}
         <View
           style={{
-            flexDirection: "row",
+            flexDirection: "column",
+            margin: 10,
+            marginTop: 50,
+            marginEnd: 90,
             alignItems: "center",
-            marginTop: 10,
-            paddingLeft: 55,
-            width: "100%",
+            marginStart: 10,
           }}
         >
-          {/* Input User */}
-          <View style={{ width: "50%" }}>
-            <Text
-              style={{
-                fontSize: 25,
-                color: "#fff",
-                fontWeight: "bold",
-              }}
-            >
-              Ngoc Tran{"\n"}
-              <Text
-                style={{
-                  fontSize: 15,
-                }}
-              >
-                MSSV: 20521668
-              </Text>
-            </Text>
-          </View>
-          <View style={{ width: "40%", alignItems: "flex-end" }}>
-            {/* User Image Profile */}
-            <Image
-              source={require("../images/user_Top.png")}
-              style={{ height: 70, width: 70 }}
-            ></Image>
-          </View>
-        </View>
-      </View>
-
-      <View style={{ padding: 30, paddingTop: 34 }}>
-        <View
-          floatingLabel
-          style={{
-            borderColor: "#EA5455",
-            borderRadius: 20,
-            backgroundColor: "white",
-            paddingVertical: 5,
-          }}
-        >
-          <Label
+          <Text
             style={{
-              paddingStart: 20,
-              fontSize: 15,
-              color: "#EA5455",
+              fontSize: 20,
+              color: "#fff",
+              fontWeight: "bold",
             }}
           >
-            Họ Và Tên
-          </Label>
-
-          <View style={{ width: "50%", paddingStart: 20 }}>
-            <Text
-              style={{
-                fontSize: 18,
-                color: "#000",
-                fontWeight: "bold",
-              }}
-            >
-              Ngoc Tran
-            </Text>
-          </View>
-        </View>
-      </View>
-
-      <View style={{ padding: 30, paddingTop: 0 }}>
-        <View
-          floatingLabel
-          style={{
-            borderColor: "#EA5455",
-            borderRadius: 20,
-            backgroundColor: "white",
-            paddingVertical: 5,
-          }}
-        >
-          <Label
+            {info} {"\n"}
+          </Text>
+          <Text
             style={{
-              paddingStart: 20,
               fontSize: 15,
-              color: "#EA5455",
+              marginTop: -20,
+              color: "white",
             }}
           >
-            Email Address
-          </Label>
-
-          <View style={{ width: "50%", paddingStart: 20 }}>
-            <Text
-              style={{
-                fontSize: 18,
-                color: "#000",
-                fontWeight: "bold",
-              }}
-            >
-              Ngoc Tran@
-            </Text>
-          </View>
+            {auth.currentUser?.email}
+          </Text>
         </View>
-      </View>
-      <View style={{ padding: 30, paddingTop: 0 }}>
         <View
-          floatingLabel
           style={{
-            borderColor: "#EA5455",
-            borderRadius: 20,
-            backgroundColor: "white",
-            paddingVertical: 5,
+            alignItems: "flex-end",
+
+            marginTop: -83,
+            marginStart: 260,
+            marginEnd: 10,
           }}
         >
-          <Label
-            style={{
-              paddingStart: 20,
-              fontSize: 15,
-              color: "#EA5455",
-            }}
-          >
-            Số Điện Thoại
-          </Label>
-
-          <View style={{ width: "50%", paddingStart: 20 }}>
-            <Text
-              style={{
-                fontSize: 18,
-                color: "#000",
-                fontWeight: "bold",
-              }}
-            >
-              00000
-            </Text>
-          </View>
+          <Image
+            source={require("../images/user_Top.png")}
+            style={{ height: 70, width: 70 }}
+          ></Image>
         </View>
       </View>
+
+      <View
+        floatingLabel
+        style={{
+          borderRadius: 20,
+          backgroundColor: colors["white-smoke"],
+          borderWidth: 1,
+          borderColor: colors.blue,
+          paddingVertical: 5,
+          margin: 20,
+        }}
+      >
+        <Label
+          style={{
+            paddingStart: 20,
+            fontSize: 15,
+            color: colors.secondary,
+          }}
+        >
+          Email
+        </Label>
+
+        <View style={{ paddingStart: 20 }}>
+          <Text
+            style={{
+              fontSize: 18,
+              color: colors.secondary,
+              fontWeight: "bold",
+            }}
+          >
+            {auth.currentUser?.email}
+          </Text>
+        </View>
+      </View>
+
+      <View
+        floatingLabel
+        style={{
+          borderRadius: 20,
+          backgroundColor: colors["white-smoke"],
+          borderWidth: 1,
+          borderColor: colors.blue,
+          paddingVertical: 5,
+          margin: 20,
+        }}
+      >
+        <Label
+          style={{
+            paddingStart: 20,
+            fontSize: 15,
+            color: colors.secondary,
+          }}
+        >
+          Họ và Tên
+        </Label>
+
+        <View style={{ paddingStart: 20 }}>
+          <Text
+            style={{
+              fontSize: 18,
+              color: colors.secondary,
+              fontWeight: "bold",
+            }}
+          >
+            {info}
+          </Text>
+        </View>
+      </View>
+
+      <View
+        floatingLabel
+        style={{
+          borderRadius: 20,
+          backgroundColor: colors["white-smoke"],
+          borderWidth: 1,
+          borderColor: colors.blue,
+          paddingVertical: 5,
+          margin: 20,
+        }}
+      >
+        <Label
+          style={{
+            paddingStart: 20,
+            fontSize: 15,
+            color: colors.secondary,
+          }}
+        >
+          MSSV
+        </Label>
+
+        <View style={{ paddingStart: 20 }}>
+          <Text
+            style={{
+              fontSize: 18,
+              color: colors.secondary,
+              fontWeight: "bold",
+            }}
+          >
+            {data}
+          </Text>
+        </View>
+      </View>
+      <View
+        floatingLabel
+        style={{
+          borderRadius: 20,
+          backgroundColor: colors["white-smoke"],
+          borderWidth: 1,
+          borderColor: colors.blue,
+          paddingVertical: 5,
+          margin: 20,
+        }}
+      >
+        <Label
+          style={{
+            paddingStart: 20,
+            fontSize: 15,
+            color: colors.secondary,
+          }}
+        >
+          Lớp
+        </Label>
+
+        <View style={{ paddingStart: 20 }}>
+          <Text
+            style={{
+              fontSize: 18,
+              color: colors.secondary,
+              fontWeight: "bold",
+            }}
+          >
+            {data}
+          </Text>
+        </View>
+      </View>
+      <View
+        floatingLabel
+        style={{
+          borderRadius: 20,
+          backgroundColor: colors["white-smoke"],
+          borderWidth: 1,
+          borderColor: colors.blue,
+          paddingVertical: 5,
+          margin: 20,
+        }}
+      >
+        <Label
+          style={{
+            paddingStart: 20,
+            fontSize: 15,
+            color: colors.secondary,
+          }}
+        >
+          Mật khẩu
+        </Label>
+
+        <View style={{ paddingStart: 20 }}>
+          <Text
+            style={{
+              fontSize: 18,
+              color: colors.secondary,
+              fontWeight: "bold",
+            }}
+          >
+            {data}
+          </Text>
+        </View>
+      </View>
+
       <View style={{ width: "90%", alignItems: "center" }}>
         <View
           style={{
@@ -180,7 +276,7 @@ const Profile = (navigation) => {
           </Text>
         </View>
       </View>
-    </View>
+    </ScrollView>
   );
 };
 

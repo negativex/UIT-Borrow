@@ -23,11 +23,8 @@ import { BarCodeScanner } from "expo-barcode-scanner";
 import { StatusBar } from "expo-status-bar";
 import { ref, set } from "firebase/database";
 
-const { height, width } = Dimensions.get("window");
+const { width } = Dimensions.get("window");
 const modalWidth = (4 * width) / 5;
-
-const modalHeight = (4 * height) / 5;
-
 const RegisterScreen = ({route} ) => {
   const navigation = useNavigation();
   const [hasPermission, setHasPermission] = React.useState(false);
@@ -38,12 +35,6 @@ const RegisterScreen = ({route} ) => {
   const onChangeClass = (Lop) => {
     setLop(Lop);
   };
-
-  const [item,setItem]=useState({
-    ten: name,
-    lop: lop,
-
-  })
 
   const [mssv, setMSSV] = useState("");
   const onChangeMSSV = (mssv) => {
@@ -103,8 +94,6 @@ const RegisterScreen = ({route} ) => {
     } else {
       onChangeEmail("Barcode không hợp lệ");
     }
-    console.log(`Data: ${data}`);
-    console.log(`Type: ${type}`);
     setScanData(undefined); 
     setModalVisible(false);
   };
@@ -125,7 +114,11 @@ const RegisterScreen = ({route} ) => {
       </View>
     );
   }
-
+  // const data = 'Dữ liệu từ Regis';
+  const navigateToDiffScreen = () => {
+    // navigation.navigate('login', { data: data });
+    navigation.navigate('login');
+  };
   return (
     <ScrollView style={{ flex: 1, backgroundColor: colors.blue }}>
       <View>
@@ -372,7 +365,7 @@ const RegisterScreen = ({route} ) => {
 
         <TouchableOpacity
           style={{ alignItems: "center" }}
-          onPress={() => navigation.navigate("login")}
+          onPress={navigateToDiffScreen}
         >
           <Text
             style={{
