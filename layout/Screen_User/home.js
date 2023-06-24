@@ -1,7 +1,4 @@
-
-
 import { View, Text, Image, Dimensions, StyleSheet, Modal, Alert } from "react-native";
-
 import React, { useState, useEffect } from "react";
 import { Icon, Input, Item, Label } from "native-base";
 import { ScrollView, TouchableOpacity } from "react-native-gesture-handler";
@@ -10,28 +7,23 @@ import { auth } from "../Firebase/firebase";
 import { useNavigation } from "@react-navigation/core";
 import { BarCodeScanner } from "expo-barcode-scanner";
 import { StatusBar } from "expo-status-bar";
-
 import { getDatabase, ref, onValue} from "firebase/database";
 import text from "../Style/text";
-
+import { db } from "../Firebase/firebase";
 
 const { width } = Dimensions.get("window");
 const modalWidth = (4 * width) / 5;
 
 const Home = ({ route }) => {
   const navigation = useNavigation();
-  const [hasPermission, setHasPermission] = React.useState(false);
   const [scanData, setScanData] = React.useState();
   const [modalVisible, setModalVisible] = React.useState(false);
-
+  const [info, setInfo] = useState();
   const navigateProfile = () => {
     const data = auth.currentUser?.email.substring(0,8);
     navigation.navigate('profile', { data: data });
-    // navigation.navigate('profile');
   };
   const navigateConfirm = () => {
-    // navigation.navigate('confirm', { data: devideID });
-    // const data = deviceID;
     navigation.navigate('confirm', { data: deviceID });
   };
   const ongetDatabase=({data}) =>{
@@ -39,7 +31,6 @@ const Home = ({ route }) => {
     const starCountRef = ref(db, 'Thong tin thiet bi/'+ data +'/Ten');
     onValue(starCountRef, (snapshot) => {
       const ten = snapshot.val();
-      // console.log=(data2);
       onChangedeviceName(ten);
     });
   };
@@ -67,7 +58,6 @@ const Home = ({ route }) => {
     // console.log(`Type: ${type}`);
   };
   const scanBarcode = () => {
-    //console.log("Scan Barcode Pressed");
     setModalVisible(true);
   };
 
@@ -76,7 +66,7 @@ const Home = ({ route }) => {
       const { status } = await BarCodeScanner.requestPermissionsAsync();
       setHasPermission(status === "granted");
     })();
-
+    const data = auth.currentUser?.email.substring(0, 8);
     const starCountRef = ref(db, "User/" + data + "/Ten");
     onValue(starCountRef, (snapshot) => {
       const data3 = snapshot.val();
@@ -84,11 +74,6 @@ const Home = ({ route }) => {
       console.log(data3);
     });
   }, []);
-
-
-  const navigateProfile = () => {
-    navigation.navigate("profile", { data: data });
-  };
 
   return (
     <ScrollView
@@ -140,46 +125,18 @@ const Home = ({ route }) => {
         </View>
         <View
           style={{
-
-
-            flexDirection: "row",
-            alignItems: "center",
-            marginTop: 25,
-            paddingLeft: 55,
-            width: "100%",
+            alignItems: "flex-end",
+            marginTop:-83,
+            marginStart: 260,
+            marginEnd:10
           }}
         >
-          {/* Input User */}
-          <View style={{ width: "50%" }}>
-            <Text
-              style={{
-                fontSize: 25,
-                color: "#fff",
-                fontWeight: "bold",
-              }}
-            >
-              Ngoc Tran{"\n"}
-              
-              <Text
-                style={{
-                  fontSize: 13,
-                }}
-              >
-                {auth.currentUser?.email}
-              </Text>
-            </Text>
+          <Image
+            source={require("../images/user_Top.png")}
+            style={{ height: 70, width: 70 }}
+          ></Image>
           </View>
-          <View style={{ width: "40%", alignItems: "flex-end" }}>
-            {/* User Image Profile */}
-            <Image
-              source={require("../images/user_Top.png")}
-              style={{ height: 70, width: 70 }}
-            ></Image>
           </View>
-
-        </View>
-      </View>
-
       <TouchableOpacity onPress={navigateProfile}>
         <View
           style={{
@@ -196,17 +153,10 @@ const Home = ({ route }) => {
         >
           <Text
             style={{
-
-              backgroundColor: colors.deepblue,
-              paddingVertical: 15,
-              paddingHorizontal: 20,
-              marginHorizontal: 60,
-              borderRadius: 15,
-              marginTop: 10,
-              flexDirection: "row",
-              marginBottom: 20,
-              alignItems: "center",
-
+              fontSize: 14,
+              width: 260,
+              color: "#fff",
+              paddingLeft: 15,
             }}
           >
             Thông Tin Cá Nhân
@@ -230,10 +180,13 @@ const Home = ({ route }) => {
             {scanData}
             <StatusBar style="auto" />
           </View>
-
-        </TouchableOpacity>
-        <View>
-        <View style={{ height: 52 }}>
+        </View>
+        </Modal>
+      <View style={{
+        marginStart:10,
+        marginEnd:10,
+      }}>
+      <View style={{ height: 52 }}>
             <Item
               floatingLabel
               style={{
@@ -303,15 +256,16 @@ const Home = ({ route }) => {
               ></Image>
             </TouchableOpacity>
           </View>
-
-
+      </View>
+      <View style={{alignItems:'center'}}>
+        <TouchableOpacity onPress={scanBarcode}>
           <Image
             source={require("../images/qr-scan.png")}
             style={{
               height: 250,
               width: 250,
               marginHorizontal: 50,
-              marginTop: 100,
+              marginTop: 120,
             }}
           ></Image>
         </TouchableOpacity>

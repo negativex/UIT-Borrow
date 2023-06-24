@@ -51,8 +51,6 @@ const App = () => {
       <Stack.Navigator headerMode="false">
         <Stack.Screen name="login" component={LoginScreen} />
         <Stack.Screen name="register" component={RegisterScreen} />
-
-
         <Stack.Screen name="home" component={Home}/>
         <Stack.Screen name="profile" component={Profile}/>
         <Stack.Screen name="confirm" component={Confirm}/>
