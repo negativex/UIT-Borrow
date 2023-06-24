@@ -54,6 +54,9 @@ const App = () => {
         <Stack.Screen name="home" component={Home} />
         <Stack.Screen name="profile" component={Profile} />
         <BottomTabNavigator/>
+        <Stack.Screen name="home" component={Home}/>
+        <Stack.Screen name="profile" component={Profile}/>
+        <Stack.Screen name="confirm" component={Confirm}/>
       </Stack.Navigator>
     </NavigationContainer>
 

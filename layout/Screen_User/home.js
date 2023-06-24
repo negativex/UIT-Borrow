@@ -1,7 +1,7 @@
 import { View, Text, Image, Dimensions, StyleSheet, Modal } from "react-native";
 import React, { useState, useEffect } from "react";
+import { Icon, Input, Item, Label } from "native-base";
 import { ScrollView, TouchableOpacity } from "react-native-gesture-handler";
-import { ref, onValue } from "firebase/database";
 import colors from "../Style/colors";
 import { auth } from "../Firebase/firebase";
 import { useNavigation } from "@react-navigation/core";
@@ -17,15 +17,45 @@ const Home = ({ route }) => {
   const [hasPermission, setHasPermission] = React.useState(false);
   const [scanData, setScanData] = React.useState();
   const [modalVisible, setModalVisible] = React.useState(false);
-  const [info, setInfo] = useState();
-  const data = auth.currentUser?.email.substring(0, 8);
+  
+  const navigateConfirm = () => {
+    // navigation.navigate('confirm', { data: devideID });
+    // const data = deviceID;
+    navigation.navigate('confirm', { data: deviceID });
+  };
+  const ongetDatabase=({data}) =>{
+    const db = getDatabase();
+    const starCountRef = ref(db, 'Thong tin thiet bi/'+ data +'/Ten');
+    onValue(starCountRef, (snapshot) => {
+      const ten = snapshot.val();
+      // console.log=(data2);
+      onChangedeviceName(ten);
+    });
+  };
+  const [deviceID, setdeviceID] = useState("");
+  const onChangedeviceID = (newdeviceID) => {
+    setdeviceID(newdeviceID);
+  };
+  const [deviceName, setdeviceName] = useState("");
+  const onChangedeviceName = (newdeviceName) => {
+    setdeviceName(newdeviceName);
+  };
   const handleBarCodeScanned = ({ type, data }) => {
     setScanData(data);
-    setScanData(undefined);
+    const string = data;
+    if (type.toString() !== '256'){
+      Alert.alert('Thông báo', 'Mã không phù hợp');
+    } else {
+      onChangedeviceID(data);
+      ongetDatabase({data});
+    }
+    setScanData(undefined); 
     setModalVisible(false);
+    // console.log(`Data: ${data}`);
+    // console.log(`Type: ${type}`);
   };
   const scanBarcode = () => {
-    console.log("Scan Barcode Pressed");
+    //console.log("Scan Barcode Pressed");
     setModalVisible(true);
   };
 
@@ -163,7 +193,7 @@ const Home = ({ route }) => {
               height: 250,
               width: 250,
               marginHorizontal: 50,
-              marginTop: 80,
+              marginTop: 100,
             }}
           ></Image>
         </TouchableOpacity>
