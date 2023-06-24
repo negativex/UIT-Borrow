@@ -1,23 +1,35 @@
-import { View, Text, StyleSheet, TextInput, TouchableOpacity } from "react-native";
+import { View, Text, StyleSheet, TextInput, TouchableOpacity, Alert  } from "react-native";
 import React, { useState } from "react";
 import { useEffect } from "react";
 import { auth } from "../Firebase/firebase";
 import colors from "../Style/colors";
+import { useNavigation } from "@react-navigation/core";
+import { getDatabase, ref, onValue} from "firebase/database";
 
-const Confirm = () => {
-   const [currentDate, setCurrentDate] = useState("");
-
-   useEffect(() => {
-     var date = new Date().getDate(); 
-     var month = new Date().getMonth() + 1; 
-     var year = new Date().getFullYear(); 
-     var hours = new Date().getHours(); 
-     var min = new Date().getMinutes(); 
-     var sec = new Date().getSeconds(); 
-     setCurrentDate(
-       date + "/" + month + "/" + year + " " + hours + ":" + min + ":" + sec
-     );
-   }, []);
+const Confirm = ({route}) => {
+  const navigation = useNavigation();
+  const [currentDate, setCurrentDate] = useState("");
+  //database part start
+  const { data } = route.params;
+  console.log({data});
+  const db = getDatabase();
+  const starCountRef = ref(db, 'Thong tin thiet bi/'+ data);
+  onValue(starCountRef, (snapshot) => {
+    const data2 = snapshot.val();
+    console.log({data2});
+  });
+  //database part end
+  useEffect(() => {
+    var date = new Date().getDate(); 
+    var month = new Date().getMonth() + 1; 
+    var year = new Date().getFullYear(); 
+    var hours = new Date().getHours(); 
+    var min = new Date().getMinutes(); 
+    var sec = new Date().getSeconds(); 
+    setCurrentDate(
+      date + "/" + month + "/" + year + " " + hours + ":" + min + ":" + sec
+    );
+  }, []);
   return (
     <View style={{ backgroundColor: "white", flex: 1 }}>
       <View
@@ -39,7 +51,7 @@ const Confirm = () => {
           <Text
             style={{
               fontSize: 20,
-              color: "#000",
+              color: "#fff",
               fontWeight: "bold",
             }}
           >
@@ -96,6 +108,7 @@ const styles = StyleSheet.create({
     marginStart: 20,
     marginEnd: 20,
     marginVertical: 20,
+    marginTop:20,
   },
   buttonContainer: {
     backgroundColor: colors.deepblue,

@@ -1,13 +1,19 @@
-import { View, Text, Image, Dimensions, StyleSheet, Modal } from "react-native";
+
+
+import { View, Text, Image, Dimensions, StyleSheet, Modal, Alert } from "react-native";
+
 import React, { useState, useEffect } from "react";
+import { Icon, Input, Item, Label } from "native-base";
 import { ScrollView, TouchableOpacity } from "react-native-gesture-handler";
-import { ref, onValue } from "firebase/database";
 import colors from "../Style/colors";
 import { auth } from "../Firebase/firebase";
 import { useNavigation } from "@react-navigation/core";
 import { BarCodeScanner } from "expo-barcode-scanner";
 import { StatusBar } from "expo-status-bar";
-import { db } from "../Firebase/firebase";
+
+import { getDatabase, ref, onValue} from "firebase/database";
+import text from "../Style/text";
+
 
 const { width } = Dimensions.get("window");
 const modalWidth = (4 * width) / 5;
@@ -17,15 +23,51 @@ const Home = ({ route }) => {
   const [hasPermission, setHasPermission] = React.useState(false);
   const [scanData, setScanData] = React.useState();
   const [modalVisible, setModalVisible] = React.useState(false);
-  const [info, setInfo] = useState();
-  const data = auth.currentUser?.email.substring(0, 8);
+
+  const navigateProfile = () => {
+    const data = auth.currentUser?.email.substring(0,8);
+    navigation.navigate('profile', { data: data });
+    // navigation.navigate('profile');
+  };
+  const navigateConfirm = () => {
+    // navigation.navigate('confirm', { data: devideID });
+    // const data = deviceID;
+    navigation.navigate('confirm', { data: deviceID });
+  };
+  const ongetDatabase=({data}) =>{
+    const db = getDatabase();
+    const starCountRef = ref(db, 'Thong tin thiet bi/'+ data +'/Ten');
+    onValue(starCountRef, (snapshot) => {
+      const ten = snapshot.val();
+      // console.log=(data2);
+      onChangedeviceName(ten);
+    });
+  };
+  const [deviceID, setdeviceID] = useState("");
+  const onChangedeviceID = (newdeviceID) => {
+    setdeviceID(newdeviceID);
+  };
+  const [deviceName, setdeviceName] = useState("");
+  const onChangedeviceName = (newdeviceName) => {
+    setdeviceName(newdeviceName);
+  };
   const handleBarCodeScanned = ({ type, data }) => {
     setScanData(data);
-    setScanData(undefined);
+    const string = data;
+    if (type.toString() !== '256'){
+      Alert.alert('Thông báo', 'Mã không phù hợp');
+    } else {
+      onChangedeviceID(data);
+      ongetDatabase({data});
+    }
+    setScanData(undefined); 
+
     setModalVisible(false);
+    // console.log(`Data: ${data}`);
+    // console.log(`Type: ${type}`);
   };
   const scanBarcode = () => {
-    console.log("Scan Barcode Pressed");
+    //console.log("Scan Barcode Pressed");
     setModalVisible(true);
   };
 
@@ -43,9 +85,11 @@ const Home = ({ route }) => {
     });
   }, []);
 
+
   const navigateProfile = () => {
     navigation.navigate("profile", { data: data });
   };
+
   return (
     <ScrollView
       style={{
@@ -96,17 +140,43 @@ const Home = ({ route }) => {
         </View>
         <View
           style={{
-            alignItems: "flex-end",
-            
-            marginTop:-83,
-            marginStart: 260,
-            marginEnd:10
+
+
+            flexDirection: "row",
+            alignItems: "center",
+            marginTop: 25,
+            paddingLeft: 55,
+            width: "100%",
           }}
         >
-          <Image
-            source={require("../images/user_Top.png")}
-            style={{ height: 70, width: 70 }}
-          ></Image>
+          {/* Input User */}
+          <View style={{ width: "50%" }}>
+            <Text
+              style={{
+                fontSize: 25,
+                color: "#fff",
+                fontWeight: "bold",
+              }}
+            >
+              Ngoc Tran{"\n"}
+              
+              <Text
+                style={{
+                  fontSize: 13,
+                }}
+              >
+                {auth.currentUser?.email}
+              </Text>
+            </Text>
+          </View>
+          <View style={{ width: "40%", alignItems: "flex-end" }}>
+            {/* User Image Profile */}
+            <Image
+              source={require("../images/user_Top.png")}
+              style={{ height: 70, width: 70 }}
+            ></Image>
+          </View>
+
         </View>
       </View>
 
@@ -126,10 +196,17 @@ const Home = ({ route }) => {
         >
           <Text
             style={{
-              fontSize: 14,
-              width: 260,
-              color: "#fff",
-              paddingLeft: 15,
+
+              backgroundColor: colors.deepblue,
+              paddingVertical: 15,
+              paddingHorizontal: 20,
+              marginHorizontal: 60,
+              borderRadius: 15,
+              marginTop: 10,
+              flexDirection: "row",
+              marginBottom: 20,
+              alignItems: "center",
+
             }}
           >
             Thông Tin Cá Nhân
@@ -153,17 +230,88 @@ const Home = ({ route }) => {
             {scanData}
             <StatusBar style="auto" />
           </View>
-        </View>
-      </Modal>
-      <View style={{alignItems:'center'}}>
-        <TouchableOpacity onPress={scanBarcode}>
+
+        </TouchableOpacity>
+        <View>
+        <View style={{ height: 52 }}>
+            <Item
+              floatingLabel
+              style={{
+                paddingTop: 5,
+                borderColor: colors.blue,
+                borderRadius: 20,
+                padding: 1,
+                backgroundColor: colors["white-smoke"],
+              }}
+            >
+              <Label
+                style={{
+                  paddingTop: -10,
+                  padding: 10,
+                  paddingStart: 15,
+                  fontSize: text.inputText,
+                }}
+              >
+                ID thiết bị
+              </Label>
+              <Input
+                value={deviceID}
+                readOnly
+                onChangeText={onChangedeviceID}
+                style={{ paddingStart: 15, color: colors.secondary }}
+              ></Input>
+            </Item>
+            <Item
+            floatingLabel
+            style={{
+              borderColor: colors.blue,
+              padding: 1,
+              marginTop: 10,
+              borderRadius: 20,
+              paddingStart: 20,
+              backgroundColor: colors["white-smoke"],
+            }}
+          >
+            <Label
+              style={{
+                paddingTop: -10,
+                padding: 10,
+                paddingStart: 15,
+                fontSize: text.inputText,
+              }}
+            >
+              Tên thiết bị
+            </Label>
+            <Input
+              value={deviceName}
+              readOnly
+              onChangeText={onChangedeviceName}
+              style={{ paddingStart: -10 }}
+            ></Input>
+          </Item>
+
+            <TouchableOpacity
+              style={{
+                alignItems: "flex-end",
+                marginTop: 5,
+              }}
+              onPress={navigateConfirm}
+            >
+              <Image
+                style={{ width: 40, height: 40 }}
+                source={require("../images/task-done.png")}
+              ></Image>
+            </TouchableOpacity>
+          </View>
+
+
           <Image
             source={require("../images/qr-scan.png")}
             style={{
               height: 250,
               width: 250,
               marginHorizontal: 50,
-              marginTop: 80,
+              marginTop: 100,
             }}
           ></Image>
         </TouchableOpacity>
