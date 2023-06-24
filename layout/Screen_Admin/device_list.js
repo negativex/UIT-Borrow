@@ -31,7 +31,6 @@ itemSeparator = () => {
 const Device_list = ({ route }) => {
   const navigation=useNavigation();
   const [value, setValue] = useState([]);
-  const [DeviceData, setDeviceData] = useState('');
   const [modalVisible, setModalVisible] = useState(false);
   const [DeviceText, setDeviceText] = useState();
   const onPressItem = (item) => {
@@ -55,9 +54,6 @@ const Device_list = ({ route }) => {
     onValue(ref(db, "Thong tin thiet bi/"), (snapshot) => {
       var main = [];
       snapshot.forEach((child) => {
-        console.log(child.val().Id);
-        const fetchedData = child.val();
-        setDeviceData(fetchedData);
         main.push({
           Ten: child.val().Ten,
           Loai:child.val().Loai,

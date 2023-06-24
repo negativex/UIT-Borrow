@@ -36,12 +36,6 @@ const RegisterScreen = ({route} ) => {
     setLop(Lop);
   };
 
-  const [item,setItem]=useState({
-    ten: name,
-    lop: lop,
-
-  })
-
   const [mssv, setMSSV] = useState("");
   const onChangeMSSV = (mssv) => {
     setMSSV(mssv);
@@ -100,8 +94,6 @@ const RegisterScreen = ({route} ) => {
     } else {
       onChangeEmail("Barcode không hợp lệ");
     }
-    // console.log(`Data: ${data}`);
-    // console.log(`Type: ${type}`);
     setScanData(undefined); 
     setModalVisible(false);
   };

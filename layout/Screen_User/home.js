@@ -1,5 +1,7 @@
 
+
 import { View, Text, Image, Dimensions, StyleSheet, Modal, Alert } from "react-native";
+
 import React, { useState, useEffect } from "react";
 import { Icon, Input, Item, Label } from "native-base";
 import { ScrollView, TouchableOpacity } from "react-native-gesture-handler";
@@ -8,18 +10,20 @@ import { auth } from "../Firebase/firebase";
 import { useNavigation } from "@react-navigation/core";
 import { BarCodeScanner } from "expo-barcode-scanner";
 import { StatusBar } from "expo-status-bar";
+
 import { getDatabase, ref, onValue} from "firebase/database";
 import text from "../Style/text";
 
-const SCREEN_WIDTH = Dimensions.get("window").width;
+
 const { width } = Dimensions.get("window");
 const modalWidth = (4 * width) / 5;
 
-const Home = ({route}) => {
+const Home = ({ route }) => {
   const navigation = useNavigation();
   const [hasPermission, setHasPermission] = React.useState(false);
   const [scanData, setScanData] = React.useState();
   const [modalVisible, setModalVisible] = React.useState(false);
+
   const navigateProfile = () => {
     const data = auth.currentUser?.email.substring(0,8);
     navigation.navigate('profile', { data: data });
@@ -57,6 +61,7 @@ const Home = ({route}) => {
       ongetDatabase({data});
     }
     setScanData(undefined); 
+
     setModalVisible(false);
     // console.log(`Data: ${data}`);
     // console.log(`Type: ${type}`);
@@ -65,14 +70,27 @@ const Home = ({route}) => {
     //console.log("Scan Barcode Pressed");
     setModalVisible(true);
   };
+
   useEffect(() => {
     (async () => {
       const { status } = await BarCodeScanner.requestPermissionsAsync();
       setHasPermission(status === "granted");
     })();
+
+    const starCountRef = ref(db, "User/" + data + "/Ten");
+    onValue(starCountRef, (snapshot) => {
+      const data3 = snapshot.val();
+      setInfo(data3);
+      console.log(data3);
+    });
   }, []);
+
+
+  const navigateProfile = () => {
+    navigation.navigate("profile", { data: data });
+  };
+
   return (
-    // Top View
     <ScrollView
       style={{
         backgroundColor: "#fff",
@@ -83,35 +101,47 @@ const Home = ({route}) => {
       <View
         style={{
           backgroundColor: colors.blue,
-          height: "26%",
+          height: 150,
           borderBottomLeftRadius: 20,
           borderBottomRightRadius: 20,
           paddingHorizontal: 20,
+          alignItems:'center'
         }}
       >
-        <Modal
-          animationType="slide"
-          transparent={true}
-          visible={modalVisible}
-          onRequestClose={() => {
-            // Alert.alert("Modal has been closed.");
-            setModalVisible(!modalVisible);
-          }}
-        >
-          <View style={styles.modalView}>
-            <View style={styles.modalView}>
-              <BarCodeScanner
-                style={StyleSheet.absoluteFillObject}
-                onBarCodeScanned={scanData ? undefined : handleBarCodeScanned}
-                />
-              {scanData}
-              <StatusBar style="auto" />
-            </View>
-          </View>
-        </Modal>
-        {/* Name profile */}
         <View
           style={{
+            
+            flexDirection: "column",
+            margin: 10,
+            marginTop: 50,
+            marginEnd: 90,
+            alignItems: "center",
+            marginStart:10
+          }}
+        >
+          <Text
+            style={{
+              fontSize: 20,
+              color: "#fff",
+              fontWeight: "bold",
+            }}
+          >
+            {info} {"\n"}
+          </Text>
+          <Text
+            style={{
+              fontSize: 15,
+              marginTop: -20,
+              color: "white",
+            }}
+          >
+            {auth.currentUser?.email}
+          </Text>
+        </View>
+        <View
+          style={{
+
+
             flexDirection: "row",
             alignItems: "center",
             marginTop: 25,
@@ -146,14 +176,27 @@ const Home = ({route}) => {
               style={{ height: 70, width: 70 }}
             ></Image>
           </View>
-        </View>
 
-        {/* Search */}
-        <TouchableOpacity
-          onPress={navigateProfile}  
+        </View>
+      </View>
+
+      <TouchableOpacity onPress={navigateProfile}>
+        <View
+          style={{
+            backgroundColor: colors.deepblue,
+            paddingVertical: 15,
+            paddingHorizontal: 20,
+            marginHorizontal: 80,
+            borderRadius: 15,
+            marginTop: 10,
+            flexDirection: "row",
+            marginBottom: 20,
+            alignItems: "center",
+          }}
         >
-          <View
+          <Text
             style={{
+
               backgroundColor: colors.deepblue,
               paddingVertical: 15,
               paddingHorizontal: 20,
@@ -163,21 +206,31 @@ const Home = ({route}) => {
               flexDirection: "row",
               marginBottom: 20,
               alignItems: "center",
+
             }}
           >
-            {/* Input Search */}
-
-            <Text
-              style={{
-                fontSize: 14,
-                width: 260,
-                color: "#fff",
-                paddingLeft: 15,
-              }}
-            >
-              Thông Tin Cá Nhân
-            </Text>
+            Thông Tin Cá Nhân
+          </Text>
+        </View>
+      </TouchableOpacity>
+      <Modal
+        animationType="slide"
+        transparent={true}
+        visible={modalVisible}
+        onRequestClose={() => {
+          setModalVisible(!modalVisible);
+        }}
+      >
+        <View style={styles.modalView}>
+          <View style={styles.modalView}>
+            <BarCodeScanner
+              style={StyleSheet.absoluteFillObject}
+              onBarCodeScanned={scanData ? undefined : handleBarCodeScanned}
+            />
+            {scanData}
+            <StatusBar style="auto" />
           </View>
+
         </TouchableOpacity>
         <View>
         <View style={{ height: 52 }}>
@@ -251,6 +304,7 @@ const Home = ({route}) => {
             </TouchableOpacity>
           </View>
 
+
           <Image
             source={require("../images/qr-scan.png")}
             style={{
@@ -260,32 +314,7 @@ const Home = ({route}) => {
               marginTop: 100,
             }}
           ></Image>
-
-          <View style={{ width: "90%", alignItems: "center" }}>
-            <TouchableOpacity
-              style={{
-                backgroundColor: "#000",
-                paddingHorizontal: 10,
-                marginHorizontal: 50,
-                marginTop: 50,
-                paddingVertical: 6,
-                borderRadius: 10,
-                marginLeft: 70,
-              }}
-              onPress={scanBarcode}
-            >
-              <Text
-                style={{
-                  fontWeight: "bold",
-                  fontSize: 18,
-                  color: "#fff",
-                }}
-              >
-                Quét Mã
-              </Text>
-            </TouchableOpacity>
-          </View>
-        </View>
+        </TouchableOpacity>
       </View>
     </ScrollView>
   );

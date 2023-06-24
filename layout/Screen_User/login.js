@@ -16,21 +16,17 @@ import colors from "../Style/colors";
 import { auth } from "../Firebase/firebase";
 import { useNavigation } from "@react-navigation/core";
 import { signInWithEmailAndPassword } from "firebase/auth";
-import { BarCodeScanner } from 'expo-barcode-scanner';
-import { StatusBar } from 'expo-status-bar';
+import { BarCodeScanner } from "expo-barcode-scanner";
+import { StatusBar } from "expo-status-bar";
 import text from "../Style/text";
-// import { getDatabase, ref, onValue} from "firebase/database";
-
-const { width } = Dimensions.get('window');
+const { height, width } = Dimensions.get("window");
 const modalWidth = (3 * width) / 4;
 
-
-const LoginScreen = ({props}) => {
+const LoginScreen = ({route}) => {
   const navigation = useNavigation();
   const [hasPermission, setHasPermission] = React.useState(false);
   const [scanData, setScanData] = React.useState();
   const [modalVisible, setModalVisible] = React.useState(false);
-
 
   const [email, setEmail] = useState("");
   const onChangeEmail = (newEmail) => {
@@ -41,11 +37,11 @@ const LoginScreen = ({props}) => {
   const onChangePassword = (newPassword) => {
     setPassword(newPassword);
   };
+
   const handleLogin = () => {
     signInWithEmailAndPassword(auth, email, password)
       .then((userCredentials) => {
-        // navigation.navigate("home", { data: email});
-        navigation.navigate('home');
+        navigation.navigate("home");
         const user = userCredentials.user;
         console.log("Đăng nhập với tài khoản:", user.email);
       })
@@ -65,8 +61,8 @@ const LoginScreen = ({props}) => {
     } else {
       onChangeEmail("Barcode không hợp lệ");
     }
-    // console.log(`Data: ${data}`);
-    // console.log(`Type: ${type}`);
+    console.log(`Data: ${data}`);
+    console.log(`Type: ${type}`);
     setScanData(undefined); 
     setModalVisible(false);
   };
@@ -89,9 +85,7 @@ const LoginScreen = ({props}) => {
       </View>
     );
   }
-  //end Barcode part
-  // const { data } = route.params;
-  // console.log({data});
+
   return (
     <ScrollView style={{ flex: 1, backgroundColor: colors.blue }}>
       <View>
@@ -248,7 +242,7 @@ const LoginScreen = ({props}) => {
 
         <TouchableOpacity
           style={{ alignItems: "center" }}
-          onPress={() => this.props.navigation.navigate("register")}
+          onPress={() => navigation.navigate("register",{mssv})}
         >
           <Text
             style={{

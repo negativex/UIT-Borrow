@@ -11,7 +11,9 @@ import Home from "./layout/Screen_User/home"
 import Device_list from "./layout/Screen_Admin/device_list";
 import Device_update from "./layout/Screen_Admin/device_update";
 import HomeScreen from "./layout/Screen_User/home";
+import HomeStackNavigator from "./layout/Screen_User/navbar";
 const Stack = createStackNavigator();
+import BottomTabNavigator from "./layout/Screen_User/navbar";
 
 const App = () => {
   return (
@@ -22,14 +24,14 @@ const App = () => {
     //   </Stack.Navigator>
     // </NavigationContainer>
     //HomeScreen
-  //   <NavigationContainer>
-  //   <Stack.Navigator>
-  //     <Stack.Screen name="register" component={RegisterScreen} />
-  //     <Stack.Screen name="login" component={LoginScreen} />
-      
-  //     {/* <Stack.Screen name="homeScreen" component={HomeScreen} /> */}
-  //   </Stack.Navigator>
-  // </NavigationContainer>
+    //   <NavigationContainer>
+    //   <Stack.Navigator>
+    //     <Stack.Screen name="register" component={RegisterScreen} />
+    //     <Stack.Screen name="login" component={LoginScreen} />
+
+    //     {/* <Stack.Screen name="homeScreen" component={HomeScreen} /> */}
+    //   </Stack.Navigator>
+    // </NavigationContainer>
     //RegisterScreen
     //  <NavigationContainer>
     //   <Stack.Navigator initialRouteName='Register' headerMode="none">
@@ -46,12 +48,15 @@ const App = () => {
 
     //RegisterScreen
     <NavigationContainer>
-      <Stack.Navigator>
+      <Stack.Navigator headerMode="false">
         <Stack.Screen name="login" component={LoginScreen} />
         <Stack.Screen name="register" component={RegisterScreen} />
+
+
         <Stack.Screen name="home" component={Home}/>
         <Stack.Screen name="profile" component={Profile}/>
         <Stack.Screen name="confirm" component={Confirm}/>
+
       </Stack.Navigator>
     </NavigationContainer>
 
