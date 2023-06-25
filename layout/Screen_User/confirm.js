@@ -13,9 +13,8 @@ import { useEffect } from "react";
 import { auth } from "../Firebase/firebase";
 import colors from "../Style/colors";
 import { useNavigation } from "@react-navigation/core";
-import { ref, onValue } from "firebase/database";
+import { ref, onValue,set } from "firebase/database";
 import { db } from "../Firebase/firebase";
-import { isSearchBarAvailableForCurrentPlatform } from "react-native-screens";
 
 const Confirm = ({ route }) => {
   const { data, data1 } = route.params;
@@ -25,6 +24,22 @@ const Confirm = ({ route }) => {
   const [name, setName] = useState();
   const [lop, setLop] = useState();
   const [nameDevices, setNameDevices] = useState("");
+    const uid = auth.currentUser?.email.substring(0, 8);
+
+  function create() {
+    set(ref(db, "Thong tin nguoi muon/" + uid), {
+      Ten: name,
+      Email:auth.currentUser.email ,
+      ID: uid,
+      ThietBiMuon: nameDevices
+    })
+      .then(() => {
+        console.log("success");
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }
 
   //database part end
   useEffect(() => {
@@ -43,7 +58,6 @@ const Confirm = ({ route }) => {
     onValue(starCountRef, (snapshot) => {
       const data2 = snapshot.val().Ten;
       setNameDevices(data2);
-      console.log({ nameDevices });
     });
 
     // get data user
@@ -52,9 +66,7 @@ const Confirm = ({ route }) => {
       const data4 = snapshot.val().Ten;
       const data5 = snapshot.val().Lop;
       setName(data4);
-      console.log({ name });
       setLop(data5);
-      console.log({ lop });
     });
   }, []);
 
@@ -187,7 +199,6 @@ const Confirm = ({ route }) => {
             }}
           >
             {lop}
-          
           </Text>
         </View>
       </View>
@@ -262,7 +273,7 @@ const Confirm = ({ route }) => {
         </View>
       </View>
 
-      <TouchableOpacity style={styles.buttonContainer}>
+      <TouchableOpacity style={styles.buttonContainer} onPress={create}>
         <Text style={{ fontSize: 18, color: "white", alignSelf: "center" }}>
           Xác nhận
         </Text>
