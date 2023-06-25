@@ -15,6 +15,7 @@ import {
   TouchableOpacity,
 } from "react-native-gesture-handler";
 import { LinearGradient } from "expo-linear-gradient";
+import colors from '../Style/colors';
 const SCREEN_WIDTH = Dimensions.get("window").width;
 const DATA = [
   {
@@ -29,42 +30,8 @@ const DATA = [
     mssv: "20526666",
     image: require("../images/user_Top.png"),
   },
-  {
-    id: '33',
-    name: 'Sinh vien 3',
-    mssv: "20526666",
-    image: require("../images/user_Top.png"),
-  },
-  {
-    id: '44',
-    name: 'Sinh vien 4',
-    mssv: "20526666",
-    image: require("../images/user_Top.png"),
-  },
-  {
-    id: '55',
-    name: 'Sinh vien 5',
-    mssv: "20526666",
-    image: require("../images/user_Top.png"),
-  },
-  {
-    id: '66',
-    name: 'Sinh vien 6',
-    mssv: "20526666",
-    image: require("../images/user_Top.png"),
-  },
-  {
-    id: '77',
-    name: 'Sinh vien 7',
-    mssv: "20526666",
-    image: require("../images/user_Top.png"),
-  },
-  {
-    id: '88',
-    name: 'Sinh vien 8',
-    mssv: "20526666",
-    image: require("../images/user_Top.png"),
-  },
+  
+ 
 ];
 const User_SV = ( {item} ) => ( 
   <View style={styles.item}>
@@ -81,7 +48,7 @@ headerComponent = () => {
 itemSeparator = () => {
   return <View style={styles.separator} />
 }
-const Home = ({ navigation }) => {
+const User_list = ({ navigation }) => {
   return (
     // Top View
     <ScrollView
@@ -93,7 +60,7 @@ const Home = ({ navigation }) => {
       {/* Style Top View */}
       <View
         style={{
-          backgroundColor: "#EA5455",
+          backgroundColor: colors.blue,
           height: 150,
           borderBottomLeftRadius: 20,
           borderBottomRightRadius: 20,
@@ -153,29 +120,7 @@ const Home = ({ navigation }) => {
       />
     </SafeAreaView>
     {/* Style Button Back to top */}
-    <View style={{ width: "100%", alignItems: "flex-end" }}>
-            <View
-              style={{
-                backgroundColor: "#EA5455",
-                paddingHorizontal: 10,
-                marginTop: 0,
-                marginRight: 20,
-                marginBottom: 20,
-                paddingVertical: 6,
-                borderRadius: 100,
-              }}
-            >
-              <Text
-                style={{
-                  fontWeight: "bold",
-                  fontSize: 15,
-                  color: "#fff",
-                }}
-              >
-                Lên đầu
-              </Text>
-            </View>
-          </View>
+    
     </ScrollView>
   );
 };
@@ -232,4 +177,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Home;
+export default User_list;
