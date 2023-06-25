@@ -5,6 +5,7 @@ import {
   TextInput,
   TouchableOpacity,
   Alert,
+  Image,
 } from "react-native";
 import { Icon, Input, Item, Label } from "native-base";
 
@@ -13,28 +14,33 @@ import { useEffect } from "react";
 import { auth } from "../Firebase/firebase";
 import colors from "../Style/colors";
 import { useNavigation } from "@react-navigation/core";
-import { ref, onValue,set } from "firebase/database";
+import { ref, onValue, set } from "firebase/database";
 import { db } from "../Firebase/firebase";
+import { ScrollView } from "react-native-gesture-handler";
 
 const Confirm = ({ route }) => {
   const { data, data1 } = route.params;
   const navigation = useNavigation();
 
   const [currentDate, setCurrentDate] = useState("");
+  const [sl, setSl]=useState();
   const [name, setName] = useState();
   const [lop, setLop] = useState();
   const [nameDevices, setNameDevices] = useState("");
-    const uid = auth.currentUser?.email.substring(0, 8);
+  const uid = auth.currentUser?.email.substring(0, 8);
+  const [count, setCount] = useState(1);
+  const addQuantity = () => setCount((prevCount) => prevCount + 1);
+  const subtractQuantity = () => setCount((prevCount) => prevCount - 1);
 
   function create() {
     set(ref(db, "Thong tin nguoi muon/" + uid + "/" + nameDevices), {
       Ten: name,
-      Email:auth.currentUser.email ,
+      Email: auth.currentUser.email,
       Time: currentDate,
-      ThietBiMuon: nameDevices
+      ThietBiMuon: nameDevices,
     })
       .then(() => {
-        navigation.navigate("home")
+        navigation.navigate("home");
         console.log("success");
       })
       .catch((error) => {
@@ -58,6 +64,9 @@ const Confirm = ({ route }) => {
     const starCountRef = ref(db, "Thong tin thiet bi/" + data);
     onValue(starCountRef, (snapshot) => {
       const data2 = snapshot.val().Ten;
+      const data6=snapshot.val().Soluong;
+      console.log(data6);
+      setSl(data6);
       setNameDevices(data2);
     });
 
@@ -76,19 +85,14 @@ const Confirm = ({ route }) => {
       <View
         style={{
           backgroundColor: colors.blue,
-          height: "12%",
-          paddingHorizontal: 20,
         }}
       >
-        {/* Name profile */}
         <View
           style={{
             alignItems: "center",
-            marginTop: 46,
-            width: "100%",
+            marginTop: 20,
           }}
         >
-          {/* Input User */}
           <Text
             style={{
               fontSize: 20,
@@ -100,185 +104,244 @@ const Confirm = ({ route }) => {
           </Text>
         </View>
       </View>
-      <View
-        floatingLabel
-        style={{
-          borderRadius: 20,
-          backgroundColor: colors["white-smoke"],
-          borderWidth: 1,
-          borderColor: colors.blue,
-          paddingVertical: 5,
-          margin: 20,
-        }}
-      >
-        <Label
+      <ScrollView>
+        <View
           style={{
-            paddingStart: 20,
-            fontSize: 15,
-            color: colors.secondary,
+            height: 2,
+            borderWidth: 1,
+            borderColor: colors.deepblue,
+            height: 220,
+            margin: 10,
+            borderRadius: 30,
           }}
         >
-          Email
-        </Label>
+          <Image
+            source={require("../images/addImage.png")}
+            style={{
+              marginTop: 10,
+              marginBottom: 10,
+              height: 200,
+              width: 200,
+              alignSelf: "center",
+            }}
+          ></Image>
+        </View>
 
-        <View style={{ paddingStart: 20 }}>
+        <View
+          style={{
+            flexDirection: "row",
+            alignItems: "center",
+            alignSelf: "center",
+            backgroundColor: colors["dark-light"],
+            paddingHorizontal: 20,
+            marginTop: 10,
+            paddingVertical: 8,
+            borderRadius: 20,
+          }}
+        >
+          <TouchableOpacity onPress={subtractQuantity}>
+            <Text style={{ fontWeight: "bold", fontSize: 18, color: "white" }}>
+              -
+            </Text>
+          </TouchableOpacity>
           <Text
             style={{
               fontSize: 18,
-              color: colors.secondary,
               fontWeight: "bold",
+              paddingHorizontal: 20,
+              color: "white",
             }}
           >
-            {auth.currentUser?.email}
+            {count}
           </Text>
-        </View>
-      </View>
 
-      <View
-        floatingLabel
-        style={{
-          borderRadius: 20,
-          backgroundColor: colors["white-smoke"],
-          borderWidth: 1,
-          borderColor: colors.blue,
-          paddingVertical: 5,
-          margin: 20,
-          marginTop: -10,
-        }}
-      >
-        <Label
+          <TouchableOpacity onPress={addQuantity}>
+            <Text style={{ fontWeight: "bold", fontSize: 18, color: "white" }}>
+              +
+            </Text>
+          </TouchableOpacity>
+          
+        </View>
+        <View
+          floatingLabel
           style={{
-            paddingStart: 20,
-            fontSize: 15,
-            color: colors.secondary,
+            borderRadius: 20,
+            backgroundColor: colors["white-smoke"],
+            borderWidth: 1,
+            borderColor: colors.blue,
+            paddingVertical: 5,
+            margin: 20,
           }}
         >
-          Họ và Tên
-        </Label>
-
-        <View style={{ paddingStart: 20 }}>
-          <Text
+          <Label
             style={{
-              fontSize: 18,
+              paddingStart: 20,
+              fontSize: 15,
               color: colors.secondary,
-              fontWeight: "bold",
             }}
           >
-            {name}
-          </Text>
-        </View>
-      </View>
+            Email
+          </Label>
 
-      <View
-        floatingLabel
-        style={{
-          borderRadius: 20,
-          backgroundColor: colors["white-smoke"],
-          borderWidth: 1,
-          borderColor: colors.blue,
-          paddingVertical: 5,
-          margin: 20,
-          marginTop: -10,
-        }}
-      >
-        <Label
+          <View style={{ paddingStart: 20 }}>
+            <Text
+              style={{
+                fontSize: 18,
+                color: colors.secondary,
+                fontWeight: "bold",
+              }}
+            >
+              {auth.currentUser?.email}
+            </Text>
+          </View>
+        </View>
+
+        <View
+          floatingLabel
           style={{
-            paddingStart: 20,
-            fontSize: 15,
-            color: colors.secondary,
+            borderRadius: 20,
+            backgroundColor: colors["white-smoke"],
+            borderWidth: 1,
+            borderColor: colors.blue,
+            paddingVertical: 5,
+            margin: 20,
+            marginTop: -10,
           }}
         >
-          Lớp
-        </Label>
-
-        <View style={{ paddingStart: 20 }}>
-          <Text
+          <Label
             style={{
-              fontSize: 18,
+              paddingStart: 20,
+              fontSize: 15,
               color: colors.secondary,
-              fontWeight: "bold",
             }}
           >
-            {lop}
-          </Text>
-        </View>
-      </View>
+            Họ và Tên
+          </Label>
 
-      <View
-        floatingLabel
-        style={{
-          borderRadius: 20,
-          backgroundColor: colors["white-smoke"],
-          borderWidth: 1,
-          borderColor: colors.blue,
-          paddingVertical: 5,
-          margin: 20,
-          marginTop: -10,
-        }}
-      >
-        <Label
+          <View style={{ paddingStart: 20 }}>
+            <Text
+              style={{
+                fontSize: 18,
+                color: colors.secondary,
+                fontWeight: "bold",
+              }}
+            >
+              {name}
+            </Text>
+          </View>
+        </View>
+
+        <View
+          floatingLabel
           style={{
-            paddingStart: 20,
-            fontSize: 15,
-            color: colors.secondary,
+            borderRadius: 20,
+            backgroundColor: colors["white-smoke"],
+            borderWidth: 1,
+            borderColor: colors.blue,
+            paddingVertical: 5,
+            margin: 20,
+            marginTop: -10,
           }}
         >
-          Thiết bị mượn
-        </Label>
-
-        <View style={{ paddingStart: 20 }}>
-          <Text
+          <Label
             style={{
-              fontSize: 18,
+              paddingStart: 20,
+              fontSize: 15,
               color: colors.secondary,
-              fontWeight: "bold",
             }}
           >
-            {nameDevices}
-          </Text>
-        </View>
-      </View>
+            Lớp
+          </Label>
 
-      <View
-        floatingLabel
-        style={{
-          borderRadius: 20,
-          backgroundColor: colors["white-smoke"],
-          borderWidth: 1,
-          borderColor: colors.blue,
-          paddingVertical: 5,
-          margin: 20,
-          marginTop: -10,
-        }}
-      >
-        <Label
+          <View style={{ paddingStart: 20 }}>
+            <Text
+              style={{
+                fontSize: 18,
+                color: colors.secondary,
+                fontWeight: "bold",
+              }}
+            >
+              {lop}
+            </Text>
+          </View>
+        </View>
+
+        <View
+          floatingLabel
           style={{
-            paddingStart: 20,
-            fontSize: 15,
-            color: colors.secondary,
+            borderRadius: 20,
+            backgroundColor: colors["white-smoke"],
+            borderWidth: 1,
+            borderColor: colors.blue,
+            paddingVertical: 5,
+            margin: 20,
+            marginTop: -10,
           }}
         >
-          Thời gian mượn
-        </Label>
-
-        <View style={{ paddingStart: 20 }}>
-          <Text
+          <Label
             style={{
-              fontSize: 18,
+              paddingStart: 20,
+              fontSize: 15,
               color: colors.secondary,
-              fontWeight: "bold",
             }}
           >
-            {currentDate}
-          </Text>
-        </View>
-      </View>
+            Thiết bị mượn/Số lượng còn
+          </Label>
 
-      <TouchableOpacity style={styles.buttonContainer} onPress={create}>
-        <Text style={{ fontSize: 18, color: "white", alignSelf: "center" }}>
-          Xác nhận
-        </Text>
-      </TouchableOpacity>
+          <View style={{ paddingStart: 20 }}>
+            <Text
+              style={{
+                fontSize: 18,
+                color: colors.secondary,
+                fontWeight: "bold",
+              }}
+            >
+              {nameDevices}{'/'}{sl}
+            </Text>
+          </View>
+        </View>
+
+        <View
+          floatingLabel
+          style={{
+            borderRadius: 20,
+            backgroundColor: colors["white-smoke"],
+            borderWidth: 1,
+            borderColor: colors.blue,
+            paddingVertical: 5,
+            margin: 20,
+            marginTop: -10,
+          }}
+        >
+          <Label
+            style={{
+              paddingStart: 20,
+              fontSize: 15,
+              color: colors.secondary,
+            }}
+          >
+            Thời gian mượn
+          </Label>
+
+          <View style={{ paddingStart: 20 }}>
+            <Text
+              style={{
+                fontSize: 18,
+                color: colors.secondary,
+                fontWeight: "bold",
+              }}
+            >
+              {currentDate}
+            </Text>
+          </View>
+        </View>
+
+        <TouchableOpacity style={styles.buttonContainer} onPress={create}>
+          <Text style={{ fontSize: 18, color: "white", alignSelf: "center" }}>
+            Xác nhận
+          </Text>
+        </TouchableOpacity>
+      </ScrollView>
     </View>
   );
 };
