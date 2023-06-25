@@ -11,6 +11,7 @@ import Home from "./layout/Screen_User/home"
 import Device_list from "./layout/Screen_Admin/device_list";
 import Device_update from "./layout/Screen_Admin/device_update";
 import HomeScreen from "./layout/Screen_User/home";
+import User_list from "./layout/Screen_Admin/user_list";
 import HomeStackNavigator from "./layout/Screen_User/navbar";
 const Stack = createStackNavigator();
 import BottomTabNavigator from "./layout/Screen_User/navbar";
@@ -47,16 +48,16 @@ const App = () => {
     // </NavigationContainer>
 
     //RegisterScreen
-    <NavigationContainer>
-      <Stack.Navigator headerMode="false">
-        <Stack.Screen name="login" component={LoginScreen} />
-        <Stack.Screen name="register" component={RegisterScreen} />
-        <Stack.Screen name="home" component={Home}/>
-        <Stack.Screen name="profile" component={Profile}/>
-        <Stack.Screen name="confirm" component={Confirm}/>
+    // <NavigationContainer>
+    //   <Stack.Navigator headerMode="false">
+    //     <Stack.Screen name="login" component={LoginScreen} />
+    //     <Stack.Screen name="register" component={RegisterScreen} />
+    //     <Stack.Screen name="home" component={Home}/>
+    //     <Stack.Screen name="profile" component={Profile}/>
+    //     <Stack.Screen name="confirm" component={Confirm}/>
 
-      </Stack.Navigator>
-    </NavigationContainer>
+    //   </Stack.Navigator>
+    // </NavigationContainer>
 
     // device_type_admin_screen
     // <NavigationContainer>
@@ -85,11 +86,11 @@ const App = () => {
     //   </Stack.Navigator>
     // </NavigationContainer>
 
-    // <NavigationContainer>
-    //   <Stack.Navigator initialRouteName="Profile" headerMode="none">
-    //     <Stack.Screen name="Profile" component={Profile} />
-    //   </Stack.Navigator>
-    // </NavigationContainer>
+    <NavigationContainer>
+      <Stack.Navigator initialRouteName="user_list" headerMode="none">
+        <Stack.Screen name="user_list" component={User_list} />
+      </Stack.Navigator>
+    </NavigationContainer>
 
     // <NavigationContainer>
     //   <Stack.Navigator initialRouteName="confirm" headerMode="false">
