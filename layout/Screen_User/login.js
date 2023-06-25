@@ -242,7 +242,7 @@ const LoginScreen = ({route}) => {
 
         <TouchableOpacity
           style={{ alignItems: "center" }}
-          onPress={() => navigation.navigate("register",{mssv})}
+          onPress={() => navigation.navigate("register")}
         >
           <Text
             style={{

@@ -1,4 +1,12 @@
-import { View, Text, Image, Dimensions, StyleSheet, Modal } from "react-native";
+import {
+  View,
+  Text,
+  Image,
+  Dimensions,
+  StyleSheet,
+  Modal,
+  Alert,
+} from "react-native";
 import React, { useState, useEffect } from "react";
 import { Icon, Input, Item, Label } from "native-base";
 import { ScrollView, TouchableOpacity } from "react-native-gesture-handler";
@@ -7,6 +15,8 @@ import { auth } from "../Firebase/firebase";
 import { useNavigation } from "@react-navigation/core";
 import { BarCodeScanner } from "expo-barcode-scanner";
 import { StatusBar } from "expo-status-bar";
+import { getDatabase, ref, onValue } from "firebase/database";
+import text from "../Style/text";
 import { db } from "../Firebase/firebase";
 
 const { width } = Dimensions.get("window");
@@ -15,23 +25,31 @@ const modalWidth = (4 * width) / 5;
 const Home = ({ route }) => {
   const navigation = useNavigation();
   const [hasPermission, setHasPermission] = React.useState(false);
+
   const [scanData, setScanData] = React.useState();
   const [modalVisible, setModalVisible] = React.useState(false);
-  
-  const navigateConfirm = () => {
-    // navigation.navigate('confirm', { data: devideID });
-    // const data = deviceID;
-    navigation.navigate('confirm', { data: deviceID });
+  const [info, setInfo] = useState();
+
+  const navigateProfile = () => {
+    const data = auth.currentUser?.email.substring(0, 8);
+    navigation.navigate("profile", { data: data });
   };
-  const ongetDatabase=({data}) =>{
+  const navigateConfirm = () => {
+    const data1 = auth.currentUser?.email.substring(0, 8);
+    navigation.navigate("confirm", { data: deviceID, data1:data1 });
+       console.log(data1)
+
+  };
+
+  const ongetDatabase = ({ data }) => {
     const db = getDatabase();
-    const starCountRef = ref(db, 'Thong tin thiet bi/'+ data +'/Ten');
+    const starCountRef = ref(db, "Thong tin thiet bi/" + data + "/Ten");
     onValue(starCountRef, (snapshot) => {
       const ten = snapshot.val();
-      // console.log=(data2);
       onChangedeviceName(ten);
     });
   };
+  
   const [deviceID, setdeviceID] = useState("");
   const onChangedeviceID = (newdeviceID) => {
     setdeviceID(newdeviceID);
@@ -43,19 +61,16 @@ const Home = ({ route }) => {
   const handleBarCodeScanned = ({ type, data }) => {
     setScanData(data);
     const string = data;
-    if (type.toString() !== '256'){
-      Alert.alert('Thông báo', 'Mã không phù hợp');
+    if (type.toString() !== "256") {
+      Alert.alert("Thông báo", "Mã không phù hợp");
     } else {
       onChangedeviceID(data);
-      ongetDatabase({data});
+      ongetDatabase({ data });
     }
-    setScanData(undefined); 
+    setScanData(undefined);
     setModalVisible(false);
-    // console.log(`Data: ${data}`);
-    // console.log(`Type: ${type}`);
   };
   const scanBarcode = () => {
-    //console.log("Scan Barcode Pressed");
     setModalVisible(true);
   };
 
@@ -64,7 +79,7 @@ const Home = ({ route }) => {
       const { status } = await BarCodeScanner.requestPermissionsAsync();
       setHasPermission(status === "granted");
     })();
-
+    const data = auth.currentUser?.email.substring(0, 8);
     const starCountRef = ref(db, "User/" + data + "/Ten");
     onValue(starCountRef, (snapshot) => {
       const data3 = snapshot.val();
@@ -73,9 +88,6 @@ const Home = ({ route }) => {
     });
   }, []);
 
-  const navigateProfile = () => {
-    navigation.navigate("profile", { data: data });
-  };
   return (
     <ScrollView
       style={{
@@ -91,18 +103,17 @@ const Home = ({ route }) => {
           borderBottomLeftRadius: 20,
           borderBottomRightRadius: 20,
           paddingHorizontal: 20,
-          alignItems:'center'
+          alignItems: "center",
         }}
       >
         <View
           style={{
-            
             flexDirection: "column",
             margin: 10,
             marginTop: 50,
             marginEnd: 90,
             alignItems: "center",
-            marginStart:10
+            marginStart: 10,
           }}
         >
           <Text
@@ -127,10 +138,9 @@ const Home = ({ route }) => {
         <View
           style={{
             alignItems: "flex-end",
-            
-            marginTop:-83,
+            marginTop: -83,
             marginStart: 260,
-            marginEnd:10
+            marginEnd: 10,
           }}
         >
           <Image
@@ -139,7 +149,6 @@ const Home = ({ route }) => {
           ></Image>
         </View>
       </View>
-
       <TouchableOpacity onPress={navigateProfile}>
         <View
           style={{
@@ -185,15 +194,95 @@ const Home = ({ route }) => {
           </View>
         </View>
       </Modal>
-      <View style={{alignItems:'center'}}>
-        <TouchableOpacity onPress={scanBarcode}>
+      <View
+        style={{
+          marginStart: 10,
+          marginEnd: 10,
+        }}
+      >
+        <View style={{ height: 52 }}>
+          <Item
+            floatingLabel
+            style={{
+              paddingTop: 5,
+              borderColor: colors.blue,
+              borderRadius: 20,
+              padding: 1,
+              backgroundColor: colors["white-smoke"],
+            }}
+          >
+            <Label
+              style={{
+                paddingTop: -10,
+                padding: 10,
+                paddingStart: 15,
+                fontSize: text.inputText,
+              }}
+            >
+              ID thiết bị
+            </Label>
+            <Input
+              value={deviceID}
+              readOnly
+              onChangeText={onChangedeviceID}
+              style={{ paddingStart: 15, color: colors.secondary }}
+            ></Input>
+          </Item>
+          <Item
+            floatingLabel
+            style={{
+              borderColor: colors.blue,
+              padding: 1,
+              marginTop: 10,
+              borderRadius: 20,
+              paddingStart: 20,
+              backgroundColor: colors["white-smoke"],
+            }}
+          >
+            <Label
+              style={{
+                paddingTop: -10,
+                padding: 10,
+                paddingStart: 15,
+                fontSize: text.inputText,
+              }}
+            >
+              Tên thiết bị
+            </Label>
+            <Input
+              value={deviceName}
+              readOnly
+              onChangeText={onChangedeviceName}
+              style={{ paddingStart: -10 }}
+            ></Input>
+          </Item>
+
+          <TouchableOpacity
+            style={{
+              alignItems: "flex-end",
+              marginTop: 5,
+            }}
+            onPress={navigateConfirm}
+          >
+            <Image
+              style={{ width: 40, height: 40 }}
+              source={require("../images/task-done.png")}
+            ></Image>
+          </TouchableOpacity>
+        </View>
+      </View>
+      <View
+        style={{ alignItems: "center", marginHorizontal: 50, marginTop: 150 }}
+      >
+        <TouchableOpacity
+          style={{ marginHorizontal: 50 }}
+          onPress={scanBarcode}
+        >
           <Image
             source={require("../images/qr-scan.png")}
             style={{
               height: 250,
               width: 250,
-              marginHorizontal: 50,
-              marginTop: 100,
             }}
           ></Image>
         </TouchableOpacity>
