@@ -27,13 +27,14 @@ const Confirm = ({ route }) => {
     const uid = auth.currentUser?.email.substring(0, 8);
 
   function create() {
-    set(ref(db, "Thong tin nguoi muon/" + uid), {
+    set(ref(db, "Thong tin nguoi muon/" + uid + "/" + nameDevices), {
       Ten: name,
       Email:auth.currentUser.email ,
-      ID: uid,
+      Time: currentDate,
       ThietBiMuon: nameDevices
     })
       .then(() => {
+        navigation.navigate("home")
         console.log("success");
       })
       .catch((error) => {

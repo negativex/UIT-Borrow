@@ -63,7 +63,6 @@ const Device_add = ({ navigation, route }) => {
         <View
           style={{
             alignItems: "center",
-            alignSelf: "center",
           }}
         >
           <Text
@@ -71,7 +70,7 @@ const Device_add = ({ navigation, route }) => {
               marginTop: -40,
               fontWeight: "bold",
               fontSize: 22,
-              color: "black",
+              color: "white",
             }}
           >
             Thêm Thiết Bị
