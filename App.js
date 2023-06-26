@@ -15,7 +15,8 @@ import User_list from "./layout/Screen_Admin/user_list";
 import HomeStackNavigator from "./layout/Screen_User/navbar";
 const Stack = createStackNavigator();
 import BottomTabNavigator from "./layout/Screen_User/navbar";
-
+import Return from "./layout/Screen_User/return";
+import Return_list from "./layout/Screen_User/return_list";
 const App = () => {
   return (
     //LoginScreen
@@ -86,17 +87,27 @@ const App = () => {
     //   </Stack.Navigator>
     // </NavigationContainer>
 
-    <NavigationContainer>
-      <Stack.Navigator initialRouteName="user_list" headerMode="none">
-        <Stack.Screen name="user_list" component={User_list} />
-      </Stack.Navigator>
-    </NavigationContainer>
+    // <NavigationContainer>
+    //   <Stack.Navigator initialRouteName="user_list" headerMode="none">
+    //     <Stack.Screen name="user_list" component={User_list} />
+    //   </Stack.Navigator>
+    // </NavigationContainer>
 
     // <NavigationContainer>
     //   <Stack.Navigator initialRouteName="confirm" headerMode="false">
     //     <Stack.Screen name="confirm" component={Confirm} />
     //   </Stack.Navigator>
     // </NavigationContainer>
+
+    <NavigationContainer>
+      <Stack.Navigator headerMode='false'>
+      <Stack.Screen name="login" component={LoginScreen} />  
+        <Stack.Screen name="home" component={Home} />  
+        <Stack.Screen name="confirm" component={Confirm} />  
+        <Stack.Screen name="return_list" component={Return_list} />
+        <Stack.Screen name="return" component={Return} />  
+      </Stack.Navigator>
+    </NavigationContainer>
   );
 };
 
