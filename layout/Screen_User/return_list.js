@@ -44,20 +44,22 @@ const Device_list = ({ route }) => {
     >
       <View style={styles.avatarContainer}>
         <Image source={item.image} style={styles.avatar} />
+      </View >
+      <View style={{ flex: 1, justifyContent: 'center', alignItems: 'flex-start' }}>
+        <Text style={styles.name}>{item.ThietBiMuon}</Text>
+        <Text style={styles.name}>{item.Time}</Text>
+        <Text style={styles.name}>{item.Email}</Text>
       </View>
-      <Text style={styles.name}>{item.Ten}</Text>
-      <Text style={styles.name}>{item.Loai}</Text>
-      <Text style={styles.name}>{item.SL}</Text>
     </TouchableOpacity>
   );
   useEffect(() => {
-    onValue(ref(db, "Lich su/"), (snapshot) => {
+    onValue(ref(db, "Thong tin nguoi muon/20521668"), (snapshot) => { //đoạn này đang thiếu phần làm route từ màn hình home qua để lấy mssv
       var main = [];
       snapshot.forEach((child) => {
         main.push({
-          Ten: child.val().Ten,
-          Loai:child.val().Loai,
-          SL: child.val().Soluong,
+          ThietBiMuon: child.val().ThietBiMuon,
+          Time:child.val().Time,
+          Email: child.val().Email,
         });
       });
       setValue(main);

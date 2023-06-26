@@ -29,7 +29,7 @@ const Home = ({ route }) => {
   const [scanData, setScanData] = React.useState();
   const [modalVisible, setModalVisible] = React.useState(false);
   const [info, setInfo] = useState();
-
+  const [DeviceArray,setDeviceArray] = useState([]);
   const navigateProfile = () => {
     const data = auth.currentUser?.email.substring(0, 8);
     navigation.navigate("profile", { data: data });
@@ -37,35 +37,24 @@ const Home = ({ route }) => {
   const navigateConfirm = () => {
     const data1 = auth.currentUser?.email.substring(0, 8);
     navigation.navigate("confirm", { data: deviceID, data1:data1 });
-       console.log(data1)
-
+      //  console.log(data1)
   };
-
-  const ongetDatabase = ({ data }) => {
-    const db = getDatabase();
-    const starCountRef = ref(db, "Thong tin thiet bi/" + data + "/Ten");
-    onValue(starCountRef, (snapshot) => {
-      const ten = snapshot.val();
-      onChangedeviceName(ten);
-    });
-  };
-  
   const [deviceID, setdeviceID] = useState("");
   const onChangedeviceID = (newdeviceID) => {
     setdeviceID(newdeviceID);
   };
-  const [deviceName, setdeviceName] = useState("");
-  const onChangedeviceName = (newdeviceName) => {
-    setdeviceName(newdeviceName);
-  };
   const handleBarCodeScanned = ({ type, data }) => {
     setScanData(data);
-    const string = data;
-    if (type.toString() !== "256") {
-      Alert.alert("Thông báo", "Mã không phù hợp");
-    } else {
+    // const string = data;
+    // var DvVar = DeviceArray.ID;
+    // console.log(DvVar);
+    // console.log(string);
+    // if (string === (DvVar)) {
+    if (type === 256){
       onChangedeviceID(data);
-      ongetDatabase({ data });
+      navigateConfirm();
+    } else {
+      Alert.alert("Thông báo", "Mã không phù hợp,\nKhông tìm thấy thiết bị");
     }
     setScanData(undefined);
     setModalVisible(false);
@@ -85,6 +74,17 @@ const Home = ({ route }) => {
       const data3 = snapshot.val();
       setInfo(data3);
       console.log(data3);
+    });
+
+    onValue(ref(db, "Thong tin thiet bi"), (snapshot) => { 
+      var main = [];
+      snapshot.forEach((child) => {
+        main.push({
+          ID:child.val().ID
+        });
+      });
+      setDeviceArray(main);
+      // console.log(DeviceArray.map((item) => item.ID));
     });
   }, []);
 
@@ -200,79 +200,9 @@ const Home = ({ route }) => {
           marginEnd: 10,
         }}
       >
-        <View style={{ height: 52 }}>
-          <Item
-            floatingLabel
-            style={{
-              paddingTop: 5,
-              borderColor: colors.blue,
-              borderRadius: 20,
-              padding: 1,
-              backgroundColor: colors["white-smoke"],
-            }}
-          >
-            <Label
-              style={{
-                paddingTop: -10,
-                padding: 10,
-                paddingStart: 15,
-                fontSize: text.inputText,
-              }}
-            >
-              ID thiết bị
-            </Label>
-            <Input
-              value={deviceID}
-              readOnly
-              onChangeText={onChangedeviceID}
-              style={{ paddingStart: 15, color: colors.secondary }}
-            ></Input>
-          </Item>
-          <Item
-            floatingLabel
-            style={{
-              borderColor: colors.blue,
-              padding: 1,
-              marginTop: 10,
-              borderRadius: 20,
-              paddingStart: 20,
-              backgroundColor: colors["white-smoke"],
-            }}
-          >
-            <Label
-              style={{
-                paddingTop: -10,
-                padding: 10,
-                paddingStart: 15,
-                fontSize: text.inputText,
-              }}
-            >
-              Tên thiết bị
-            </Label>
-            <Input
-              value={deviceName}
-              readOnly
-              onChangeText={onChangedeviceName}
-              style={{ paddingStart: -10 }}
-            ></Input>
-          </Item>
-
-          <TouchableOpacity
-            style={{
-              alignItems: "flex-end",
-              marginTop: 5,
-            }}
-            onPress={navigateConfirm}
-          >
-            <Image
-              style={{ width: 40, height: 40 }}
-              source={require("../images/task-done.png")}
-            ></Image>
-          </TouchableOpacity>
-        </View>
       </View>
       <View
-        style={{ alignItems: "center", marginHorizontal: 50, marginTop: 150 }}
+        style={{ alignItems: "center", marginHorizontal: 50, marginTop: 100 }}
       >
         <TouchableOpacity
           style={{ marginHorizontal: 50 }}
@@ -281,8 +211,8 @@ const Home = ({ route }) => {
           <Image
             source={require("../images/qr-scan.png")}
             style={{
-              height: 250,
-              width: 250,
+              height: 300,
+              width: 300,
             }}
           ></Image>
         </TouchableOpacity>
