@@ -26,7 +26,7 @@ const Confirm = ({ route }) => {
   const [sl, setSl]=useState();
   const [name, setName] = useState();
   const [lop, setLop] = useState();
-  const [state,setState]=useState("Dang muon");
+  const [state,setState]=useState("Đang mượn");
   const [nameDevices, setNameDevices] = useState("");
   const uid = auth.currentUser?.email.substring(0, 8);
   const [count, setCount] = useState(1);
@@ -43,7 +43,7 @@ const Confirm = ({ route }) => {
       TrangThai: state
     })
       .then(() => {
-        navigation.navigate("home");
+        navigation.navigate("bottomNav", {data: uid});
         console.log("success");
       })
       .catch((error) => {

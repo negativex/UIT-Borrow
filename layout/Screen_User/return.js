@@ -1,4 +1,4 @@
-import { View, Text, Image, StyleSheet } from "react-native";
+import { View, Text, Image, StyleSheet, Alert } from "react-native";
 import React, { useState, useEffect } from "react";
 import { ref, set, update } from "firebase/database";
 import {
@@ -17,6 +17,7 @@ const Return = ({ route }) => {
   const [thietbimuon] = useState(route.params.item.ThietBiMuon);
   const [tgmuon] = useState(route.params.item.Time);
   const [email] = useState(route.params.item.Email);
+  const [TThai] = useState(route.params.item.TrangThai);
   const [currentDate, setCurrentDate] = useState("");
   const [Ghichu, setGhichu] = useState("");
   useEffect(() => {
@@ -32,18 +33,24 @@ const Return = ({ route }) => {
   });
   const mssv = email.substring(0, 8);
   function Update() {
-    update(ref(db, "Thong tin nguoi muon/" + mssv + "/" + thietbimuon), {
-      ThoiGianTra: currentDate,
-      GhiChu: Ghichu,
-      TrangThai: "Đã trả",
-    })
-      .then(() => {
-        console.log("success");
-        navigation.navigate("bottomNav", {data: mssv});
+    if (TThai === "Đang mượn"){
+      update(ref(db, "Thong tin nguoi muon/" + mssv + "/" + thietbimuon), {
+        ThoiGianTra: currentDate,
+        GhiChu: Ghichu,
+        TrangThai: "Đã trả",
       })
-      .catch((error) => {
-        console.log(error);
-      });
+        .then(() => {
+          console.log("success");
+          navigation.navigate("bottomNav", {data: mssv});
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    } else {
+      Alert.alert("Bạn đã trả thiết bị này rồi", "Hành động vô hiệu", [
+        { text: "Đóng"},
+      ])
+    }
   }
   return (
     <View style={{ flex: 1, backgroundColor: "white" }}>
@@ -181,7 +188,7 @@ const Return = ({ route }) => {
         </View>
 
         <View style={{ margin: 10 }}>
-          <Text style={{ fontSize: 17 }}>Thời gian trả</Text>
+          <Text style={{ fontSize: 17 }}>Thời gian hiện tại</Text>
           <TextInput
             editable={false}
             selectTextOnFocus={true}

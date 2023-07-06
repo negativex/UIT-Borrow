@@ -34,13 +34,15 @@ const Device_list = ({ route }) => {
   const [modalVisible, setModalVisible] = useState(false);
   const [DeviceText, setDeviceText] = useState();
   const onPressItem = (item) => {
-    setModalVisible(true);
-    //setDeviceText(item.text);
+    if(item.TrangThai === "Đang mượn"){
+      navigation.navigate("return", { item })
+    }
   };
   const Device = ({ item }) => (
     <TouchableOpacity
       style={styles.item}
-      onPress={() => navigation.navigate("return", { item })}
+     // onPress={onPressItem(item)}
+      onPress= {()=> navigation.navigate("return", { item })}
     >
       <View style={styles.avatarContainer}>
         <Image source={item.image} style={styles.avatar} />
