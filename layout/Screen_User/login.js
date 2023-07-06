@@ -41,8 +41,8 @@ const LoginScreen = ({route}) => {
   const handleLogin = () => {
     signInWithEmailAndPassword(auth, email, password)
       .then((userCredentials) => {
-        navigation.navigate("home");
         const user = userCredentials.user;
+        navigation.navigate("bottomNav", {data: user.email.substring(0, 8)});
         console.log("Đăng nhập với tài khoản:", user.email);
       })
       .catch(() =>
@@ -55,7 +55,7 @@ const LoginScreen = ({route}) => {
   const handleBarCodeScanned = ({ type, data }) => {
     setScanData(data);
     const string = data;
-    if (string.startsWith("15000")) {
+    if (string.length === 13 && string.substring(2, 5) === '000') {
       const modifiedString = string.substring(5) + "@gm.uit.edu.vn";
       onChangeEmail(modifiedString);
     } else {

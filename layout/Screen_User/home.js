@@ -73,7 +73,7 @@ const Home = ({ route }) => {
     onValue(starCountRef, (snapshot) => {
       const data3 = snapshot.val();
       setInfo(data3);
-      console.log(data3);
+      // console.log(data3);
     });
 
     onValue(ref(db, "Thong tin thiet bi"), (snapshot) => { 
@@ -149,7 +149,7 @@ const Home = ({ route }) => {
           ></Image>
         </View>
       </View>
-      <TouchableOpacity onPress={navigateProfile}>
+      {/* <TouchableOpacity onPress={navigateProfile}>
         <View
           style={{
             backgroundColor: colors.deepblue,
@@ -174,7 +174,7 @@ const Home = ({ route }) => {
             Thông Tin Cá Nhân
           </Text>
         </View>
-      </TouchableOpacity>
+      </TouchableOpacity> */}
       <Modal
         animationType="slide"
         transparent={true}
@@ -202,7 +202,7 @@ const Home = ({ route }) => {
       >
       </View>
       <View
-        style={{ alignItems: "center", marginHorizontal: 50, marginTop: 100 }}
+        style={{ alignItems: "center", marginHorizontal: 50, marginTop: 130 }}
       >
         <TouchableOpacity
           style={{ marginHorizontal: 50 }}
