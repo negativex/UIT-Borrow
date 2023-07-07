@@ -1,30 +1,39 @@
-import { View, Text, Image, Dimensions, StyleSheet, Modal,TextInput } from "react-native";
+import {
+  View,
+  Text,
+  Image,
+  Dimensions,
+  StyleSheet,
+  Modal,
+  TextInput,
+} from "react-native";
 import React, { useState } from "react";
 import { Label } from "native-base";
-import { ref, onValue, update} from "firebase/database";
-import { getAuth, signOut } from "firebase/auth";
+import { ref, onValue, update } from "firebase/database";
+import { signOut } from "firebase/auth";
 import { useNavigation } from "@react-navigation/core";
 import { ScrollView, TouchableOpacity } from "react-native-gesture-handler";
 import colors from "../Style/colors";
-import { db, auth} from "../Firebase/firebase";
+import { db, auth } from "../Firebase/firebase";
 import { useEffect } from "react";
-import { Button } from 'react-native-paper';
+import { Button } from "react-native-paper";
 const { width, height } = Dimensions.get("window");
 const modalWidth = (4 * width) / 5;
 const modalHeight = (2 * height) / 5;
+import { updatePassword } from "firebase/auth";
 
 const Profile = ({ route }) => {
   const navigation = useNavigation();
   const { data } = route.params;
-  // console.log(data);
   const [info, setInfo] = useState();
   const [info2, setInfo2] = useState();
   const [info3, setInfo3] = useState();
   const [info4, setInfo4] = useState();
   const [modalVisible, setModalVisible] = React.useState(false);
-  const [input1, setInput1] = useState('');
-  const [input2, setInput2] = useState('');
-  const [input3, setInput3] = useState('');
+  const [input1, setInput1] = useState("");
+  const [input2, setInput2] = useState("");
+  const [input3, setInput3] = useState("");
+
   useEffect(() => {
     onValue(ref(db, "User/" + data), (snapshot) => {
       setInfo(snapshot.val().Email);
@@ -34,39 +43,44 @@ const Profile = ({ route }) => {
     });
   }, []);
 
-  const handleSignOut = ()=>{
+  const handleSignOut = () => {
     signOut(auth)
       .then(() => {
-        navigation.replace('login')
-        console.log("log out");
+        navigation.replace("login");
       })
-      .catch(erro => alert(error.message));
-  } 
+      .catch((error) => alert(error.message));
+  };
 
-  const backBtn = () =>{
-    navigation.navigate('bottomNav', {data: data})
-  }
-  const changepassBtn =() => {
+  const changePassword = () => {};
+
+  const backBtn = () => {
+    navigation.navigate("bottomNav", { data: data });
+  };
+  const changepassBtn = () => {
     setModalVisible(true);
-  }
+  };
   const handleCloseModal = () => {
     setModalVisible(false);
   };
+
   const handleSaveData = () => {
+    const user = auth.currentUser;
+
     // Xử lý lưu dữ liệu tại đây
-    if (input1 === info4 && input2 === input3){
-      update(ref(db, "User/" + data), {
-        Password: input2,
-      })
+
+    
+      updatePassword(user, input2)
         .then(() => {
-          console.log("success");
-          navigation.navigate("login");
+          update(ref(db, "User/" + data), {
+            Password: input2,
+          }).then(() => {
+            console.log("success");
+            navigation.navigate("login");
+          });
         })
-        .catch((error) => {
-          console.log(error);
-        });
-    }
-    console.log('Data:', input1, input2, input3);
+        .catch((error) => alert(error.message));
+    
+    console.log("Data:", input1, input2, input3, info4);
     handleCloseModal();
   };
   return (
@@ -379,7 +393,7 @@ const styles = StyleSheet.create({
     alignSelf: "center",
     justifyContent: "center",
     alignItems: "center",
-    backgroundColor: 'rgba(0, 0, 0, 0.8)'
+    backgroundColor: "rgba(0, 0, 0, 0.8)",
   },
   modalContent: {
     padding: 20,
@@ -390,20 +404,20 @@ const styles = StyleSheet.create({
     alignSelf: "center",
     justifyContent: "center",
     alignItems: "center",
-    backgroundColor: 'rgba(0, 0, 0, 0.7)'
+    backgroundColor: "rgba(0, 0, 0, 0.7)",
   },
   input: {
     height: 40,
-    width: modalWidth*3/4,
-    borderColor: 'white',
+    width: (modalWidth * 3) / 4,
+    borderColor: "white",
     borderWidth: 1,
     marginBottom: 10,
     borderRadius: 10,
     paddingHorizontal: 10,
   },
   modalButtons: {
-    flexDirection: 'row',
-    justifyContent: 'space-around',
+    flexDirection: "row",
+    justifyContent: "space-around",
     marginTop: 20,
   },
   buttonSpacing: {
