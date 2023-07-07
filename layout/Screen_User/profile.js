@@ -51,11 +51,7 @@ const Profile = ({ route }) => {
       .catch((error) => alert(error.message));
   };
 
-  const changePassword = () => {};
 
-  const backBtn = () => {
-    navigation.navigate("bottomNav", { data: data });
-  };
   const changepassBtn = () => {
     setModalVisible(true);
   };
@@ -66,9 +62,7 @@ const Profile = ({ route }) => {
  
   const handleSaveData = () => {
     const user = auth.currentUser;
-
     // Xử lý lưu dữ liệu tại đây
-   
     if (input1 === info4 ) {
       if (input2 === input3) {
         updatePassword(user, input2)
