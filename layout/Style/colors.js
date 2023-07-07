@@ -7,6 +7,7 @@ export default {
   "dark-light": "#2E333E",
   
   white: "#fff",
+  black: '#000',
   "white-smoke": "#e5e5e5",
   container: "#faf9f9",
 };
