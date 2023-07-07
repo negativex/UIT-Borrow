@@ -1,27 +1,64 @@
-import { View, Text, Image, Dimensions } from "react-native";
+import { View, Text, Image, Dimensions, StyleSheet, Modal,TextInput } from "react-native";
 import React, { useState } from "react";
 import { Icon, Input, Item, Label } from "native-base";
-import { getDatabase, ref, onValue } from "firebase/database";
+import { getDatabase, ref, onValue, update } from "firebase/database";
 import { useNavigation } from "@react-navigation/core";
-import { ScrollView } from "react-native-gesture-handler";
+import { ScrollView, TouchableOpacity } from "react-native-gesture-handler";
 import colors from "../Style/colors";
 import { db } from "../Firebase/firebase";
 import { auth } from "../Firebase/firebase";
 import { useEffect } from "react";
+import { Button } from 'react-native-paper';
+const { width, height } = Dimensions.get("window");
+const modalWidth = (4 * width) / 5;
+const modalHeight = (2 * height) / 5;
 
 const Profile = ({ route }) => {
   const navigation = useNavigation();
   const { data } = route.params;
-  const [info, setInfo] = useState("");
+  // console.log(data);
+  const [info, setInfo] = useState();
+  const [info2, setInfo2] = useState();
+  const [info3, setInfo3] = useState();
+  const [info4, setInfo4] = useState();
+  const [modalVisible, setModalVisible] = React.useState(false);
+  const [input1, setInput1] = useState('');
+  const [input2, setInput2] = useState('');
+  const [input3, setInput3] = useState('');
   useEffect(() => {
-    const starCountRef = ref(db, "User/" + data + "/Ten");
-    onValue(starCountRef, (snapshot) => {
-      const data2 = snapshot.val();
-      setInfo(data2);
-      console.log({ data2 });
+    onValue(ref(db, "User/" + data), (snapshot) => {
+      setInfo(snapshot.val().Email);
+      setInfo2(snapshot.val().Lop);
+      setInfo3(snapshot.val().Ten);
+      setInfo4(snapshot.val().Password);
     });
   }, []);
-
+  const backBtn = () =>{
+    navigation.navigate('bottomNav', {data: data})
+  }
+  const changepassBtn =() => {
+    setModalVisible(true);
+  }
+  const handleCloseModal = () => {
+    setModalVisible(false);
+  };
+  const handleSaveData = () => {
+    // Xử lý lưu dữ liệu tại đây
+    if (input1 === info4 && input2 === input3){
+      update(ref(db, "User/" + data), {
+        Password: input2,
+      })
+        .then(() => {
+          console.log("success");
+          navigation.navigate("login");
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    }
+    console.log('Data:', input1, input2, input3);
+    handleCloseModal();
+  };
   return (
     <ScrollView
       style={{
@@ -29,6 +66,51 @@ const Profile = ({ route }) => {
         flex: 1,
       }}
     >
+      <Modal
+        animationType="slide"
+        
+        transparent={true}
+        visible={modalVisible}
+        onRequestClose={() => {
+          setModalVisible(!modalVisible);
+        }}
+      >
+        <View style={styles.modalView}>
+          <View style={styles.modalContent}>
+          <TextInput
+              style={[styles.input, { color: 'white' }]}
+              placeholder="Mật khẩu cũ"
+              placeholderTextColor="white"
+              value={input1}
+              onChangeText={setInput1}
+            />
+            <TextInput
+              style={[styles.input, { color: 'white' }]}
+              placeholder="Mật khẩu mới"
+              placeholderTextColor="white"
+              value={input2}
+              onChangeText={setInput2}
+            />
+            <TextInput
+              style={[styles.input, { color: 'white' }]}
+              placeholder="Nhập lại mật khẩu mới"
+              placeholderTextColor="white"
+              value={input3}
+              onChangeText={setInput3}
+            />
+
+            <View style={styles.modalButtons}>
+              <Button icon="content-save" mode="contained" onPress={handleSaveData}>
+                Lưu
+              </Button>
+              <View style={styles.buttonSpacing} />
+              <Button icon="exit-to-app" mode="contained" onPress={handleCloseModal}>
+                Thoát
+              </Button>
+            </View>
+          </View>
+        </View>
+      </Modal>
       {/* Style Top View */}
       <View
         style={{
@@ -57,7 +139,8 @@ const Profile = ({ route }) => {
               fontWeight: "bold",
             }}
           >
-            {info} {"\n"}
+            {info3} 
+            {"\n"}
           </Text>
           <Text
             style={{
@@ -148,7 +231,7 @@ const Profile = ({ route }) => {
               fontWeight: "bold",
             }}
           >
-            {info}
+            {info3}
           </Text>
         </View>
       </View>
@@ -215,46 +298,13 @@ const Profile = ({ route }) => {
               fontWeight: "bold",
             }}
           >
-            {data}
-          </Text>
-        </View>
-      </View>
-      <View
-        floatingLabel
-        style={{
-          borderRadius: 20,
-          backgroundColor: colors["white-smoke"],
-          borderWidth: 1,
-          borderColor: colors.blue,
-          paddingVertical: 5,
-          margin: 20,
-        }}
-      >
-        <Label
-          style={{
-            paddingStart: 20,
-            fontSize: 15,
-            color: colors.secondary,
-          }}
-        >
-          Mật khẩu
-        </Label>
-
-        <View style={{ paddingStart: 20 }}>
-          <Text
-            style={{
-              fontSize: 18,
-              color: colors.secondary,
-              fontWeight: "bold",
-            }}
-          >
-            {data}
+            {info2}
           </Text>
         </View>
       </View>
 
-      <View style={{ width: "90%", alignItems: "center" }}>
-        <View
+      <View style={{ width: "90%", alignItems: "center", flexDirection: 'column' }}>
+        <TouchableOpacity
           style={{
             backgroundColor: "#EA5455",
             paddingHorizontal: 10,
@@ -264,6 +314,7 @@ const Profile = ({ route }) => {
             borderRadius: 10,
             marginLeft: 70,
           }}
+          onPress={backBtn}
         >
           <Text
             style={{
@@ -274,10 +325,70 @@ const Profile = ({ route }) => {
           >
             Đăng Xuất
           </Text>
-        </View>
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={{
+            backgroundColor: "#EA5455",
+            paddingHorizontal: 10,
+            marginHorizontal: 50,
+            marginTop: 20,
+            paddingVertical: 6,
+            borderRadius: 10,
+            marginLeft: 70,
+          }}
+          onPress={changepassBtn}
+        >
+          <Text
+            style={{
+              fontWeight: "bold",
+              fontSize: 18,
+              color: "#fff",
+            }}
+          >
+            Đổi mật khẩu
+          </Text>
+        </TouchableOpacity>
       </View>
     </ScrollView>
   );
 };
-
+const styles = StyleSheet.create({
+  modalView: {
+    flex: 1,
+    width: width,
+    borderRadius: 20,
+    alignSelf: "center",
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: 'rgba(0, 0, 0, 0.8)'
+  },
+  modalContent: {
+    padding: 20,
+    borderRadius: 10,
+    width: modalWidth,
+    height: modalHeight,
+    borderRadius: 20,
+    alignSelf: "center",
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: 'rgba(0, 0, 0, 0.7)'
+  },
+  input: {
+    height: 40,
+    width: modalWidth*3/4,
+    borderColor: 'white',
+    borderWidth: 1,
+    marginBottom: 10,
+    borderRadius: 10,
+    paddingHorizontal: 10,
+  },
+  modalButtons: {
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+    marginTop: 20,
+  },
+  buttonSpacing: {
+    width: 20,
+  },
+});
 export default Profile;
