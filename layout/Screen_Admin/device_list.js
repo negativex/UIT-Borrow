@@ -43,11 +43,17 @@ const Device_list = ({ route }) => {
       onPress={() => navigation.navigate("device_update", { item })}
     >
       <View style={styles.avatarContainer}>
-        <Image source={item.image} style={styles.avatar} />
+        {/* <Image source={item.image} style={styles.avatar} /> */}
+        <Image source = {require("../images/Raspberry_Pi.png") } style={styles.avatar}  />
       </View>
-      <Text style={styles.name}>{item.Ten}</Text>
-      <Text style={styles.name}>{item.Loai}</Text>
-      <Text style={styles.name}>{item.SL}</Text>
+      <View
+        style={{ flex: 1, justifyContent: "center", alignItems: "flex-start" }}
+      >
+        <Text style={styles.name}>{"Tên thiết bị: "+item.Ten}</Text>
+        <Text style={styles.name}>{"Loại: "+item.Loai}</Text>
+        <Text style={styles.name}>{"Mô tả: "+item.SL}</Text>
+      </View>
+      
     </TouchableOpacity>
   );
   useEffect(() => {
@@ -125,10 +131,13 @@ const Device_list = ({ route }) => {
           </View>
         </LinearGradient>
       </View>
+      <View style={{justifyContent:'center',justifyContent:'center',alignItems:'center'}}>
+        <Text style={{ fontSize: 18}}>Danh sách toàn bộ Thiết bị</Text>
+      </View>
       <SafeAreaView style={styles.container}>
         <FlatList
-          ListHeaderComponentStyle={styles.listHeader}
-          ListHeaderComponent={headerComponent}
+          // ListHeaderComponentStyle={styles.listHeader}
+          // ListHeaderComponent={headerComponent}
           data={value}
           renderItem={Device}
           ItemSeparatorComponent={itemSeparator}
@@ -230,6 +239,10 @@ const styles = StyleSheet.create({
     marginBottom: 15,
     textAlign: 'left',
     fontSize: 25,
+  },
+  avatar: {
+    height: 50,
+    width: 80,
   },
 });
 export default Device_list;
