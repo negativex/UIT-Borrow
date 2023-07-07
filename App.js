@@ -13,11 +13,15 @@ import User_list from "./layout/Screen_Admin/user_list";
 import Return from "./layout/Screen_User/return";
 import Return_list from "./layout/Screen_User/return_list";
 import BottomNav from "./layout/Screen_User/bottomNav";
+import Splash from "./layout/Screen_User/splash"
+import Onboarding from "./layout/Screen_User/onBoarding"
 const Stack = createStackNavigator();
 const App = () => {
   return (
     <NavigationContainer>
       <Stack.Navigator headerMode='false'>
+        <Stack.Screen name="splash" component={Splash} /> 
+        <Stack.Screen name="onboarding" component={Onboarding} /> 
         <Stack.Screen name="login" component={LoginScreen} />  
         <Stack.Screen name="register" component={RegisterScreen} />  
         <Stack.Screen name="bottomNav" component={BottomNav} />  

@@ -156,45 +156,45 @@ const Return = ({ route }) => {
           </TouchableOpacity>
         </View> */}
         <View style={{ margin: 10 }}>
-          <Text style={{ fontSize: 17 }}>Tên thiết bị</Text>
+          <Text style={{ fontSize: 15 }}>Tên thiết bị</Text>
           <TextInput
             editable={false}
             selectTextOnFocus={true}
             style={styles.textContainer}
             value={thietbimuon}
-            fontSize={25}
+            fontSize={20}
           ></TextInput>
         </View>
         <View style={{ margin: 10 }}>
-          <Text style={{ fontSize: 17 }}>Thời gian mượn</Text>
+          <Text style={{ fontSize: 15 }}>Thời gian mượn</Text>
           <TextInput
             editable={false}
             selectTextOnFocus={true}
             style={styles.textContainer}
             value={tgmuon}
-            fontSize={25}
+            fontSize={20}
           ></TextInput>
         </View>
 
         <View style={{ margin: 10 }}>
-          <Text style={{ fontSize: 17 }}>Người mượn</Text>
+          <Text style={{ fontSize: 15 }}>Người mượn</Text>
           <TextInput
             editable={false}
             selectTextOnFocus={true}
             style={styles.textContainer}
             value={email}
-            fontSize={25}
+            fontSize={20}
           ></TextInput>
         </View>
 
         <View style={{ margin: 10 }}>
-          <Text style={{ fontSize: 17 }}>Thời gian hiện tại</Text>
+          <Text style={{ fontSize: 15 }}>Thời gian hiện tại</Text>
           <TextInput
             editable={false}
             selectTextOnFocus={true}
             style={styles.textContainer}
             value={currentDate}
-            fontSize={25}
+            fontSize={20}
           ></TextInput>
         </View>
         <View style={{ margin: 10 }}>
@@ -203,7 +203,7 @@ const Return = ({ route }) => {
             selectTextOnFocus={false}
             style={{
               fontWeight: "bold",
-              fontSize: 18,
+              fontSize: 15,
               color: "#000",
             }}
           >
@@ -220,7 +220,7 @@ const Return = ({ route }) => {
             borderWidth: 1,
             padding: 10,
             paddingTop: -10,
-            fontSize: 17,
+            fontSize: 15,
             borderColor: colors.deepblue,
           }}
           onChangeText={(Ghichu) => {
@@ -241,7 +241,7 @@ export default Return;
 
 const styles = StyleSheet.create({
   textStyle: {
-    fontSize: 18,
+    fontSize: 15,
     color: "black",
   },
   textContainer: {
@@ -265,7 +265,7 @@ const styles = StyleSheet.create({
     marginEnd: 10,
     marginVertical: 10,
     color: "white",
-    fontSize: 18,
+    fontSize: 16,
     alignSelf: "center",
   },
 });

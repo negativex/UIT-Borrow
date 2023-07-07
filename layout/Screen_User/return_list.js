@@ -45,7 +45,11 @@ const Device_list = ({ route }) => {
       onPress= {()=> navigation.navigate("return", { item })}
     >
       <View style={styles.avatarContainer}>
-        <Image source={item.image} style={styles.avatar} />
+        <Image 
+          // source={item.image} 
+          source = {require("../images/Raspberry_Pi.png")}
+          style={styles.avatar} 
+        />
       </View>
       <View
         style={{ flex: 1, justifyContent: "center", alignItems: "flex-start" }}
@@ -192,7 +196,7 @@ const styles = StyleSheet.create({
   },
   avatar: {
     height: 50,
-    width: 50,
+    width: 80,
   },
   name: {
     fontWeight: "600",
