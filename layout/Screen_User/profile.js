@@ -8,7 +8,7 @@ import {
   TextInput,
 } from "react-native";
 import React, { useState } from "react";
-import { Label } from "native-base";
+import { Label, Icon } from "native-base";
 import { ref, onValue, update } from "firebase/database";
 import { signOut } from "firebase/auth";
 import { useNavigation } from "@react-navigation/core";
@@ -34,6 +34,9 @@ const Profile = ({ route }) => {
   const [input2, setInput2] = useState("");
   const [input3, setInput3] = useState("");
 
+  const { passwordVisibility, rightIcon, handlePasswordVisibility } =
+    useTogglePasswordVisibility();
+
   useEffect(() => {
     onValue(ref(db, "User/" + data), (snapshot) => {
       setInfo(snapshot.val().Email);
@@ -51,11 +54,7 @@ const Profile = ({ route }) => {
       .catch((error) => alert(error.message));
   };
 
-  const changePassword = () => {};
 
-  const backBtn = () => {
-    navigation.navigate("bottomNav", { data: data });
-  };
   const changepassBtn = () => {
     setModalVisible(true);
   };
@@ -66,9 +65,7 @@ const Profile = ({ route }) => {
  
   const handleSaveData = () => {
     const user = auth.currentUser;
-
     // Xử lý lưu dữ liệu tại đây
-   
     if (input1 === info4 ) {
       if (input2 === input3) {
         updatePassword(user, input2)
@@ -108,11 +105,13 @@ const Profile = ({ route }) => {
               placeholder="Mật khẩu cũ"
               placeholderTextColor="white"
               value={input1}
+              secureTextEntry={passwordVisibility}
               onChangeText={setInput1}
             />
             <TextInput
               style={[styles.input, { color: "white" }]}
               placeholder="Mật khẩu mới"
+              secureTextEntry={passwordVisibility}
               placeholderTextColor="white"
               value={input2}
               onChangeText={setInput2}
@@ -120,10 +119,16 @@ const Profile = ({ route }) => {
             <TextInput
               style={[styles.input, { color: "white" }]}
               placeholder="Nhập lại mật khẩu mới"
+              secureTextEntry={passwordVisibility}
               placeholderTextColor="white"
               value={input3}
               onChangeText={setInput3}
             />
+            <Icon
+              onPress={handlePasswordVisibility}
+              name={rightIcon}
+              style={{ color: "white", paddingBottom: 15, paddingEnd: 20 }}
+            ></Icon>
 
             <View style={styles.modalButtons}>
               <Button
@@ -428,3 +433,25 @@ const styles = StyleSheet.create({
   },
 });
 export default Profile;
+
+export const useTogglePasswordVisibility = () => {
+  const [passwordVisibility, setPasswordVisibility] = useState(true);
+  const [rightIcon, setRightIcon] = useState("eye");
+
+  const handlePasswordVisibility = () => {
+    if (rightIcon === "eye") {
+      setRightIcon("eye-off");
+      setPasswordVisibility(!passwordVisibility);
+    } else if (rightIcon === "eye-off") {
+      setRightIcon("eye");
+      setPasswordVisibility(!passwordVisibility);
+    }
+  };
+
+  return {
+    passwordVisibility,
+    rightIcon,
+    handlePasswordVisibility,
+  };
+};
+

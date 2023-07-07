@@ -8,6 +8,7 @@ import {
   Alert,
   Button,
   Dimensions,
+  Pressable,
   Modal,
 } from "react-native";
 import React, { useState, useEffect } from "react";
@@ -21,8 +22,10 @@ import { StatusBar } from "expo-status-bar";
 import text from "../Style/text";
 const { height, width } = Dimensions.get("window");
 const modalWidth = (3 * width) / 4;
-
-const LoginScreen = ({route}) => {
+ 
+const LoginScreen = ({ route }) => {
+  const { passwordVisibility, rightIcon, handlePasswordVisibility } =
+    useTogglePasswordVisibility();
   const navigation = useNavigation();
   const [hasPermission, setHasPermission] = React.useState(false);
   const [scanData, setScanData] = React.useState();
@@ -42,7 +45,7 @@ const LoginScreen = ({route}) => {
     signInWithEmailAndPassword(auth, email, password)
       .then((userCredentials) => {
         const user = userCredentials.user;
-        navigation.navigate("bottomNav", {data: user.email.substring(0, 8)});
+        navigation.navigate("bottomNav", { data: user.email.substring(0, 8) });
         console.log("Đăng nhập với tài khoản:", user.email);
       })
       .catch(() =>
@@ -55,7 +58,7 @@ const LoginScreen = ({route}) => {
   const handleBarCodeScanned = ({ type, data }) => {
     setScanData(data);
     const string = data;
-    if (string.length === 13 && string.substring(2, 5) === '000') {
+    if (string.length === 13 && string.substring(2, 5) === "000") {
       const modifiedString = string.substring(5) + "@gm.uit.edu.vn";
       onChangeEmail(modifiedString);
     } else {
@@ -63,7 +66,7 @@ const LoginScreen = ({route}) => {
     }
     console.log(`Data: ${data}`);
     console.log(`Type: ${type}`);
-    setScanData(undefined); 
+    setScanData(undefined);
     setModalVisible(false);
   };
 
@@ -224,13 +227,17 @@ const LoginScreen = ({route}) => {
             <Input
               value={password}
               onChangeText={onChangePassword}
-              secureTextEntry={true}
+              secureTextEntry={passwordVisibility}
               style={{ paddingStart: -10 }}
             ></Input>
+
             <Icon
-              name="eye"
+              onPress={handlePasswordVisibility}
+              name={rightIcon}
               style={{ color: "black", paddingBottom: 15, paddingEnd: 20 }}
             ></Icon>
+
+          
           </Item>
         </View>
 
@@ -274,7 +281,7 @@ const styles = StyleSheet.create({
     borderTopRightRadius: 40,
     paddingBottom: 20,
     alignItems: "center",
-    height:608
+    height: 608,
   },
 
   container: {
@@ -310,3 +317,24 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
 });
+
+export const useTogglePasswordVisibility = () => {
+  const [passwordVisibility, setPasswordVisibility] = useState(true);
+  const [rightIcon, setRightIcon] = useState("eye");
+
+  const handlePasswordVisibility = () => {
+    if (rightIcon === "eye") {
+      setRightIcon("eye-off");
+      setPasswordVisibility(!passwordVisibility);
+    } else if (rightIcon === "eye-off") {
+      setRightIcon("eye");
+      setPasswordVisibility(!passwordVisibility);
+    }
+  };
+
+  return {
+    passwordVisibility,
+    rightIcon,
+    handlePasswordVisibility,
+  };
+};
