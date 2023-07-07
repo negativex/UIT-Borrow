@@ -1,12 +1,12 @@
 import { View, Text, Image, Dimensions, StyleSheet, Modal,TextInput } from "react-native";
 import React, { useState } from "react";
-import { Icon, Input, Item, Label } from "native-base";
-import { getDatabase, ref, onValue, update } from "firebase/database";
+import { Label } from "native-base";
+import { ref, onValue, update} from "firebase/database";
+import { getAuth, signOut } from "firebase/auth";
 import { useNavigation } from "@react-navigation/core";
 import { ScrollView, TouchableOpacity } from "react-native-gesture-handler";
 import colors from "../Style/colors";
-import { db } from "../Firebase/firebase";
-import { auth } from "../Firebase/firebase";
+import { db, auth} from "../Firebase/firebase";
 import { useEffect } from "react";
 import { Button } from 'react-native-paper';
 const { width, height } = Dimensions.get("window");
@@ -33,6 +33,16 @@ const Profile = ({ route }) => {
       setInfo4(snapshot.val().Password);
     });
   }, []);
+
+  const handleSignOut = ()=>{
+    signOut(auth)
+      .then(() => {
+        navigation.replace('login')
+        console.log("log out");
+      })
+      .catch(erro => alert(error.message));
+  } 
+
   const backBtn = () =>{
     navigation.navigate('bottomNav', {data: data})
   }
@@ -68,7 +78,6 @@ const Profile = ({ route }) => {
     >
       <Modal
         animationType="slide"
-        
         transparent={true}
         visible={modalVisible}
         onRequestClose={() => {
@@ -77,22 +86,22 @@ const Profile = ({ route }) => {
       >
         <View style={styles.modalView}>
           <View style={styles.modalContent}>
-          <TextInput
-              style={[styles.input, { color: 'white' }]}
+            <TextInput
+              style={[styles.input, { color: "white" }]}
               placeholder="Mật khẩu cũ"
               placeholderTextColor="white"
               value={input1}
               onChangeText={setInput1}
             />
             <TextInput
-              style={[styles.input, { color: 'white' }]}
+              style={[styles.input, { color: "white" }]}
               placeholder="Mật khẩu mới"
               placeholderTextColor="white"
               value={input2}
               onChangeText={setInput2}
             />
             <TextInput
-              style={[styles.input, { color: 'white' }]}
+              style={[styles.input, { color: "white" }]}
               placeholder="Nhập lại mật khẩu mới"
               placeholderTextColor="white"
               value={input3}
@@ -100,11 +109,19 @@ const Profile = ({ route }) => {
             />
 
             <View style={styles.modalButtons}>
-              <Button icon="content-save" mode="contained" onPress={handleSaveData}>
+              <Button
+                icon="content-save"
+                mode="contained"
+                onPress={handleSaveData}
+              >
                 Lưu
               </Button>
               <View style={styles.buttonSpacing} />
-              <Button icon="exit-to-app" mode="contained" onPress={handleCloseModal}>
+              <Button
+                icon="exit-to-app"
+                mode="contained"
+                onPress={handleCloseModal}
+              >
                 Thoát
               </Button>
             </View>
@@ -139,7 +156,7 @@ const Profile = ({ route }) => {
               fontWeight: "bold",
             }}
           >
-            {info3} 
+            {info3}
             {"\n"}
           </Text>
           <Text
@@ -303,7 +320,9 @@ const Profile = ({ route }) => {
         </View>
       </View>
 
-      <View style={{ width: "90%", alignItems: "center", flexDirection: 'column' }}>
+      <View
+        style={{ width: "90%", alignItems: "center", flexDirection: "column" }}
+      >
         <TouchableOpacity
           style={{
             backgroundColor: "#EA5455",
@@ -314,7 +333,7 @@ const Profile = ({ route }) => {
             borderRadius: 10,
             marginLeft: 70,
           }}
-          onPress={backBtn}
+          onPress={handleSignOut}
         >
           <Text
             style={{
