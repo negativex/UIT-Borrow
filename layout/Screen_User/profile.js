@@ -63,23 +63,26 @@ const Profile = ({ route }) => {
     setModalVisible(false);
   };
 
+ 
   const handleSaveData = () => {
     const user = auth.currentUser;
 
     // Xử lý lưu dữ liệu tại đây
-
-    
-      updatePassword(user, input2)
-        .then(() => {
-          update(ref(db, "User/" + data), {
-            Password: input2,
-          }).then(() => {
-            console.log("success");
-            navigation.navigate("login");
-          });
-        })
-        .catch((error) => alert(error.message));
-    
+   
+    if (input1 === info4 ) {
+      if (input2 === input3) {
+        updatePassword(user, input2)
+          .then(() => {
+            update(ref(db, "User/" + data), {
+              Password: input2,
+            }).then(() => {
+              console.log("success");
+              navigation.navigate("login");
+            });
+          })
+          .catch((error) => alert(error.message));
+      }
+    }
     console.log("Data:", input1, input2, input3, info4);
     handleCloseModal();
   };
