@@ -1,4 +1,4 @@
-import { View, Text, Image, StyleSheet } from "react-native";
+import { View, Text, Image, StyleSheet, Alert } from "react-native";
 import React, { useState, useEffect } from "react";
 import { ref, set, update } from "firebase/database";
 import {
@@ -9,12 +9,15 @@ import {
 import { db } from "../Firebase/firebase";
 import { useNavigation } from "@react-navigation/core";
 import colors from "../Style/colors";
+import Ionicons from "react-native-vector-icons/Ionicons";
+
 
 const Return = ({ route }) => {
-  const navigation= useNavigation();
-  const [thietbimuon]= useState(route.params.item.ThietBiMuon);
+  const navigation = useNavigation();
+  const [thietbimuon] = useState(route.params.item.ThietBiMuon);
   const [tgmuon] = useState(route.params.item.Time);
   const [email] = useState(route.params.item.Email);
+  const [TThai] = useState(route.params.item.TrangThai);
   const [currentDate, setCurrentDate] = useState("");
   const [Ghichu, setGhichu] = useState("");
   useEffect(() => {
@@ -25,20 +28,29 @@ const Return = ({ route }) => {
     var min = new Date().getMinutes();
     var sec = new Date().getSeconds();
     setCurrentDate(
-        date + "/" + month + "/" + year + " " + hours + ":" + min + ":" + sec
-    )});
+      date + "/" + month + "/" + year + " " + hours + ":" + min + ":" + sec
+    );
+  });
   const mssv = email.substring(0, 8);
   function Update() {
-    update(ref(db, "Thong tin nguoi muon/" + mssv +"/" +thietbimuon), {
-        ThoiGianTra:currentDate,
+    if (TThai === "Đang mượn"){
+      update(ref(db, "Thong tin nguoi muon/" + mssv + "/" + thietbimuon), {
+        ThoiGianTra: currentDate,
         GhiChu: Ghichu,
-    })
-      .then(() => {
-        console.log("success");
+        TrangThai: "Đã trả",
       })
-      .catch((error) => {
-        console.log(error);
-      });
+        .then(() => {
+          console.log("success");
+          navigation.navigate("bottomNav", {data: mssv});
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    } else {
+      Alert.alert("Bạn đã trả thiết bị này rồi", "Hành động vô hiệu", [
+        { text: "Đóng"},
+      ])
+    }
   }
   return (
     <View style={{ flex: 1, backgroundColor: "white" }}>
@@ -56,9 +68,10 @@ const Return = ({ route }) => {
             margin: 10,
             marginTop: 30,
           }}
-          onPress={() => navigation.navigate("return_list")}
+          onPress={() => navigation.navigate("bottomNav",{data: mssv})}
         >
           <Image
+            
             source={require("../images/back.png")}
             style={{
               width: 32,
@@ -143,9 +156,7 @@ const Return = ({ route }) => {
           </TouchableOpacity>
         </View> */}
         <View style={{ margin: 10 }}>
-          <Text style={{ fontSize: 17 }}>
-            Tên thiết bị
-          </Text>
+          <Text style={{ fontSize: 17 }}>Tên thiết bị</Text>
           <TextInput
             editable={false}
             selectTextOnFocus={true}
@@ -155,9 +166,7 @@ const Return = ({ route }) => {
           ></TextInput>
         </View>
         <View style={{ margin: 10 }}>
-          <Text style={{ fontSize: 17 }}>
-            Thời gian mượn
-          </Text>
+          <Text style={{ fontSize: 17 }}>Thời gian mượn</Text>
           <TextInput
             editable={false}
             selectTextOnFocus={true}
@@ -168,9 +177,7 @@ const Return = ({ route }) => {
         </View>
 
         <View style={{ margin: 10 }}>
-          <Text style={{ fontSize: 17 }}>
-            Người mượn
-          </Text>
+          <Text style={{ fontSize: 17 }}>Người mượn</Text>
           <TextInput
             editable={false}
             selectTextOnFocus={true}
@@ -181,9 +188,7 @@ const Return = ({ route }) => {
         </View>
 
         <View style={{ margin: 10 }}>
-          <Text style={{ fontSize: 17 }}>
-            Thời gian trả
-          </Text>
+          <Text style={{ fontSize: 17 }}>Thời gian hiện tại</Text>
           <TextInput
             editable={false}
             selectTextOnFocus={true}
@@ -224,9 +229,9 @@ const Return = ({ route }) => {
           placeholder="Nhập ghi chú (giữ data, các vấn đề liên quan)..."
         ></TextInput>
       </ScrollView>
-      <View style={{ position: 'absolute', bottom: 0, width: '100%' }}>
+      <View style={{ position: "absolute", bottom: 0, width: "100%" }}>
         <TouchableOpacity style={styles.buttonContainer} onPress={Update}>
-        <Text style={styles.textButton}>Xác nhận trả</Text>
+          <Text style={styles.textButton}>Xác nhận trả</Text>
         </TouchableOpacity>
       </View>
     </View>

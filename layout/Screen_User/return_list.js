@@ -7,7 +7,6 @@ import {
   Dimensions,
   SafeAreaView,
   FlatList,
- 
 } from "react-native";
 import { db } from "../Firebase/firebase";
 import {
@@ -29,36 +28,45 @@ itemSeparator = () => {
   return <View style={styles.separator} />;
 };
 const Device_list = ({ route }) => {
-  const navigation=useNavigation();
+  const {data} = route.params;
+  const navigation = useNavigation();
   const [value, setValue] = useState([]);
   const [modalVisible, setModalVisible] = useState(false);
   const [DeviceText, setDeviceText] = useState();
   const onPressItem = (item) => {
-    setModalVisible(true);
-    //setDeviceText(item.text);
-  }
+    if(item.TrangThai === "Đang mượn"){
+      navigation.navigate("return", { item })
+    }
+  };
   const Device = ({ item }) => (
     <TouchableOpacity
       style={styles.item}
-      onPress={() => navigation.navigate("return", { item })}
+     // onPress={onPressItem(item)}
+      onPress= {()=> navigation.navigate("return", { item })}
     >
       <View style={styles.avatarContainer}>
         <Image source={item.image} style={styles.avatar} />
-      </View >
-      <View style={{ flex: 1, justifyContent: 'center', alignItems: 'flex-start' }}>
+      </View>
+      <View
+        style={{ flex: 1, justifyContent: "center", alignItems: "flex-start" }}
+      >
         <Text style={styles.name}>{item.ThietBiMuon}</Text>
         <Text style={styles.name}>{item.Time}</Text>
-        <Text style={styles.name}>{item.Email}</Text>
+        <Text style={styles.name}>{"Trạng thái: " + item.TrangThai}</Text>
       </View>
     </TouchableOpacity>
   );
   useEffect(() => {
-    onValue(ref(db, "Thong tin nguoi muon/20521668"), (snapshot) => { //đoạn này đang thiếu phần làm route từ màn hình home qua để lấy mssv
+    // const mssv = data.toString();
+    console.log(data);
+    onValue(ref(db, "Thong tin nguoi muon/"+data), (snapshot) => {
+      //đoạn này đang thiếu phần làm route từ màn hình home qua để lấy mssv
       var main = [];
       snapshot.forEach((child) => {
         main.push({
           ThietBiMuon: child.val().ThietBiMuon,
-          Time:child.val().Time,
+          Time: child.val().Time,
+          TrangThai: child.val().TrangThai,
           Email: child.val().Email,
         });
       });
@@ -68,14 +76,13 @@ const Device_list = ({ route }) => {
 
   return (
     // Top View
-    
+
     <ScrollView
       style={{
         backgroundColor: "#fff",
         flex: 1,
       }}
     >
-     
       {/* Style Top View */}
       <View
         style={{
@@ -136,8 +143,7 @@ const Device_list = ({ route }) => {
           ItemSeparatorComponent={itemSeparator}
           keyExtractor={(item) => item.key}
         />
-      </SafeAreaView>      
-      
+      </SafeAreaView>
     </ScrollView>
   );
 };
@@ -199,11 +205,11 @@ const styles = StyleSheet.create({
   },
   modalView: {
     margin: 20,
-    backgroundColor: 'white',
+    backgroundColor: "white",
     borderRadius: 20,
     padding: 35,
-    alignItems: 'flex-start',
-    shadowColor: '#000',
+    alignItems: "flex-start",
+    shadowColor: "#000",
     shadowOffset: {
       width: 0,
       height: 2,
@@ -218,19 +224,19 @@ const styles = StyleSheet.create({
     elevation: 2,
   },
   buttonOpen: {
-    backgroundColor: '#F194FF',
+    backgroundColor: "#F194FF",
   },
   buttonClose: {
-    backgroundColor: '#2196F3',
+    backgroundColor: "#2196F3",
   },
   textStyle: {
-    color: 'white',
-    fontWeight: 'bold',
-    textAlign: 'center',
+    color: "white",
+    fontWeight: "bold",
+    textAlign: "center",
   },
   modalText: {
     marginBottom: 15,
-    textAlign: 'left',
+    textAlign: "left",
     fontSize: 25,
   },
 });
