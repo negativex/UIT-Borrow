@@ -46,7 +46,7 @@ const Device_update = ({ route }) => {
             margin: 10,
             marginTop: 30,
           }}
-          onPress={() => navigation.navigate("device_list")}
+          onPress={() => navigation.navigate("bottomAdmin")}
         >
           <Image
             source={require("../images/back.png")}
