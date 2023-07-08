@@ -74,7 +74,7 @@ const Profile = ({ route }) => {
               Password: input2,
             }).then(() => {
               console.log("success");
-              navigation.navigate("login");
+              navigation.replace("login");
             });
           })
           .catch((error) => alert(error.message));

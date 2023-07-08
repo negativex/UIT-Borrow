@@ -76,11 +76,8 @@ const RegisterScreen = ({route} ) => {
           { text: "Đóng", onPress: () => navigation.navigate("login") },
         ]);
       })
-      .catch(
-        Alert.alert("Đăng ký thất bại", "Tài khoản đã tồn tại", [
-          { text: "Đóng" },
-        ])
-      );
+       .catch((error) => alert(error.message));
+      
   };
 
   const handleBarCodeScanned = ({ type, data }) => {
