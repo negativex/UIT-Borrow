@@ -1,4 +1,4 @@
-import { View, Text, Image, StyleSheet } from "react-native";
+import { View, Text, Image, StyleSheet , Alert} from "react-native";
 import React, { useState } from "react";
 import { ref, set } from "firebase/database";
 import uuid from "react-native-uuid";
@@ -9,8 +9,10 @@ import {
 } from "react-native-gesture-handler";
 import { db } from "../Firebase/firebase";
 import colors from "../Style/colors";
+import { useNavigation } from '@react-navigation/native';
 
-const Device_add = ({ navigation, route }) => {
+const Device_add = ({ route }) => {
+  const navigation = useNavigation();
   const [count, setCount] = useState(0);
   const addQuantity = () => setCount((prevCount) => prevCount + 1);
   const subtractQuantity = () => setCount((prevCount) => prevCount - 1);
@@ -26,7 +28,11 @@ const Device_add = ({ navigation, route }) => {
       ID: id,
     })
       .then(() => {
-        console.log("success");
+        console.log("success");  
+        Alert.alert("Hoàn tất", "Bạn đã thêm thiết bị thành công", [
+          { text: "Đóng"},
+        ]);
+        navigation.navigate("Danh sách thiết bị");
       })
       .catch((error) => {
         console.log(error);
@@ -45,14 +51,14 @@ const Device_add = ({ navigation, route }) => {
         {/* go back button */}
         <TouchableOpacity
           style={{
-            marginEnd: 340,
+            marginEnd: 200,
             margin: 10,
             marginTop: 30,
           }}
-          onPress={() => navigation.navigate("device_list")}
+          onPress={() => navigation.navigate("Danh sách thiết bị")}
         >
           <Image
-            source={require("../images/back.png")}
+            source={require("../images/refresh.png")}
             style={{
               width: 32,
               height: 32,
@@ -67,7 +73,7 @@ const Device_add = ({ navigation, route }) => {
         >
           <Text
             style={{
-              marginTop: -40,
+              marginTop: -45,
               fontWeight: "bold",
               fontSize: 22,
               color: "white",

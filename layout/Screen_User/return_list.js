@@ -138,10 +138,13 @@ const Device_list = ({ route }) => {
           </View>
         </LinearGradient>
       </View>
+      <View style={{justifyContent:'center',justifyContent:'center',alignItems:'center'}}>
+        <Text style={{ fontSize: 18}}>Thiết bị đã mượn</Text>
+      </View>
       <SafeAreaView style={styles.container}>
         <FlatList
-          ListHeaderComponentStyle={styles.listHeader}
-          ListHeaderComponent={headerComponent}
+          // ListHeaderComponentStyle={styles.listHeader}
+          // ListHeaderComponent={headerComponent}
           data={value}
           renderItem={Device}
           ItemSeparatorComponent={itemSeparator}

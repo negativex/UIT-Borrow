@@ -71,7 +71,7 @@ const Device_update = ({ route }) => {
               color: "white",
             }}
           >
-            Thêm Thiết Bị
+            Cập nhật thiết bị
           </Text>
         </View>
       </View>
