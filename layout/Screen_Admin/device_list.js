@@ -51,7 +51,7 @@ const Device_list = ({ route }) => {
       >
         <Text style={styles.name}>{"Tên thiết bị: "+item.Ten}</Text>
         <Text style={styles.name}>{"Loại: "+item.Loai}</Text>
-        <Text style={styles.name}>{"Mô tả: "+item.SL}</Text>
+        <Text style={styles.name}>{"Số lượng: "+item.SL}</Text>
       </View>
       
     </TouchableOpacity>
@@ -196,7 +196,6 @@ const styles = StyleSheet.create({
     width: 50,
   },
   name: {
-    fontWeight: "600",
     fontSize: 16,
     marginLeft: 13,
     color: "black",

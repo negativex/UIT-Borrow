@@ -68,7 +68,7 @@ const Device_update = ({ route }) => {
               marginTop: -40,
               fontWeight: "bold",
               fontSize: 22,
-              color: "black",
+              color: "white",
             }}
           >
             Thêm Thiết Bị
