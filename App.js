@@ -26,31 +26,31 @@ const Stack = createStackNavigator();
 const App = () => {
   return (
     // User app
-    // <NavigationContainer>
-    //   <Stack.Navigator headerMode='false'>
-    //     <Stack.Screen name="splash" component={Splash} /> 
-    //     <Stack.Screen name="onboarding" component={Onboarding} /> 
-    //     <Stack.Screen name="login" component={LoginScreen} />  
-    //     <Stack.Screen name="register" component={RegisterScreen} />  
-    //     <Stack.Screen name="bottomNav" component={BottomNav} />  
-    //     <Stack.Screen name="home" component={Home} />  
-    //     <Stack.Screen name="confirm" component={Confirm} />  
-    //     <Stack.Screen name="return_list" component={Return_list} />
-    //     <Stack.Screen name="return" component={Return} />
-    //   </Stack.Navigator>
-    // </NavigationContainer>
-    // ADmin app
     <NavigationContainer>
       <Stack.Navigator headerMode='false'>
-      <Stack.Screen name="splash" component={Splash_Admin} /> 
-      <Stack.Screen name="bottomAdmin" component={BottomNav_Admin} /> 
-      <Stack.Screen name="device_list" component={Device_list} /> 
-      <Stack.Screen name="user_list" component={User_list} /> 
-      <Stack.Screen name="device_update" component={Device_update} /> 
-      <Stack.Screen name="device_add" component={Device_add} /> 
-      <Stack.Screen name="user_info" component={User_info} /> 
-    </Stack.Navigator>
-  </NavigationContainer>
+        <Stack.Screen name="splash" component={Splash} /> 
+        <Stack.Screen name="onboarding" component={Onboarding} /> 
+        <Stack.Screen name="login" component={LoginScreen} />  
+        <Stack.Screen name="register" component={RegisterScreen} />  
+        <Stack.Screen name="bottomNav" component={BottomNav} />  
+        <Stack.Screen name="home" component={Home} />  
+        <Stack.Screen name="confirm" component={Confirm} />  
+        <Stack.Screen name="return_list" component={Return_list} />
+        <Stack.Screen name="return" component={Return} />
+      </Stack.Navigator>
+    </NavigationContainer>
+    // ADmin app
+  //   <NavigationContainer>
+  //     <Stack.Navigator headerMode='false'>
+  //     <Stack.Screen name="splash" component={Splash_Admin} /> 
+  //     <Stack.Screen name="bottomAdmin" component={BottomNav_Admin} /> 
+  //     <Stack.Screen name="device_list" component={Device_list} /> 
+  //     <Stack.Screen name="user_list" component={User_list} /> 
+  //     <Stack.Screen name="device_update" component={Device_update} /> 
+  //     <Stack.Screen name="device_add" component={Device_add} /> 
+  //     <Stack.Screen name="user_info" component={User_info} /> 
+  //   </Stack.Navigator>
+  // </NavigationContainer>
     
   );
 };
