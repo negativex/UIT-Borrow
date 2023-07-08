@@ -61,12 +61,14 @@ const Device_list = ({ route }) => {
       var main = [];
       snapshot.forEach((child) => {
         main.push({
+          ID: child.val().ID,
           Ten: child.val().Ten,
           Loai:child.val().Loai,
           SL: child.val().Soluong,
         });
       });
       setValue(main);
+      console.log(value[0].ID);
     });
   }, []);
 

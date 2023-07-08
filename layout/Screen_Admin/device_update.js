@@ -1,4 +1,4 @@
-import { View, Text, Image, StyleSheet } from "react-native";
+import { View, Text, Image, StyleSheet, Alert } from "react-native";
 import React, { useState } from "react";
 import { ref, set, update } from "firebase/database";
 import {
@@ -12,19 +12,25 @@ import colors from "../Style/colors";
 
 const Device_update = ({ route }) => {
   const navigation= useNavigation();
+  const [ID, setID] = useState(route.params.item.ID);
+  // console.log({ID});
   const [name, setName]= useState(route.params.item.Ten);
   const [type, setType] = useState(route.params.item.Loai);
    const [count, setCount] = useState(route.params.item.SL);
   const addQuantity = () => setCount((prevCount) => prevCount + 1);
   const subtractQuantity = () => setCount((prevCount) => prevCount - 1);
   function Update() {
-    update(ref(db, "Thong tin thiet bi/" + name), {
+    update(ref(db, "Thong tin thiet bi/" + ID), {
       Ten: name,
       Loai: type,
       SL: count,
     })
       .then(() => {
-        console.log("success");
+        // console.log("success");
+        Alert.alert("Hoàn tất", "Bạn đã thêm thiết bị thành công", [
+          { text: "Đóng"},
+        ]);
+        navigation.navigate("Danh sách thiết bị");
       })
       .catch((error) => {
         console.log(error);
