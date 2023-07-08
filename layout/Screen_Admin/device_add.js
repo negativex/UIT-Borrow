@@ -43,7 +43,7 @@ const Device_add = ({ navigation, route }) => {
         }}
       >
         {/* go back button */}
-        <TouchableOpacity
+        {/* <TouchableOpacity
           style={{
             marginEnd: 340,
             margin: 10,
@@ -58,7 +58,7 @@ const Device_add = ({ navigation, route }) => {
               height: 32,
             }}
           ></Image>
-        </TouchableOpacity>
+        </TouchableOpacity> */}
 
         <View
           style={{
@@ -67,7 +67,7 @@ const Device_add = ({ navigation, route }) => {
         >
           <Text
             style={{
-              marginTop: -40,
+              marginTop: 22,
               fontWeight: "bold",
               fontSize: 22,
               color: "white",
