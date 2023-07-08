@@ -41,7 +41,7 @@ const BottomNav = ( {route} ) => {
       })}>
         <Tab.Screen name={D_listName} component={D_list}/>
         <Tab.Screen name={U_listName} component={U_list}/> 
-        <Tab.Screen name={AddName} component={Add} />  
+        <Tab.Screen name={AddName} component={Add} options={{unmountOnBlur: true}}/>  
       </Tab.Navigator>
   );
 }
