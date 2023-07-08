@@ -13,7 +13,7 @@ import colors from "../Style/colors";
 const Device_update = ({ route }) => {
   const navigation= useNavigation();
   const [ID, setID] = useState(route.params.item.ID);
-  // console.log({ID});
+  console.log({ID});
   const [name, setName]= useState(route.params.item.Ten);
   const [type, setType] = useState(route.params.item.Loai);
    const [count, setCount] = useState(route.params.item.SL);
@@ -27,10 +27,10 @@ const Device_update = ({ route }) => {
     })
       .then(() => {
         // console.log("success");
-        Alert.alert("Hoàn tất", "Bạn đã thêm thiết bị thành công", [
+        Alert.alert("Hoàn tất", "Bạn đã sửa thiết bị thành công", [
           { text: "Đóng"},
         ]);
-        navigation.navigate("Danh sách thiết bị");
+        navigation.navigate("bottomAdmin");
       })
       .catch((error) => {
         console.log(error);
