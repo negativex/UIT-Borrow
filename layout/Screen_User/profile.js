@@ -165,7 +165,7 @@ const Profile = ({ route }) => {
           style={{
             flexDirection: "column",
             margin: 10,
-            marginTop: 50,
+            marginTop: 10,
             marginEnd: 90,
             alignItems: "center",
             marginStart: 10,
@@ -190,6 +190,28 @@ const Profile = ({ route }) => {
           >
             {auth.currentUser?.email}
           </Text>
+          <TouchableOpacity
+            style={{
+              backgroundColor: "#EA5455",
+              paddingHorizontal: 10,
+              alignItems: "flex-start",
+              marginTop: 10,
+              paddingVertical: 6,
+              borderRadius: 10,
+              
+            }}
+            onPress={changepassBtn}
+          >
+            <Text
+              style={{
+                fontWeight: "bold",
+                fontSize: 18,
+                color: "#fff",
+              }}
+            >
+              Đổi mật khẩu
+            </Text>
+          </TouchableOpacity>
         </View>
         <View
           style={{
@@ -367,28 +389,6 @@ const Profile = ({ route }) => {
             Đăng Xuất
           </Text>
         </TouchableOpacity>
-        <TouchableOpacity
-          style={{
-            backgroundColor: "#EA5455",
-            paddingHorizontal: 10,
-            marginHorizontal: 50,
-            marginTop: 20,
-            paddingVertical: 6,
-            borderRadius: 10,
-            marginLeft: 70,
-          }}
-          onPress={changepassBtn}
-        >
-          <Text
-            style={{
-              fontWeight: "bold",
-              fontSize: 18,
-              color: "#fff",
-            }}
-          >
-            Đổi mật khẩu
-          </Text>
-        </TouchableOpacity>
       </View>
     </ScrollView>
   );
@@ -427,6 +427,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-around",
     marginTop: 20,
+    
   },
   buttonSpacing: {
     width: 20,
