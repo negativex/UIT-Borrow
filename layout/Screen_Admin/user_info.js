@@ -7,10 +7,8 @@ import { useNavigation } from "@react-navigation/core";
 import { ScrollView, TouchableOpacity } from "react-native-gesture-handler";
 import colors from "../Style/colors";
 import { db, auth } from "../Firebase/firebase";
-import {  deleteUser } from "firebase/auth";
 import { useEffect } from "react";
 const { width, height } = Dimensions.get("window");
-
 const modalWidth = (4 * width) / 5;
 const modalHeight = (2 * height) / 5;
 
@@ -23,9 +21,6 @@ const User_info = ({ route }) => {
   const [info3, setInfo3] = useState();
   const [info4, setInfo4] = useState();
   const [modalVisible, setModalVisible] = React.useState(false);
-  
-
- 
 
   useEffect(() => {
     // const data = mssv.substring(0, 8);
@@ -243,8 +238,32 @@ const User_info = ({ route }) => {
         </View>
       </View>
 
-    
-      
+      <View
+        style={{ width: "90%", alignItems: "center", flexDirection: "column" }}
+      >
+        <TouchableOpacity
+          style={{
+            backgroundColor: "#EA5455",
+            paddingHorizontal: 10,
+            marginHorizontal: 50,
+            marginTop: 50,
+            paddingVertical: 6,
+            borderRadius: 10,
+            marginLeft: 70,
+          }}
+          onPress={handleBack}
+        >
+          <Text
+            style={{
+              fontWeight: "bold",
+              fontSize: 18,
+              color: "#fff",
+            }}
+          >
+            Quay lại
+          </Text>
+        </TouchableOpacity>
+      </View>
     </ScrollView>
   );
 };
